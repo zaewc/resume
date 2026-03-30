@@ -1,6 +1,7 @@
 ---
 import PortfolioLayout from '../layouts/PortfolioLayout.astro';
 import DateLabel from '../components/DateLabel.astro';
+import ChipLink from '../components/ChipLink.astro';
 ---
 
 <PortfolioLayout
@@ -67,7 +68,7 @@ import DateLabel from '../components/DateLabel.astro';
           <div class="proj-header">
             <span class="proj-name">
               光탈페 플랫폼
-              <a href="https://github.com/School-of-Company/Gwangju-talent-festival-Client" target="_blank" rel="noopener noreferrer" class="chip-link"><i class="bi bi-github"></i> GitHub</a>
+              <ChipLink href="https://github.com/School-of-Company/Gwangju-talent-festival-Client" icon="bi-github" label="GitHub" />
             </span>
             <DateLabel date="2025. 02. ~ 2025. 10." />
           </div>
@@ -104,7 +105,7 @@ import DateLabel from '../components/DateLabel.astro';
           <div class="proj-header">
             <span class="proj-name">
               EXPO
-              <a href="https://github.com/School-of-Company/Expo-Client" target="_blank" rel="noopener noreferrer" class="chip-link"><i class="bi bi-github"></i> GitHub</a>
+              <ChipLink href="https://github.com/School-of-Company/Expo-Client" icon="bi-github" label="GitHub" />
             </span>
             <DateLabel date="2024. 10. ~ 현재" />
           </div>
@@ -130,7 +131,7 @@ import DateLabel from '../components/DateLabel.astro';
           <div class="proj-header">
             <span class="proj-name">
               시민화폐 광산
-              <a href="https://github.com/School-of-Company/Gwangsan-Crossplatform" target="_blank" rel="noopener noreferrer" class="chip-link"><i class="bi bi-github"></i> GitHub</a>
+              <ChipLink href="https://github.com/School-of-Company/Gwangsan-Crossplatform" icon="bi-github" label="GitHub" />
             </span>
             <DateLabel date="2025. 04. ~ 현재" />
           </div>
@@ -168,8 +169,8 @@ import DateLabel from '../components/DateLabel.astro';
           <div class="proj-header">
             <span class="proj-name">
               GOGO
-              <a href="https://github.com/team-gogo/GOGO-Frontend" target="_blank" rel="noopener noreferrer" class="chip-link"><i class="bi bi-github"></i> GitHub</a>
-              <a href="https://steady-trip-f5b.notion.site/GOGO-V3-1b220f98a3f680e4888ad58b02139d42?pvs=74" target="_blank" rel="noopener noreferrer" class="chip-link"><i class="bi bi-file-text"></i> Docs</a>
+              <ChipLink href="https://github.com/team-gogo/GOGO-Frontend" icon="bi-github" label="GitHub" />
+              <ChipLink href="https://steady-trip-f5b.notion.site/GOGO-V3-1b220f98a3f680e4888ad58b02139d42?pvs=74" icon="bi-file-text" label="Docs" />
             </span>
             <DateLabel date="2025. 03. ~ 2025. 05." />
           </div>
@@ -201,8 +202,8 @@ import DateLabel from '../components/DateLabel.astro';
       <div class="exp-block">
         <h3 class="exp-title">
           cross-framework 경량 스크롤 라이브러리 Scrolloop 개발 및 운영
-          <a href="https://github.com/zaewc/scrolloop" target="_blank" rel="noopener noreferrer" class="chip-link"><i class="bi bi-github"></i> GitHub</a>
-          <a href="https://www.npmjs.com/package/scrolloop" target="_blank" rel="noopener noreferrer" class="chip-link"><i class="bi bi-box-seam"></i> npm</a>
+          <ChipLink href="https://github.com/zaewc/scrolloop" icon="bi-github" label="GitHub" />
+          <ChipLink href="https://www.npmjs.com/package/scrolloop" icon="bi-box-seam" label="npm" />
         </h3>
         <ul class="bul-list">
           <li>Windowing 기법 VirtualList + InfiniteList 제공, React와 React Native 동시 지원</li>
@@ -216,7 +217,7 @@ import DateLabel from '../components/DateLabel.astro';
       <div class="exp-block">
         <h3 class="exp-title">
           교내 디스코드 편의성 봇 JEE6 개발 및 운영
-          <a href="https://github.com/8G4B/JEE6.v1" target="_blank" rel="noopener noreferrer" class="chip-link"><i class="bi bi-github"></i> GitHub</a>
+          <ChipLink href="https://github.com/8G4B/JEE6.v1" icon="bi-github" label="GitHub" />
         </h3>
         <ul class="bul-list">
           <li>급식 조회, 자습 신청 리마인드, 미니게임 등. Python + MariaDB, Docker + CloudType 릴리즈</li>
@@ -478,30 +479,6 @@ import DateLabel from '../components/DateLabel.astro';
     color: var(--text-faint);
     flex-shrink: 0;
   }
-
-  /* ─── Chip links (GitHub, Docs, npm …) ─── */
-  .chip-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    margin-left: 0.35rem;
-    padding: 0.15rem 0.5rem;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    color: var(--text-faint);
-    font-size: 0.68rem;
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
-    text-decoration: none;
-    white-space: nowrap;
-    vertical-align: middle;
-    transition: color 0.15s, border-color 0.15s;
-  }
-  .chip-link:hover {
-    color: var(--accent);
-    border-color: var(--accent);
-    background: var(--accent-light);
-  }
-  .chip-link i { font-size: 0.72rem; }
 
   .pr-link {
     display: inline-flex;
