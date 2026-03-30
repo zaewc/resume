@@ -1,0 +1,79 @@
+---
+---
+
+<div id="vignette"></div>
+
+<div id="fixed-cta">
+  <button id="cta-btn">
+    이 지원자에게 관심이 있다면?
+    <i class="bi bi-chevron-down"></i>
+  </button>
+</div>
+
+<style>
+  #vignette {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 180px;
+    pointer-events: none;
+    z-index: 30;
+    background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
+  }
+
+  #fixed-cta {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 40;
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  #fixed-cta.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(8px);
+  }
+  #cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--accent);
+    background: var(--bg);
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+  }
+  #cta-btn:hover {
+    background: var(--accent);
+    color: var(--bg);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  }
+  #cta-btn i { font-size: 0.75rem; }
+</style>
+
+<script>
+  const fixedCta     = document.getElementById('fixed-cta')!;
+  const portfolioSec = document.getElementById('portfolio-section')!;
+  const ctaBtn       = document.getElementById('cta-btn')!;
+
+  ctaBtn.addEventListener('click', () => {
+    portfolioSec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      fixedCta.classList.toggle('hidden', entry.isIntersecting);
+    },
+    { threshold: 0.2 }
+  );
+  observer.observe(portfolioSec);
+</script>

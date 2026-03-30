@@ -1,0 +1,46 @@
+---
+---
+
+<button id="theme-toggle" aria-label="테마 전환" title="테마 전환">
+  <span class="icon-sun">☀︎</span>
+  <span class="icon-moon">☽</span>
+</button>
+
+<style>
+  #theme-toggle {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.25rem;
+    z-index: 50;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: var(--bg);
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  #theme-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .icon-sun  { display: none; }
+  .icon-moon { display: block; }
+  :global(html.dark) .icon-sun  { display: block; }
+  :global(html.dark) .icon-moon { display: none; }
+</style>
+
+<script>
+  const toggle = document.getElementById('theme-toggle')!;
+  toggle.addEventListener('click', () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  });
+</script>

@@ -1,0 +1,40 @@
+---
+---
+
+<div id="scroll-progress"></div>
+
+<style>
+  #scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--accent);
+    z-index: 100;
+    transition: width 0.05s linear;
+    opacity: 0.85;
+  }
+</style>
+
+<script>
+  const progressBar = document.getElementById('scroll-progress')!;
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = total > 0 ? `${(scrolled / total) * 100}%` : '0%';
+  }, { passive: true });
+
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.08 }
+  );
+  document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+</script>
