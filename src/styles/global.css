@@ -15,6 +15,7 @@
     --text-faint:   #9aa3b5;
     --accent:       #2563eb;
     --accent-light: #dbeafe;
+    --accent-hl:    rgba(37, 99, 235, 0.13);
     --tt-bg:        #ffffff;
     --tt-text:      #18202c;
     --tt-border:    #cdd5e0;
@@ -31,6 +32,7 @@
     --text-faint:   #50506a;
     --accent:       #f5df4d;   /* Pantone 13-0647 Illuminating */
     --accent-light: #2a2810;
+    --accent-hl:    rgba(245, 223, 77, 0.18);
     --tt-bg:        #1c1c28;
     --tt-text:      #e8e8f0;
     --tt-border:    #30304a;
