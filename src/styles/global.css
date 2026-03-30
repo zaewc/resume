@@ -14,8 +14,8 @@
 
   /* ── Light mode (default) ── */
   body {
-    background-color: #f5f4f0;   /* 따뜻한 오프화이트 */
-    color: #1a1a18;              /* 완전 검정보다 살짝 따뜻한 */
+    background-color: #f0f4f8;   /* 맑은 블루 틴트 */
+    color: #18202c;
   }
 
   /* ── Dark mode ── */
