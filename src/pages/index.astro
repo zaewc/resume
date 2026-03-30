@@ -29,11 +29,19 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
     <!-- ── Contact ── -->
     <section class="mb-10">
       <h2 class="section-title">Contact.</h2>
-      <ul class="plain-list">
-        <li><span class="lbl">email</span> s24064@gsm.hs.kr</li>
-        <li><span class="lbl">phone</span> 010-7745-5407</li>
-        <li><span class="lbl">github</span> github.com/zaewc</li>
-        <li><span class="lbl">blog</span> @haensol</li>
+      <ul class="contact-list">
+        <li>
+          <i class="bi bi-envelope contact-icon"></i>
+          <a href="mailto:s24064@gsm.hs.kr">s24064@gsm.hs.kr</a>
+        </li>
+        <li>
+          <i class="bi bi-telephone contact-icon"></i>
+          010-7745-5407
+        </li>
+        <li>
+          <i class="bi bi-github contact-icon"></i>
+          <a href="https://github.com/zaewc" target="_blank" rel="noopener noreferrer">github.com/zaewc</a>
+        </li>
       </ul>
     </section>
 
@@ -52,7 +60,10 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
         <!-- 光탈페 -->
         <div class="proj-block">
           <div class="proj-header">
-            <span class="proj-name">光탈페 플랫폼</span>
+            <span class="proj-name">
+              光탈페 플랫폼
+              <a href="https://github.com/School-of-Company/Gwangju-talent-festival-Client" target="_blank" rel="noopener noreferrer" class="repo-link"><i class="bi bi-github"></i></a>
+            </span>
             <span class="mono-sm">2025. 02 ~ 2025. 10</span>
           </div>
           <p class="desc">
@@ -86,7 +97,10 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
         <!-- EXPO -->
         <div class="proj-block">
           <div class="proj-header">
-            <span class="proj-name">EXPO</span>
+            <span class="proj-name">
+              EXPO
+              <a href="https://github.com/School-of-Company/Expo-Client" target="_blank" rel="noopener noreferrer" class="repo-link"><i class="bi bi-github"></i></a>
+            </span>
             <span class="mono-sm">2024. 10 ~ 현재</span>
           </div>
           <p class="desc">
@@ -109,7 +123,10 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
         <!-- 시민화폐 광산 -->
         <div class="proj-block">
           <div class="proj-header">
-            <span class="proj-name">시민화폐 광산</span>
+            <span class="proj-name">
+              시민화폐 광산
+              <a href="https://github.com/School-of-Company/Gwangsan-Crossplatform" target="_blank" rel="noopener noreferrer" class="repo-link"><i class="bi bi-github"></i></a>
+            </span>
             <span class="mono-sm">2025. 04 ~ 현재</span>
           </div>
           <p class="desc">
@@ -145,7 +162,11 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
 
         <div class="proj-block">
           <div class="proj-header">
-            <span class="proj-name">GOGO</span>
+            <span class="proj-name">
+              GOGO
+              <a href="https://github.com/team-gogo/GOGO-Frontend" target="_blank" rel="noopener noreferrer" class="repo-link"><i class="bi bi-github"></i></a>
+              <a href="https://steady-trip-f5b.notion.site/GOGO-V3-1b220f98a3f680e4888ad58b02139d42?pvs=74" target="_blank" rel="noopener noreferrer" class="repo-link"><i class="bi bi-file-text"></i></a>
+            </span>
             <span class="mono-sm">2025. 03 ~ 2025. 05</span>
           </div>
           <p class="desc">
@@ -174,7 +195,11 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
       <h2 class="section-title">Experience.</h2>
 
       <div class="exp-block">
-        <h3 class="exp-title">cross-framework 경량 스크롤 라이브러리 Scrolloop 개발 및 운영 </h3>
+        <h3 class="exp-title">
+          cross-framework 경량 스크롤 라이브러리 Scrolloop 개발 및 운영
+          <a href="https://github.com/zaewc/scrolloop" target="_blank" rel="noopener noreferrer" class="repo-link"><i class="bi bi-github"></i></a>
+          <a href="https://www.npmjs.com/package/scrolloop" target="_blank" rel="noopener noreferrer" class="repo-link"><i class="bi bi-box-seam"></i></a>
+        </h3>
         <ul class="bul-list">
           <li>Windowing 기법 VirtualList + InfiniteList 제공, React와 React Native 동시 지원</li>
           <li>
@@ -185,7 +210,10 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
       </div>
 
       <div class="exp-block">
-        <h3 class="exp-title">교내 디스코드 편의성 봇 JEE6 개발 및 운영 </h3>
+        <h3 class="exp-title">
+          교내 디스코드 편의성 봇 JEE6 개발 및 운영
+          <a href="https://github.com/8G4B/JEE6.v1" target="_blank" rel="noopener noreferrer" class="repo-link"><i class="bi bi-github"></i></a>
+        </h3>
         <ul class="bul-list">
           <li>급식 조회, 자습 신청 리마인드, 미니게임 등. Python + MariaDB, Docker + CloudType 릴리즈</li>
           <li>In-memory 캐싱으로 응답 시간 최적화. <strong>40+개 서버 도입, DAU 100+명</strong></li>
@@ -195,10 +223,24 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
       <div class="exp-block">
         <h3 class="exp-title">오픈소스 기여</h3>
         <ul class="bul-list">
-          <li><strong>typescript-eslint</strong>: no-floating-promises의 allowForKnownSafeCalls 옵션이 함수 이름을 올바르게 인식하지 못하는 버그 수정</li>
-          <li><strong>TanStack/query</strong>: eslint-plugin-query를 TS 없는 환경에서도 사용하도록 TypeScript를 optional peer dependency로 선언</li>
-          <li><strong>fast_float</strong>: double/float 파싱 edge case 검증 unit 테스트 추가</li>
-          <li><strong>nest</strong>: SSE, 캐시, swagger 관련 unit 및 e2e 테스트 추가</li>
+          <li>
+            <strong>typescript-eslint</strong>: no-floating-promises의 allowForKnownSafeCalls 옵션이 함수 이름을 올바르게 인식하지 못하는 버그 수정
+            <a href="https://github.com/typescript-eslint/typescript-eslint/pull/11430" target="_blank" rel="noopener noreferrer" class="pr-link"><i class="bi bi-box-arrow-up-right"></i> #11430</a>
+          </li>
+          <li>
+            <strong>TanStack/query</strong>: eslint-plugin-query를 TS 없는 환경에서도 사용하도록 TypeScript를 optional peer dependency로 선언
+            <a href="https://github.com/TanStack/query/pull/10007" target="_blank" rel="noopener noreferrer" class="pr-link"><i class="bi bi-box-arrow-up-right"></i> #10007</a>
+          </li>
+          <li>
+            <strong>fast_float</strong>: double/float 파싱 edge case 검증 unit 테스트 추가
+            <a href="https://github.com/fastfloat/fast_float/pull/366" target="_blank" rel="noopener noreferrer" class="pr-link"><i class="bi bi-box-arrow-up-right"></i> #366</a>
+          </li>
+          <li>
+            <strong>NestJS</strong>: SSE, 캐시, swagger 관련 unit 및 e2e 테스트 추가
+            <a href="https://github.com/nestjs/nest/pull/16410" target="_blank" rel="noopener noreferrer" class="pr-link"><i class="bi bi-box-arrow-up-right"></i> #16410</a>
+            <a href="https://github.com/nestjs/nest/pull/16409" target="_blank" rel="noopener noreferrer" class="pr-link"><i class="bi bi-box-arrow-up-right"></i> #16409</a>
+            <a href="https://github.com/nestjs/nest/pull/16406" target="_blank" rel="noopener noreferrer" class="pr-link"><i class="bi bi-box-arrow-up-right"></i> #16406</a>
+          </li>
         </ul>
       </div>
 
@@ -371,6 +413,70 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
     padding-bottom: 0.25rem;
     margin-bottom: 1rem;
   }
+
+  /* ─── Contact list ─── */
+  .contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+  .contact-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .contact-list a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .contact-list a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .contact-icon {
+    font-size: 0.8rem;
+    color: var(--text-faint);
+    flex-shrink: 0;
+  }
+
+  /* ─── Repo / links ─── */
+  .repo-link {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 0.35rem;
+    color: var(--text-faint);
+    font-size: 0.75rem;
+    text-decoration: none;
+    transition: color 0.15s;
+    vertical-align: middle;
+  }
+  .repo-link:hover { color: var(--accent); }
+
+  .pr-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    margin-left: 0.4rem;
+    font-size: 0.72rem;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    color: var(--text-faint);
+    text-decoration: none;
+    transition: color 0.15s;
+    white-space: nowrap;
+  }
+  .pr-link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .pr-link i { font-size: 0.65rem; }
 
   /* ─── Lists ─── */
   .plain-list {
