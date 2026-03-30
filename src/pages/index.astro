@@ -7,6 +7,9 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
   description="안녕하세요, 프론트엔드 개발자 송재욱입니다."
 >
 
+  <!-- ── Scroll progress bar ── -->
+  <div id="scroll-progress"></div>
+
   <!-- ── Theme toggle ── -->
   <button id="theme-toggle" aria-label="테마 전환" title="테마 전환">
     <span class="icon-sun">☀︎</span>
@@ -16,7 +19,7 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
   <main>
 
     <!-- ── Name & Bio ── -->
-    <section class="mb-12">
+    <section class="mb-12 reveal">
       <h1 class="name">
         송재욱 <span class="name-sub">(Frontend Developer)</span>
       </h1>
@@ -29,7 +32,7 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
     </section>
 
     <!-- ── Contact ── -->
-    <section class="mb-10">
+    <section class="mb-10 reveal">
       <h2 class="section-title">Contact.</h2>
       <ul class="contact-list">
         <li>
@@ -48,7 +51,7 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
     </section>
 
     <!-- ── Career ── -->
-    <section class="mb-10">
+    <section class="mb-10 reveal">
       <h2 class="section-title">Career.</h2>
 
       <!-- 스타트업팀 -->
@@ -191,7 +194,7 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
     </section>
 
     <!-- ── Experience ── -->
-    <section class="mb-10">
+    <section class="mb-10 reveal">
       <h2 class="section-title">Experience.</h2>
 
       <div class="exp-block">
@@ -262,7 +265,7 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
     </section>
 
     <!-- ── Skills ── -->
-    <section class="mb-10">
+    <section class="mb-10 reveal">
       <h2 class="section-title">Skills.</h2>
       <ul class="plain-list">
         <li>Next.js, React, TypeScript</li>
@@ -274,7 +277,7 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
     </section>
 
     <!-- ── Education ── -->
-    <section class="mb-10">
+    <section class="mb-10 reveal">
       <h2 class="section-title">Education.</h2>
 
       <div class="exp-block">
@@ -340,6 +343,30 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
 </PortfolioLayout>
 
 <style>
+  /* ─── Scroll progress bar ─── */
+  #scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--accent);
+    z-index: 100;
+    transition: width 0.05s linear;
+    opacity: 0.85;
+  }
+
+  /* ─── Reveal on scroll ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   /* ─── Layout ─── */
   main {
     max-width: 680px;
@@ -505,6 +532,7 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
   .chip-link:hover {
     color: var(--accent);
     border-color: var(--accent);
+    background: var(--accent-light);
   }
   .chip-link i { font-size: 0.72rem; }
 
@@ -577,7 +605,11 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
   .org-name     { font-size: 0.9375rem; font-weight: 700; color: var(--text); }
   .org-role     { font-size: 0.8125rem; color: var(--text-faint); margin-bottom: 0.875rem; }
 
-  .proj-block   { margin-bottom: 1.25rem; padding-left: 1rem; border-left: 2px solid var(--border); }
+  .proj-block {
+    margin-bottom: 1.25rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--border);
+  }
   .proj-header  { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.25rem; }
   .proj-name    { font-size: 0.875rem; font-weight: 700; color: var(--text); }
 
@@ -726,6 +758,28 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
 </style>
 
 <script>
+  // ── Scroll progress bar ───────────────────────────────
+  const progressBar = document.getElementById('scroll-progress')!;
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = total > 0 ? `${(scrolled / total) * 100}%` : '0%';
+  }, { passive: true });
+
+  // ── Reveal on scroll ──────────────────────────────────
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.08 }
+  );
+  document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+
   // ── Theme toggle ──────────────────────────────────────
   const toggle = document.getElementById('theme-toggle')!;
   toggle.addEventListener('click', () => {
