@@ -306,7 +306,31 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
       </div>
     </section>
 
+    <!-- ── Portfolio CTA (bottom) ── -->
+    <section id="portfolio-section" class="portfolio-section">
+      <p class="portfolio-sub">더 다양한 경험을 자세히 담았습니다.</p>
+      <a
+        href="https://drive.google.com/file/d/1NEpGHHxnBUZIYO9gUsKr0Z4-72HK74av/view?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="portfolio-btn"
+      >
+        포트폴리오 보러가기
+        <i class="bi bi-arrow-right"></i>
+      </a>
+    </section>
+
   </main>
+
+  <!-- ── Vignette + Fixed CTA ── -->
+  <div id="vignette"></div>
+
+  <div id="fixed-cta">
+    <button id="cta-btn">
+      이 지원자에게 관심이 있다면?
+      <i class="bi bi-chevron-down"></i>
+    </button>
+  </div>
 
   <!-- ── Footnote tooltip (portal) ── -->
   <div id="fn-tooltip" role="tooltip" aria-hidden="true"></div>
@@ -565,6 +589,95 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
   }
   .fn:hover { text-decoration: underline; text-underline-offset: 2px; }
 
+  /* ─── Portfolio section ─── */
+  .portfolio-section {
+    margin-top: 4rem;
+    padding: 2.5rem 0 6rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  .portfolio-label {
+    font-size: 0.72rem;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 0.5rem;
+  }
+  .portfolio-sub {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+  .portfolio-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.5rem;
+    border-radius: 8px;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: opacity 0.15s, transform 0.15s;
+  }
+  .portfolio-btn:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+  .portfolio-btn i { font-size: 0.9rem; }
+
+  /* ─── Vignette ─── */
+  #vignette {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 180px;
+    pointer-events: none;
+    z-index: 30;
+    background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
+  }
+
+  /* ─── Fixed CTA ─── */
+  #fixed-cta {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 40;
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  #fixed-cta.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(8px);
+  }
+  #cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--accent);
+    background: var(--bg);
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+  }
+  #cta-btn:hover {
+    background: var(--accent);
+    color: var(--bg);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  }
+  #cta-btn i { font-size: 0.75rem; }
+
   /* ─── Tooltip ─── */
   #fn-tooltip {
     position: fixed;
@@ -643,5 +756,22 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
     el.addEventListener('focus',      () => showTooltip(el, note));
     el.addEventListener('blur',       hideTooltip);
   });
+
+  // ── Fixed CTA: 포트폴리오 섹션 도달 시 숨기기 ──────────
+  const fixedCta      = document.getElementById('fixed-cta')!;
+  const portfolioSec  = document.getElementById('portfolio-section')!;
+  const ctaBtn        = document.getElementById('cta-btn')!;
+
+  ctaBtn.addEventListener('click', () => {
+    portfolioSec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      fixedCta.classList.toggle('hidden', entry.isIntersecting);
+    },
+    { threshold: 0.2 }
+  );
+  observer.observe(portfolioSec);
 
 </script>
