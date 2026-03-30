@@ -1,0 +1,32 @@
+---
+interface Props {
+  href: string;
+  id: string;  // e.g. "#11430"
+}
+const { href, id } = Astro.props;
+---
+
+<a href={href} target="_blank" rel="noopener noreferrer" class="pr-link">
+  <i class="bi bi-box-arrow-up-right"></i> {id}
+</a>
+
+<style>
+  .pr-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    margin-left: 0.4rem;
+    font-size: 0.72rem;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    color: var(--text-faint);
+    text-decoration: none;
+    transition: color 0.15s;
+    white-space: nowrap;
+  }
+  .pr-link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .pr-link i { font-size: 0.65rem; }
+</style>
