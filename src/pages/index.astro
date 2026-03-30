@@ -406,37 +406,6 @@ import DateLabel from '../components/DateLabel.astro';
   :global(html.dark) .icon-sun  { display: block; }
   :global(html.dark) .icon-moon { display: none; }
 
-  /* ─── CSS variables ─── */
-  :global(:root) {
-    --bg:              #f0f4f8;   /* 맑은 블루 틴트 */
-    --bg-subtle:       #e4eaf2;
-    --border:          #cdd5e0;
-    --text:            #18202c;
-    --text-muted:      #5a6680;
-    --text-faint:      #9aa3b5;
-    --accent:          #2563eb;
-    --accent-light:    #dbeafe;
-    --tt-bg:           #ffffff;
-    --tt-text:         #18202c;
-    --tt-border:       #cdd5e0;
-    --tt-shadow:       0 4px 16px rgba(30,50,90,0.10);
-  }
-  :global(html.dark) {
-    --bg:              #111116;   /* 쿨톤 near-black — 노란 포인트가 선명하게 뜨도록 */
-    --bg-subtle:       #18181f;
-    --border:          #26263a;
-    --text:            #e8e8f0;   /* 따뜻함 뺀 쿨 화이트 */
-    --text-muted:      #8f8fa8;
-    --text-faint:      #50506a;
-    --accent:          #f5df4d;   /* Pantone 13-0647 Illuminating */
-    --accent-light:    #2a2810;
-    /* tooltip: bg보다 살짝 밝은 쿨톤, 배경과 통일감 유지 */
-    --tt-bg:           #1c1c28;
-    --tt-text:         #e8e8f0;
-    --tt-border:       #30304a;
-    --tt-shadow:       0 4px 16px rgba(0,0,0,0.55);
-  }
-
   /* ─── Typography ─── */
   .name {
     font-size: 1.875rem;

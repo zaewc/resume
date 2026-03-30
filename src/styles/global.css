@@ -5,6 +5,36 @@
 @layer base {
   :root {
     scroll-behavior: smooth;
+
+    /* ── Light mode variables ── */
+    --bg:           #f0f4f8;
+    --bg-subtle:    #e4eaf2;
+    --border:       #cdd5e0;
+    --text:         #18202c;
+    --text-muted:   #5a6680;
+    --text-faint:   #9aa3b5;
+    --accent:       #2563eb;
+    --accent-light: #dbeafe;
+    --tt-bg:        #ffffff;
+    --tt-text:      #18202c;
+    --tt-border:    #cdd5e0;
+    --tt-shadow:    0 4px 16px rgba(30, 50, 90, 0.10);
+  }
+
+  html.dark {
+    /* ── Dark mode variables ── */
+    --bg:           #111116;
+    --bg-subtle:    #18181f;
+    --border:       #26263a;
+    --text:         #e8e8f0;
+    --text-muted:   #8f8fa8;
+    --text-faint:   #50506a;
+    --accent:       #f5df4d;   /* Pantone 13-0647 Illuminating */
+    --accent-light: #2a2810;
+    --tt-bg:        #1c1c28;
+    --tt-text:      #e8e8f0;
+    --tt-border:    #30304a;
+    --tt-shadow:    0 4px 16px rgba(0, 0, 0, 0.55);
   }
 
   html {
@@ -12,16 +42,9 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* ── Light mode (default) ── */
   body {
-    background-color: #f0f4f8;   /* 맑은 블루 틴트 */
-    color: #18202c;
-  }
-
-  /* ── Dark mode ── */
-  html.dark body {
-    background-color: #111116;
-    color: #e8e8f0;
+    background-color: var(--bg);
+    color: var(--text);
   }
 
   ::-webkit-scrollbar { width: 6px; }
