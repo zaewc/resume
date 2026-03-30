@@ -7,36 +7,36 @@
     scroll-behavior: smooth;
 
     /* ── Light mode variables ── */
-    --bg:           #f0f4f8;
-    --bg-subtle:    #e4eaf2;
-    --border:       #cdd5e0;
-    --text:         #18202c;
-    --text-muted:   #5a6680;
-    --text-faint:   #9aa3b5;
-    --accent:       #2563eb;
+    --bg: #f0f4f8;
+    --bg-subtle: #e4eaf2;
+    --border: #cdd5e0;
+    --text: #18202c;
+    --text-muted: #5a6680;
+    --text-faint: #9aa3b5;
+    --accent: #2563eb;
     --accent-light: #dbeafe;
-    --accent-hl:    rgba(37, 99, 235, 0.22);
-    --tt-bg:        #ffffff;
-    --tt-text:      #18202c;
-    --tt-border:    #cdd5e0;
-    --tt-shadow:    0 4px 16px rgba(30, 50, 90, 0.10);
+    --accent-hl: rgba(37, 99, 235, 0.22);
+    --tt-bg: #ffffff;
+    --tt-text: #18202c;
+    --tt-border: #cdd5e0;
+    --tt-shadow: 0 4px 16px rgba(30, 50, 90, 0.1);
   }
 
   html.dark {
     /* ── Dark mode variables ── */
-    --bg:           #111116;
-    --bg-subtle:    #18181f;
-    --border:       #26263a;
-    --text:         #e8e8f0;
-    --text-muted:   #8f8fa8;
-    --text-faint:   #50506a;
-    --accent:       #f5df4d;   /* Pantone 13-0647 Illuminating */
+    --bg: #111116;
+    --bg-subtle: #18181f;
+    --border: #26263a;
+    --text: #e8e8f0;
+    --text-muted: #8f8fa8;
+    --text-faint: #50506a;
+    --accent: #f5df4d; /* Pantone 13-0647 Illuminating */
     --accent-light: #2a2810;
-    --accent-hl:    rgba(245, 223, 77, 0.30);
-    --tt-bg:        #1c1c28;
-    --tt-text:      #e8e8f0;
-    --tt-border:    #30304a;
-    --tt-shadow:    0 4px 16px rgba(0, 0, 0, 0.55);
+    --accent-hl: rgba(245, 223, 77, 0.3);
+    --tt-bg: #1c1c28;
+    --tt-text: #e8e8f0;
+    --tt-border: #30304a;
+    --tt-shadow: 0 4px 16px rgba(0, 0, 0, 0.55);
   }
 
   html {
@@ -54,10 +54,19 @@
     color: var(--text);
   }
 
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { border-radius: 9999px; background: #d0cec8; }
-  html.dark ::-webkit-scrollbar-thumb { background: #3a3834; }
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background: #d0cec8;
+  }
+  html.dark ::-webkit-scrollbar-thumb {
+    background: #3a3834;
+  }
 }
 
 @layer components {
@@ -65,7 +74,9 @@
   .reveal {
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s ease;
   }
   .reveal.visible {
     opacity: 1;
@@ -83,7 +94,7 @@
     user-select: none;
   }
   .section-title::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: 0;
@@ -105,13 +116,14 @@
     font-size: 0.875rem;
     color: var(--text-muted);
     line-height: 1.7;
+    /* hanging indent: 첫 줄은 글머리 기호 위치, 둘째 줄부터 본문 시작점 정렬 */
     padding-left: 1rem;
-    position: relative;
+    text-indent: -1rem;
   }
   .bul-list li::before {
     content: "•";
-    position: absolute;
-    left: 0;
+    display: inline-block;
+    width: 1rem;
     color: var(--text-faint);
   }
   .bul-list strong {
@@ -146,7 +158,7 @@
 
   /* ── Footnote ── */
   .fn {
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
     font-size: 0.65rem;
     font-weight: 600;
     color: var(--accent);
