@@ -1,0 +1,48 @@
+---
+import type { OSSContribution } from '../../data/portfolio';
+
+interface Props {
+  item: OSSContribution;
+}
+
+const { item } = Astro.props;
+
+const typeConfig = {
+  bugfix: {
+    label: 'Bug Fix',
+    className: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
+  },
+  improvement: {
+    label: 'Improvement',
+    className: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
+  },
+  test: {
+    label: 'Test',
+    className: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
+  },
+  docs: {
+    label: 'Docs',
+    className: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',
+  },
+};
+
+const config = typeConfig[item.type];
+---
+
+<div class="flex gap-3 rounded-xl border border-zinc-100 bg-zinc-50/50 p-4 dark:border-zinc-800 dark:bg-zinc-900">
+  <div class="flex-shrink-0 pt-0.5">
+    <span
+      class={`inline-block rounded px-1.5 py-0.5 font-mono text-xs font-semibold ${config.className}`}
+    >
+      {config.label}
+    </span>
+  </div>
+  <div>
+    <p class="mb-1 text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+      {item.project}
+    </p>
+    <p class="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+      {item.description}
+    </p>
+  </div>
+</div>

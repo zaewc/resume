@@ -1,0 +1,119 @@
+---
+import type { Project } from '../../data/portfolio';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+
+const typeColors: Record<string, string> = {
+  bugfix: 'bg-red-500/10 text-red-600 dark:text-red-400',
+  improvement: 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
+  test: 'bg-green-500/10 text-green-600 dark:text-green-400',
+};
+---
+
+<article
+  class="overflow-hidden rounded-2xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900"
+>
+  <!-- Card header -->
+  <div class="border-b border-zinc-100 px-6 py-5 dark:border-zinc-800">
+    <div class="flex flex-wrap items-start justify-between gap-3">
+      <div>
+        <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100">
+          {project.name}
+        </h3>
+        <p class="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
+          {project.subtitle}
+        </p>
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <span
+          class="rounded-full bg-zinc-100 px-2.5 py-0.5 font-mono text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
+        >
+          {project.period}
+        </span>
+        <span
+          class="rounded-full border border-accent/30 bg-accent/10 px-2.5 py-0.5 text-xs font-medium text-accent"
+        >
+          {project.client}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="px-6 py-5">
+    <!-- Description -->
+    <p class="mb-5 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+      {project.description}
+    </p>
+
+    <!-- Metrics row -->
+    <div class="mb-6 grid grid-cols-2 gap-2 sm:grid-cols-4">
+      {
+        project.metrics.map((m) => (
+          <div class="rounded-lg bg-zinc-50 px-3 py-2.5 dark:bg-zinc-800/60">
+            <p class="text-sm font-bold tabular-nums text-accent">{m.value}</p>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400">{m.label}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Technical highlights -->
+    {
+      project.highlights.length > 0 && (
+        <div class="space-y-4">
+          <p class="font-mono text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+            Technical Highlights
+          </p>
+          {project.highlights.map((h) => (
+            <div class="rounded-xl border border-zinc-100 bg-zinc-50/50 p-4 dark:border-zinc-800 dark:bg-zinc-950/50">
+              <p class="mb-3 font-semibold text-zinc-900 dark:text-zinc-100">{h.title}</p>
+              <div class="space-y-2 text-sm">
+                <div class="flex gap-2.5">
+                  <span class="mt-0.5 flex-shrink-0 rounded bg-red-100 px-1.5 py-0.5 font-mono text-xs font-bold text-red-600 dark:bg-red-900/30 dark:text-red-400">
+                    문제
+                  </span>
+                  <p class="leading-relaxed text-zinc-600 dark:text-zinc-400">{h.problem}</p>
+                </div>
+                <div class="flex gap-2.5">
+                  <span class="mt-0.5 flex-shrink-0 rounded bg-blue-100 px-1.5 py-0.5 font-mono text-xs font-bold text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
+                    접근
+                  </span>
+                  <p class="leading-relaxed text-zinc-600 dark:text-zinc-400">{h.approach}</p>
+                </div>
+                <div class="flex gap-2.5">
+                  <span class="mt-0.5 flex-shrink-0 rounded bg-green-100 px-1.5 py-0.5 font-mono text-xs font-bold text-green-600 dark:bg-green-900/30 dark:text-green-400">
+                    결과
+                  </span>
+                  <p class="leading-relaxed text-zinc-600 dark:text-zinc-400">{h.result}</p>
+                </div>
+              </div>
+              <!-- Tech tags for highlight -->
+              <div class="mt-3 flex flex-wrap gap-1.5">
+                {h.tech.map((t) => (
+                  <span class="rounded-md bg-zinc-200/70 px-2 py-0.5 font-mono text-xs text-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-400">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )
+    }
+
+    <!-- Tech stack -->
+    <div class="mt-5 flex flex-wrap gap-1.5">
+      {
+        project.tech.map((t) => (
+          <span class="rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:text-zinc-400">
+            {t}
+          </span>
+        ))
+      }
+    </div>
+  </div>
+</article>

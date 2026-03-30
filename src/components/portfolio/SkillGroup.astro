@@ -1,0 +1,23 @@
+---
+interface Props {
+  category: string;
+  items: readonly string[] | string[];
+}
+
+const { category, items } = Astro.props;
+---
+
+<div>
+  <p class="mb-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+    {category}
+  </p>
+  <div class="flex flex-wrap gap-1.5">
+    {
+      items.map((item) => (
+        <span class="rounded-lg border border-zinc-200 bg-white px-2.5 py-1 text-sm text-zinc-700 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-zinc-300">
+          {item}
+        </span>
+      ))
+    }
+  </div>
+</div>

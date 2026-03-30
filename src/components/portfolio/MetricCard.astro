@@ -1,0 +1,39 @@
+---
+interface Props {
+  value: string;
+  label: string;
+  context?: string;
+  size?: 'default' | 'sm';
+}
+
+const { value, label, context, size = 'default' } = Astro.props;
+---
+
+<div
+  class:list={[
+    'rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900',
+    size === 'sm' && 'p-3',
+  ]}
+>
+  <p
+    class:list={[
+      'font-bold tabular-nums text-accent',
+      size === 'default' ? 'text-2xl leading-tight' : 'text-lg leading-tight',
+    ]}
+  >
+    {value}
+  </p>
+  <p
+    class:list={[
+      'mt-0.5 text-zinc-700 dark:text-zinc-300',
+      size === 'default' ? 'text-sm font-medium' : 'text-xs font-medium',
+    ]}
+  >
+    {label}
+  </p>
+  {
+    context && (
+      <p class="mt-0.5 text-xs text-zinc-400 dark:text-zinc-500">{context}</p>
+    )
+  }
+</div>
