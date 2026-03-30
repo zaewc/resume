@@ -20,8 +20,8 @@
 
   /* ── Dark mode ── */
   html.dark body {
-    background-color: #141412;   /* 따뜻한 오프블랙 */
-    color: #e6e3db;              /* 순백보다 따뜻한 크림 */
+    background-color: #111116;
+    color: #e8e8f0;
   }
 
   ::-webkit-scrollbar { width: 6px; }
