@@ -1,0 +1,16 @@
+---
+interface Props {
+  date: string;
+}
+const { date } = Astro.props;
+---
+
+<span class="date-label">{date}</span>
+
+<style>
+  .date-label {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.72rem;
+    color: var(--text-faint);
+  }
+</style>
