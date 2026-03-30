@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    scroll-behavior: smooth;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ── Light mode (default) ── */
+  body {
+    background-color: #f5f4f0;   /* 따뜻한 오프화이트 */
+    color: #1a1a18;              /* 완전 검정보다 살짝 따뜻한 */
+  }
+
+  /* ── Dark mode ── */
+  html.dark body {
+    background-color: #141412;   /* 따뜻한 오프블랙 */
+    color: #e6e3db;              /* 순백보다 따뜻한 크림 */
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { border-radius: 9999px; background: #d0cec8; }
+  html.dark ::-webkit-scrollbar-thumb { background: #3a3834; }
+}
