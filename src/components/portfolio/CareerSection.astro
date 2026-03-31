@@ -30,9 +30,24 @@ import DateLabel from '../DateLabel.astro';
         행사 당일 <strong>DAU 3,000+명</strong>,
         <span class="fn" data-fn="2025년 행사 당일 기준 최고치. Vercel 기준 누적 트래픽 7.3만+, GA 기준 이벤트 5만+건">[2]</span>
       </p>
+
       <ul class="bul-list">
         <li>자체 Auth 로직 구현</li>
-        <li>실시간 좌석 예매 기능(SSE) 구현, 계정별 예매 여부에 따라 동적 라우팅 적용</li>
+        <li>
+          실시간 좌석 예매 기능(SSE) 구현, 계정별 예매 여부에 따라 동적 라우팅 적용
+          <ul class="sub-bul-list">
+            <li>
+              useMemo 의존성에 불변 객체 queryClient를 넣어 UI가 갱신되지 않던 문제를, useQueries로 전환해
+              <strong>SSE 수신 즉시 좌석 점유율 실시간 반영</strong>
+              <span
+                class="fn"
+                data-fn="queryClient.getQueryData()는 호출 시점의 캐시만 반환하는 일회성 조회라 reactive 시스템과 연결되지 않았던 것이 원인"
+              >
+                [4]
+              </span>
+            </li>
+          </ul>
+        </li>
         <li>
           next.js Metadata API로 OG/keywords 설정, next-sitemap prebuild 자동화 →
           <strong>주요 검색엔진 최상단 노출</strong>
@@ -41,11 +56,6 @@ import DateLabel from '../DateLabel.astro';
           SSG + 섹션별 Lazy Loading, 히어로 섹션 priority preload →
           <strong>Lighthouse FCP·LCP·SI 각 약 60% 개선</strong>
           <span class="fn" data-fn="FCP 0.8s→0.3s / LCP 2.1s→0.7s / SI 1.1s→0.6s">[3]</span>
-        </li>
-        <li>
-          useMemo 의존성에 불변 객체 queryClient를 넣어 UI가 갱신되지 않던 문제를, useQueries로 전환해
-          <strong>SSE 수신 즉시 좌석 점유율 실시간 반영</strong>
-          <span class="fn" data-fn="queryClient.getQueryData()는 호출 시점의 캐시만 반환하는 일회성 조회라 reactive 시스템과 연결되지 않았던 것이 원인">[4]</span>
         </li>
       </ul>
     </div>
@@ -70,7 +80,12 @@ import DateLabel from '../DateLabel.astro';
         <li>
           렌더링 시점마다 반복 실행되던 JSON.parse()를 Zod Schema 기반 Wrapper Layer로 이동 →
           <strong>JSON.parse() 1회로 감소, White Screen of Death 위험 차단</strong>
-          <span class="fn" data-fn="잘못된 JSON 형식 진입 시 전체 폼이 렌더링되지 않는 문제가 있었음. Zod로 수신 직후 검증하여 UI 컴포넌트 내 런타임 타입 가드를 완전 제거">[6]</span>
+          <span
+            class="fn"
+            data-fn="잘못된 JSON 형식 진입 시 전체 폼이 렌더링되지 않는 문제가 있었음. Zod로 수신 직후 검증하여 UI 컴포넌트 내 런타임 타입 가드를 완전 제거"
+          >
+            [6]
+          </span>
         </li>
         <li>질문 제목 기반 slugify ID → UUID 기반으로 교체하여 데이터 무결성 확보</li>
       </ul>
@@ -88,7 +103,12 @@ import DateLabel from '../DateLabel.astro';
       <p class="desc">
         광주광역시 광산구 수주 프로젝트. 지역 내 가상 화폐 '광산'을 활용한 서비스·물품 거래 플랫폼.
         iOS 파트 개발자가 갑작스럽게 이탈하는 상황에서
-        <span class="fn" data-fn="담당은 어드민 웹 개발이었으나, 원활한 진행과 클라이언트와의 신뢰 유지를 위해 자발적으로 React Native 투입">[7]</span>
+        <span
+          class="fn"
+          data-fn="담당은 어드민 웹 개발이었으나, 원활한 진행과 클라이언트와의 신뢰 유지를 위해 자발적으로 React Native 투입"
+        >
+          [7]
+        </span>
         <strong>React Native로 공백을 메우고 App Store 릴리즈까지 진행.</strong>
       </p>
       <ul class="bul-list">
@@ -97,11 +117,21 @@ import DateLabel from '../DateLabel.astro';
         <li>
           Zustand Persistent Queue 도입 + 낙관적 업데이트 →
           <strong>WebSocket 메시지 유실률 1% 이내로 감소</strong>
-          <span class="fn" data-fn="기존에는 connectionState만 확인 후 전송하여 네트워크 끊김 시 메시지 유실. isSocketConnected를 useEffect로 감시하며 PENDING/FAILED 메시지 자동 재전송">[8]</span>
+          <span
+            class="fn"
+            data-fn="기존에는 connectionState만 확인 후 전송하여 네트워크 끊김 시 메시지 유실. isSocketConnected를 useEffect로 감시하며 PENDING/FAILED 메시지 자동 재전송"
+          >
+            [8]
+          </span>
         </li>
         <li>
           슬라이더 드래그 중 바텀시트 깜빡임 해결: 드래그 중 로컬 상태만 사용, 완료 버튼 시 부모 상태 업데이트
-          <span class="fn" data-fn="JS 스레드와 네이티브 UI 스레드 간 비동기 타이밍 차이가 누적되어 렌더링 타이밍이 어긋나는 것이 원인으로 판단">[9]</span>
+          <span
+            class="fn"
+            data-fn="JS 스레드와 네이티브 UI 스레드 간 비동기 타이밍 차이가 누적되어 렌더링 타이밍이 어긋나는 것이 원인으로 판단"
+          >
+            [9]
+          </span>
         </li>
         <li>개발 기간 데일리 스크럼 주최, 팀 전원 목표 공유 및 이슈 파악 체계화</li>
       </ul>
@@ -126,7 +156,12 @@ import DateLabel from '../DateLabel.astro';
       </div>
       <p class="desc">
         전국 중·고등학교 대상 스포츠 행사 플랫폼. 수기 신청서와 디스코드 의존도를 없애고, 팀 신청·동적 대진표·일정 관리·승부 예측을 통합.
-        <span class="fn" data-fn="승부 예측 시스템은 청소년 대상 불법 도박 중독 예방 캠페인 요소로도 기획. 본교 운영 기간 동안 200명 이상이 자발적으로 참여">[10]</span>
+        <span
+          class="fn"
+          data-fn="승부 예측 시스템은 청소년 대상 불법 도박 중독 예방 캠페인 요소로도 기획. 본교 운영 기간 동안 200명 이상이 자발적으로 참여"
+        >
+          [10]
+        </span>
         <strong>본교 체육대회 DAU 300+명, GA 기준 누적 이벤트 17만+건.</strong>
         <span class="fn" data-fn="전국 단위 확장을 목표로 현재도 발전 중">[11]</span>
       </p>
@@ -137,7 +172,12 @@ import DateLabel from '../DateLabel.astro';
         <li>
           onDragEnd가 stale state를 zustand에 저장하던 문제를, CustomEvent API 이벤트 버스 + gameId별 독립 관리로 해결 →
           <strong>드래그 즉시 상태 반영</strong>
-          <span class="fn" data-fn="onDragEnd 생성 시점의 스냅샷이 closure에 캡처되어 다음 렌더링까지 오염된 상태가 전파되는 것이 원인">[12]</span>
+          <span
+            class="fn"
+            data-fn="onDragEnd 생성 시점의 스냅샷이 closure에 캡처되어 다음 렌더링까지 오염된 상태가 전파되는 것이 원인"
+          >
+            [12]
+          </span>
         </li>
         <li>overflow:hidden 컨테이너가 드래그 요소를 클리핑하는 문제를, React createPortal로 document.body에 렌더링하여 해결</li>
       </ul>
@@ -146,16 +186,109 @@ import DateLabel from '../DateLabel.astro';
 </section>
 
 <style>
-  .org-block    { margin-bottom: 2rem; }
-  .org-header   { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.125rem; }
-  .org-name     { font-size: 0.9375rem; font-weight: 700; color: var(--text); }
-  .org-role     { font-size: 0.8125rem; color: var(--text-faint); margin-bottom: 0.875rem; }
+  .org-block {
+    margin-bottom: 2rem;
+  }
+
+  .org-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.125rem;
+  }
+
+  .org-name {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .org-role {
+    font-size: 0.8125rem;
+    color: var(--text-faint);
+    margin-bottom: 0.875rem;
+  }
 
   .proj-block {
     margin-bottom: 1.25rem;
     padding-left: 1rem;
     border-left: 2px solid var(--border);
   }
-  .proj-header  { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.25rem; }
-  .proj-name    { font-size: 0.875rem; font-weight: 700; color: var(--text); }
+
+  .proj-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .proj-name {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .desc {
+    margin: 0 0 0.625rem;
+    line-height: 1.72;
+    color: var(--text-soft);
+  }
+
+  .bul-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .bul-list > li {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .bul-list > li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--text-faint);
+  }
+
+  .sub-bul-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .sub-bul-list > li {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .sub-bul-list > li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--text-faint);
+  }
+
+  .bul-list strong,
+  .sub-bul-list strong {
+    font-weight: 600;
+    color: var(--text);
+  }
 </style>
