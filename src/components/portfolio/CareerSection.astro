@@ -89,20 +89,22 @@ import DateLabel from '../DateLabel.astro';
         <span class="fn" data-fn="AI·SW 체험 축전과 미래교육박람회를 포함한 수치">[5]</span>
       </p>
       <ul class="bul-list">
-        <li>동적 폼 스키마/타입 고도화 및 API payload/데이터 변환 로직 구현</li>
-        <ul class="sub-bul-list">
-          <li>
-            렌더링 시점마다 반복 실행되던 JSON.parse()를 Zod Schema 기반 Wrapper Layer로 이동 →
-            <strong>JSON.parse() 1회로 감소, White Screen of Death 위험 차단</strong>
-            <span
-              class="fn"
-              data-fn="잘못된 JSON 형식 진입 시 전체 폼이 렌더링되지 않는 문제가 있었음. Zod로 수신 직후 검증하여 UI 컴포넌트 내 런타임 타입 가드를 완전 제거"
-            >
-              [6]
-            </span>
-          </li>
-        </ul>
-        <li>질문 제목 기반 slugify ID → UUID 기반으로 교체하여 데이터 무결성 확보</li>
+        <li>
+          동적 폼 스키마/타입 고도화 및 API payload/데이터 변환 로직 구현
+          <ul class="sub-bul-list">
+            <li>
+              렌더링 시점마다 반복 실행되던 JSON.parse()를 Zod Schema 기반 Wrapper Layer로 이동 →
+              <strong>JSON.parse() 1회로 감소, White Screen of Death 위험 차단</strong>
+              <span
+                class="fn"
+                data-fn="잘못된 JSON 형식 진입 시 전체 폼이 렌더링되지 않는 문제가 있었음. Zod로 수신 직후 검증하여 UI 컴포넌트 내 런타임 타입 가드를 완전 제거"
+              >
+                [6]
+              </span>
+            </li>
+            <li>질문 제목 기반 slugify ID → UUID 기반으로 교체하여 데이터 무결성 확보</li>
+          </ul>
+        </li>
         <li>요청 데이터 기반 QR 정보 주입, 토큰 유무 등 현장 예외 케이스 대응</li>
       </ul>
     </div>
@@ -133,26 +135,30 @@ import DateLabel from '../DateLabel.astro';
       </p>
       <ul class="bul-list">
         <li>모바일앱: 거래 게시글 및 채팅으로 물건/서비스를 교환할 수 있는 MVP 플로우 구현</li>
-        <li>웹(어드민): 가입 승인, 신고 처리, '광산' 지급·회수 운영 기능 개발 및 운영</li>
         <li>
-          Zustand Persistent Queue 도입 + 낙관적 업데이트 →
-          <strong>WebSocket 메시지 유실률 1% 이내로 감소</strong>
-          <span
-            class="fn"
-            data-fn="기존에는 connectionState만 확인 후 전송하여 네트워크 끊김 시 메시지 유실. isSocketConnected를 useEffect로 감시하며 PENDING/FAILED 메시지 자동 재전송"
-          >
-            [8]
-          </span>
-        </li>
-        <li>
-          슬라이더 드래그 중 바텀시트 깜빡임 해결: 드래그 중 로컬 상태만 사용, 완료 버튼 시 부모
-          상태 업데이트
-          <span
-            class="fn"
-            data-fn="JS 스레드와 네이티브 UI 스레드 간 비동기 타이밍 차이가 누적되어 렌더링 타이밍이 어긋나는 것이 원인으로 판단"
-          >
-            [9]
-          </span>
+          웹(어드민): 가입 승인, 신고 처리, '광산' 지급·회수 운영 기능 개발 및 운영
+          <ul class="sub-bul-list">
+            <li>
+              Zustand Persistent Queue 도입 + 낙관적 업데이트 →
+              <strong>WebSocket 메시지 유실률 1% 이내로 감소</strong>
+              <span
+                class="fn"
+                data-fn="기존에는 connectionState만 확인 후 전송하여 네트워크 끊김 시 메시지 유실. isSocketConnected를 useEffect로 감시하며 PENDING/FAILED 메시지 자동 재전송"
+              >
+                [8]
+              </span>
+            </li>
+            <li>
+              슬라이더 드래그 중 바텀시트 깜빡임 해결: 드래그 중 로컬 상태만 사용, 완료 버튼 시 부모
+              상태 업데이트
+              <span
+                class="fn"
+                data-fn="JS 스레드와 네이티브 UI 스레드 간 비동기 타이밍 차이가 누적되어 렌더링 타이밍이 어긋나는 것이 원인으로 판단"
+              >
+                [9]
+              </span>
+            </li>
+          </ul>
         </li>
         <li>개발 기간 데일리 스크럼 주최, 팀 전원 목표 공유 및 이슈 파악 체계화</li>
       </ul>
@@ -198,19 +204,23 @@ import DateLabel from '../DateLabel.astro';
       <ul class="bul-list">
         <li>대회 운영 MVP 플로우(스테이지/대진표/팀/매치) 설계·구현</li>
         <li>DnD 기반 동적 대진표(Bracket) 기능 구현 및 팀 수/턴 등 edge case 대응</li>
-        <li>커뮤니티 이미지 첨부/조회수 표시 구현, 댓글 입력/정렬/반응형 등 UX 개선</li>
         <li>
-          onDragEnd가 stale state를 zustand에 저장하던 문제를, CustomEvent API 이벤트 버스 +
-          gameId별 독립 관리로 해결<span
-            class="fn"
-            data-fn="onDragEnd 생성 시점의 스냅샷이 closure에 캡처되어 다음 렌더링까지 오염된 상태가 전파되는 것이 원인"
-            >[12]</span
-          > →
-          <strong>드래그 즉시 상태 반영</strong>
-        </li>
-        <li>
-          overflow:hidden 컨테이너가 드래그 요소를 클리핑하는 문제를, React createPortal로
-          document.body에 렌더링하여 해결
+          커뮤니티 이미지 첨부/조회수 표시 구현, 댓글 입력/정렬/반응형 등 UX 개선
+          <ul class="sub-bul-list">
+            <li>
+              onDragEnd가 stale state를 zustand에 저장하던 문제를, CustomEvent API 이벤트 버스 +
+              gameId별 독립 관리로 해결<span
+                class="fn"
+                data-fn="onDragEnd 생성 시점의 스냅샷이 closure에 캡처되어 다음 렌더링까지 오염된 상태가 전파되는 것이 원인"
+                >[12]</span
+              > →
+              <strong>드래그 즉시 상태 반영</strong>
+            </li>
+            <li>
+              overflow:hidden 컨테이너가 드래그 요소를 클리핑하는 문제를, React createPortal로
+              document.body에 렌더링하여 해결
+            </li>
+          </ul>
         </li>
       </ul>
     </div>
