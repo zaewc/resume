@@ -73,7 +73,12 @@ import Fn from '../Fn.astro';
           <ChipLink
             href="https://github.com/School-of-Company/Gwangsan-Crossplatform"
             icon="bi-github"
-            label="GitHub"
+            label="App"
+          />
+          <ChipLink
+            href="https://github.com/School-of-Company/Gwangsan-Client"
+            icon="bi-github"
+            label="Web"
           />
         </span>
         <DateLabel date="2025. 04. ~ 현재" />
@@ -86,9 +91,10 @@ import Fn from '../Fn.astro';
         <strong>React Native로 공백을 메우고 App Store 릴리즈까지 진행.</strong>
       </p>
       <ul class="bul-list">
-        <li>모바일앱: 거래 게시글 및 채팅으로 물건/서비스를 교환할 수 있는 MVP 플로우 구현</li>
+        <li>웹(어드민): 가입 승인, 신고 처리, '광산' 지급·회수 운영 기능 개발 및 운영</li>
         <li>
-          웹(어드민): 가입 승인, 신고 처리, '광산' 지급·회수 운영 기능 개발 및 운영
+          모바일앱: 거래 게시글 및 채팅으로 물건/서비스를 교환할 수 있는 MVP 플로우 구현
+
           <ul class="sub-bul-list">
             <li>
               Zustand Persistent Queue 도입 + 낙관적 업데이트 →
@@ -104,6 +110,7 @@ import Fn from '../Fn.astro';
             </li>
           </ul>
         </li>
+
         <li>
           Jest + MSW 기반 단위 테스트 및 에러 시나리오 독립 검증, Detox iOS/Android E2E 자동화 구축
           <ul class="sub-bul-list">
