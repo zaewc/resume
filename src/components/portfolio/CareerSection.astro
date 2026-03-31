@@ -18,16 +18,28 @@ import DateLabel from '../DateLabel.astro';
       <div class="proj-header">
         <span class="proj-name">
           光탈페 플랫폼
-          <ChipLink href="https://github.com/School-of-Company/Gwangju-talent-festival-Client" icon="bi-github" label="GitHub" />
+          <ChipLink
+            href="https://github.com/School-of-Company/Gwangju-talent-festival-Client"
+            icon="bi-github"
+            label="GitHub"
+          />
         </span>
         <DateLabel date="2025. 02. ~ 2025. 10." />
       </div>
       <p class="desc">
         교육청과 광주고등학생의회가 주도하는 오디션 프로그램 '광탈페'의 공식 플랫폼.
-        <span class="fn" data-fn="기존 23~24년 예매 서비스는 교육청이 SI 업체에 위탁해 운영했으나, 기능적 완성도와 UX 측면에서 불편이 있었음">[1]</span>
-        예매 기능에 그치지 않고 프로그램 소개, 슬로건 공모, 참여 신청, 실시간 투표까지 제공하는 플랫폼으로 확장 개발.
+        <span
+          class="fn"
+          data-fn="기존 23~24년 예매 서비스는 교육청이 SI 업체에 위탁해 운영했으나, 기능적 완성도와 UX 측면에서 불편이 있었음"
+          >[1]</span
+        >
+        예매 기능에 그치지 않고 프로그램 소개, 슬로건 공모, 참여 신청, 실시간 투표까지 제공하는 플랫폼으로
+        확장 개발.
         <strong>1,000만+원의 외주 입찰 비용을 절감.</strong>
-        행사 당일 <strong>DAU 3,000+명</strong><span class="fn" data-fn="Vercel 기준 누적 트래픽 7.3만+, GA 기준 이벤트 5만+건">[2]</span>
+        행사 당일 <strong>DAU 3,000+명</strong><span
+          class="fn"
+          data-fn="Vercel 기준 누적 트래픽 7.3만+, GA 기준 이벤트 5만+건">[2]</span
+        >
       </p>
 
       <ul class="bul-list">
@@ -39,9 +51,9 @@ import DateLabel from '../DateLabel.astro';
               useMemo 의존성에 불변 객체 queryClient를 넣어 UI가 갱신되지 않던<span
                 class="fn"
                 data-fn="queryClient.getQueryData()는 호출 시점의 캐시만 반환하는 일회성 조회라 reactive 시스템과 연결되지 않음"
-              >[4]</span> 문제를, useQueries로 전환해
+                >[4]</span
+              > 문제를, useQueries로 전환해
               <strong>SSE 수신 즉시 좌석 점유율 실시간 반영</strong>
-              
             </li>
           </ul>
         </li>
@@ -62,29 +74,36 @@ import DateLabel from '../DateLabel.astro';
       <div class="proj-header">
         <span class="proj-name">
           EXPO
-          <ChipLink href="https://github.com/School-of-Company/Expo-Client" icon="bi-github" label="GitHub" />
+          <ChipLink
+            href="https://github.com/School-of-Company/Expo-Client"
+            icon="bi-github"
+            label="GitHub"
+          />
         </span>
         <DateLabel date="2024. 10. ~ 현재" />
       </div>
       <p class="desc">
-        광주광역시교육청 수주 프로젝트. 사전 신청·QR 현장 인증·만족도 조사·Excel 자동 정리를 통합 제공.
+        광주광역시교육청 수주 프로젝트. 사전 신청·QR 현장 인증·만족도 조사·Excel 자동 정리를 통합
+        제공.
         <strong>기존 외주 입찰 비용 2,000만+원 절감, 3만+명 운영.</strong>
         <span class="fn" data-fn="AI·SW 체험 축전과 미래교육박람회를 포함한 수치">[5]</span>
       </p>
       <ul class="bul-list">
         <li>동적 폼 스키마/타입 고도화 및 API payload/데이터 변환 로직 구현</li>
-        <li>요청 데이터 기반 QR 정보 주입, 토큰 유무 등 현장 예외 케이스 대응</li>
-        <li>
-          렌더링 시점마다 반복 실행되던 JSON.parse()를 Zod Schema 기반 Wrapper Layer로 이동 →
-          <strong>JSON.parse() 1회로 감소, White Screen of Death 위험 차단</strong>
-          <span
-            class="fn"
-            data-fn="잘못된 JSON 형식 진입 시 전체 폼이 렌더링되지 않는 문제가 있었음. Zod로 수신 직후 검증하여 UI 컴포넌트 내 런타임 타입 가드를 완전 제거"
-          >
-            [6]
-          </span>
-        </li>
+        <ul class="sub-bul-list">
+          <li>
+            렌더링 시점마다 반복 실행되던 JSON.parse()를 Zod Schema 기반 Wrapper Layer로 이동 →
+            <strong>JSON.parse() 1회로 감소, White Screen of Death 위험 차단</strong>
+            <span
+              class="fn"
+              data-fn="잘못된 JSON 형식 진입 시 전체 폼이 렌더링되지 않는 문제가 있었음. Zod로 수신 직후 검증하여 UI 컴포넌트 내 런타임 타입 가드를 완전 제거"
+            >
+              [6]
+            </span>
+          </li>
+        </ul>
         <li>질문 제목 기반 slugify ID → UUID 기반으로 교체하여 데이터 무결성 확보</li>
+        <li>요청 데이터 기반 QR 정보 주입, 토큰 유무 등 현장 예외 케이스 대응</li>
       </ul>
     </div>
 
@@ -93,7 +112,11 @@ import DateLabel from '../DateLabel.astro';
       <div class="proj-header">
         <span class="proj-name">
           시민화폐 광산
-          <ChipLink href="https://github.com/School-of-Company/Gwangsan-Crossplatform" icon="bi-github" label="GitHub" />
+          <ChipLink
+            href="https://github.com/School-of-Company/Gwangsan-Crossplatform"
+            icon="bi-github"
+            label="GitHub"
+          />
         </span>
         <DateLabel date="2025. 04. ~ 현재" />
       </div>
@@ -122,7 +145,8 @@ import DateLabel from '../DateLabel.astro';
           </span>
         </li>
         <li>
-          슬라이더 드래그 중 바텀시트 깜빡임 해결: 드래그 중 로컬 상태만 사용, 완료 버튼 시 부모 상태 업데이트
+          슬라이더 드래그 중 바텀시트 깜빡임 해결: 드래그 중 로컬 상태만 사용, 완료 버튼 시 부모
+          상태 업데이트
           <span
             class="fn"
             data-fn="JS 스레드와 네이티브 UI 스레드 간 비동기 타이밍 차이가 누적되어 렌더링 타이밍이 어긋나는 것이 원인으로 판단"
@@ -146,13 +170,22 @@ import DateLabel from '../DateLabel.astro';
       <div class="proj-header">
         <span class="proj-name">
           GOGO
-          <ChipLink href="https://github.com/team-gogo/GOGO-Frontend" icon="bi-github" label="GitHub" />
-          <ChipLink href="https://steady-trip-f5b.notion.site/GOGO-V3-1b220f98a3f680e4888ad58b02139d42?pvs=74" icon="bi-file-text" label="Docs" />
+          <ChipLink
+            href="https://github.com/team-gogo/GOGO-Frontend"
+            icon="bi-github"
+            label="GitHub"
+          />
+          <ChipLink
+            href="https://steady-trip-f5b.notion.site/GOGO-V3-1b220f98a3f680e4888ad58b02139d42?pvs=74"
+            icon="bi-file-text"
+            label="Docs"
+          />
         </span>
         <DateLabel date="2025. 03. ~ 2025. 05." />
       </div>
       <p class="desc">
-        전국 중·고등학교 대상 스포츠 행사 플랫폼. 수기 신청서와 디스코드 의존도를 없애고, 팀 신청·동적 대진표·일정 관리·승부 예측을 통합.
+        전국 중·고등학교 대상 스포츠 행사 플랫폼. 수기 신청서와 디스코드 의존도를 없애고, 팀
+        신청·동적 대진표·일정 관리·승부 예측을 통합.
         <span
           class="fn"
           data-fn="승부 예측 시스템은 청소년 대상 불법 도박 중독 예방 캠페인 요소로도 기획. 본교 운영 기간 동안 200명 이상이 자발적으로 참여"
@@ -167,13 +200,18 @@ import DateLabel from '../DateLabel.astro';
         <li>DnD 기반 동적 대진표(Bracket) 기능 구현 및 팀 수/턴 등 edge case 대응</li>
         <li>커뮤니티 이미지 첨부/조회수 표시 구현, 댓글 입력/정렬/반응형 등 UX 개선</li>
         <li>
-          onDragEnd가 stale state를 zustand에 저장하던 문제를, CustomEvent API 이벤트 버스 + gameId별 독립 관리로 해결<span
+          onDragEnd가 stale state를 zustand에 저장하던 문제를, CustomEvent API 이벤트 버스 +
+          gameId별 독립 관리로 해결<span
             class="fn"
             data-fn="onDragEnd 생성 시점의 스냅샷이 closure에 캡처되어 다음 렌더링까지 오염된 상태가 전파되는 것이 원인"
-          >[12]</span> →
+            >[12]</span
+          > →
           <strong>드래그 즉시 상태 반영</strong>
         </li>
-        <li>overflow:hidden 컨테이너가 드래그 요소를 클리핑하는 문제를, React createPortal로 document.body에 렌더링하여 해결</li>
+        <li>
+          overflow:hidden 컨테이너가 드래그 요소를 클리핑하는 문제를, React createPortal로
+          document.body에 렌더링하여 해결
+        </li>
       </ul>
     </div>
   </div>
@@ -250,7 +288,7 @@ import DateLabel from '../DateLabel.astro';
   }
 
   .bul-list > li::before {
-    content: "•";
+    content: '•';
     position: absolute;
     left: 0;
     color: var(--text-faint);
@@ -274,7 +312,7 @@ import DateLabel from '../DateLabel.astro';
   }
 
   .sub-bul-list > li::before {
-    content: "•";
+    content: '•';
     position: absolute;
     left: 0;
     color: var(--text-faint);

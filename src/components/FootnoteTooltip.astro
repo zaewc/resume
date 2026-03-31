@@ -1,4 +1,5 @@
 ---
+
 ---
 
 <div id="fn-tooltip" role="tooltip" aria-hidden="true"></div>
@@ -35,7 +36,7 @@
 
     const rect = el.getBoundingClientRect();
     tooltip.style.left = '0px';
-    tooltip.style.top  = '0px';
+    tooltip.style.top = '0px';
     tooltip.style.opacity = '0';
 
     requestAnimationFrame(() => {
@@ -50,7 +51,7 @@
       if (top < 8) top = rect.bottom + margin;
 
       tooltip.style.left = `${left}px`;
-      tooltip.style.top  = `${top}px`;
+      tooltip.style.top = `${top}px`;
       tooltip.style.opacity = '1';
     });
   }
@@ -62,11 +63,12 @@
     }, 80);
   }
 
-  document.querySelectorAll<HTMLElement>('.fn').forEach((el) => {
-    const note = el.dataset.fn ?? '';
-    el.addEventListener('mouseenter', () => showTooltip(el, note));
-    el.addEventListener('mouseleave', hideTooltip);
-    el.addEventListener('focus',      () => showTooltip(el, note));
-    el.addEventListener('blur',       hideTooltip);
+  document.querySelectorAll('.fn').forEach((el) => {
+    const htmlEl = el as HTMLElement;
+    const note = htmlEl.dataset.fn ?? '';
+    htmlEl.addEventListener('mouseenter', () => showTooltip(htmlEl, note));
+    htmlEl.addEventListener('mouseleave', hideTooltip);
+    htmlEl.addEventListener('focus', () => showTooltip(htmlEl, note));
+    htmlEl.addEventListener('blur', hideTooltip);
   });
 </script>

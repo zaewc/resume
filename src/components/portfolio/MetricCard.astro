@@ -6,7 +6,7 @@ interface Props {
   size?: 'default' | 'sm';
 }
 
-const { value, label, context, size = 'default' } = Astro.props;
+const { value, label, context, size = 'default' }: Props = Astro.props;
 ---
 
 <div
@@ -31,9 +31,5 @@ const { value, label, context, size = 'default' } = Astro.props;
   >
     {label}
   </p>
-  {
-    context && (
-      <p class="mt-0.5 text-xs text-zinc-400 dark:text-zinc-500">{context}</p>
-    )
-  }
+  {context && <p class="mt-0.5 text-xs text-zinc-400 dark:text-zinc-500">{context}</p>}
 </div>

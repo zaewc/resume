@@ -1,13 +1,14 @@
 ---
 interface Props {
   href: string;
-  id: string;  // e.g. "#11430"
+  id: string; // e.g. "#11430"
 }
-const { href, id } = Astro.props;
+const { href, id }: Props = Astro.props;
 ---
 
 <a href={href} target="_blank" rel="noopener noreferrer" class="pr-link">
-  <i class="bi bi-box-arrow-up-right"></i> {id}
+  <i class="bi bi-box-arrow-up-right"></i>
+  {id}
 </a>
 
 <style>
@@ -29,5 +30,7 @@ const { href, id } = Astro.props;
     text-decoration: underline;
     text-underline-offset: 2px;
   }
-  .pr-link i { font-size: 0.65rem; }
+  .pr-link i {
+    font-size: 0.65rem;
+  }
 </style>

@@ -1,4 +1,5 @@
 ---
+
 ---
 
 <div id="vignette"></div>
@@ -28,7 +29,9 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 40;
-    transition: opacity 0.3s, transform 0.3s;
+    transition:
+      opacity 0.3s,
+      transform 0.3s;
   }
   #fixed-cta.hidden {
     opacity: 0;
@@ -49,21 +52,26 @@
     cursor: pointer;
     user-select: none;
     white-space: nowrap;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.12);
-    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+    transition:
+      background 0.15s,
+      color 0.15s,
+      box-shadow 0.15s;
   }
   #cta-btn:hover {
     background: var(--accent);
     color: var(--bg);
-    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
   }
-  #cta-btn i { font-size: 0.75rem; }
+  #cta-btn i {
+    font-size: 0.75rem;
+  }
 </style>
 
 <script>
-  const fixedCta     = document.getElementById('fixed-cta')!;
+  const fixedCta = document.getElementById('fixed-cta')!;
   const portfolioSec = document.getElementById('portfolio-section')!;
-  const ctaBtn       = document.getElementById('cta-btn')!;
+  const ctaBtn = document.getElementById('cta-btn')!;
 
   ctaBtn.addEventListener('click', () => {
     portfolioSec.scrollIntoView({ behavior: 'smooth', block: 'center' });

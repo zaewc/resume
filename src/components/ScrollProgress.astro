@@ -1,4 +1,5 @@
 ---
+
 ---
 
 <div id="scroll-progress"></div>
@@ -19,11 +20,15 @@
 
 <script>
   const progressBar = document.getElementById('scroll-progress')!;
-  window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-    const total = document.documentElement.scrollHeight - window.innerHeight;
-    progressBar.style.width = total > 0 ? `${(scrolled / total) * 100}%` : '0%';
-  }, { passive: true });
+  window.addEventListener(
+    'scroll',
+    () => {
+      const scrolled = window.scrollY;
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.width = total > 0 ? `${(scrolled / total) * 100}%` : '0%';
+    },
+    { passive: true }
+  );
 
   const revealObserver = new IntersectionObserver(
     (entries) => {

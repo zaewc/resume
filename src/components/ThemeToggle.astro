@@ -1,4 +1,5 @@
 ---
+
 ---
 
 <button id="theme-toggle" aria-label="테마 전환" title="테마 전환">
@@ -25,16 +26,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: border-color 0.2s, color 0.2s;
+    transition:
+      border-color 0.2s,
+      color 0.2s;
   }
   #theme-toggle:hover {
     border-color: var(--accent);
     color: var(--accent);
   }
-  .icon-sun  { display: none; }
-  .icon-moon { display: block; }
-  :global(html.dark) .icon-sun  { display: block; }
-  :global(html.dark) .icon-moon { display: none; }
+  .icon-sun {
+    display: none;
+  }
+  .icon-moon {
+    display: block;
+  }
+  :global(html.dark) .icon-sun {
+    display: block;
+  }
+  :global(html.dark) .icon-moon {
+    display: none;
+  }
 </style>
 
 <script>

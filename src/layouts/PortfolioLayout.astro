@@ -6,7 +6,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = '' } = Astro.props;
+const { title, description = '' }: Props = Astro.props;
 const canonicalUrl = Astro.url;
 ---
 
@@ -44,7 +44,9 @@ const canonicalUrl = Astro.url;
       })();
     </script>
   </head>
-  <body style="font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif; min-height: 100vh;">
+  <body
+    style="font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif; min-height: 100vh;"
+  >
     <slot />
   </body>
 </html>

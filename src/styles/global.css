@@ -94,7 +94,7 @@
     user-select: none;
   }
   .section-title::after {
-    content: "";
+    content: '';
     position: absolute;
     bottom: 0;
     left: 0;
@@ -120,7 +120,7 @@
     position: relative;
   }
   .bul-list li::before {
-    content: "•";
+    content: '•';
     position: absolute;
     left: 0;
     color: var(--text-faint);
@@ -157,7 +157,7 @@
 
   /* ── Footnote ── */
   .fn {
-    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
     font-size: 0.65rem;
     font-weight: 600;
     color: var(--accent);
