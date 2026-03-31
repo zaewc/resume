@@ -2,6 +2,7 @@
 import ChipLink from '../ChipLink.astro';
 import DateLabel from '../DateLabel.astro';
 import Fn from '../Fn.astro';
+import PrLink from '../PrLink.astro';
 ---
 
 <section class="mb-10">
@@ -104,7 +105,10 @@ import Fn from '../Fn.astro';
             </li>
             <li>
               슬라이더 드래그 중 바텀시트 깜빡임 해결: 드래그 중 로컬 상태만 사용, 완료 버튼 시 부모
-              상태 업데이트<Fn
+              상태 업데이트<PrLink
+                href="https://velog.io/@haensol/issue-bottomsheet"
+                id="blog"
+              /><Fn
                 note="JS 스레드와 네이티브 UI 스레드 간 비동기 타이밍 차이가 누적되어 렌더링 타이밍이 어긋나는 것이 원인으로 판단"
               />
             </li>
@@ -196,7 +200,10 @@ import Fn from '../Fn.astro';
         전국 중·고등학교 대상 스포츠 행사 플랫폼. 수기 신청서와 디스코드 의존도를 없애고, 팀
         신청·동적 대진표·일정 관리를 통합. 승부 예측 기능<Fn
           note="승부 예측 시스템은 청소년 대상 불법 도박 중독 예방 캠페인 요소로 기획. 본교 운영 기간 동안 200명 이상이 자발적으로 참여"
-        />을 제공하여 사용자 98%가 “기존 체육대회보다 더 즐거웠다" 라고 응답.
+        />을 제공하여 사용자 98%가 “기존 체육대회보다 더 즐거웠다” 라고 응답.<PrLink
+          href="”https://steady-trip-f5b.notion.site/2024-GOGO-V2-1b920f98a3f680f995c3fac39ec6e1b3”"
+          id="survey"
+        />
         <strong>본교 체육대회 DAU 300+명, GA 기준 누적 이벤트 17만+건.</strong><Fn
           note="전국 단위 확장을 목표로 현재도 발전 중"
         />

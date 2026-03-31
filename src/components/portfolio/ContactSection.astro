@@ -4,25 +4,41 @@
 
 <section class="mb-10">
   <h2 class="section-title">Contact</h2>
-  <ul class="contact-list">
-    <li>
-      <i class="bi bi-envelope contact-icon"></i>
-      <a href="mailto:s24064@gsm.hs.kr">s24064@gsm.hs.kr</a>
-    </li>
-    <li>
-      <i class="bi bi-telephone contact-icon"></i>
-      010-7745-5407
-    </li>
-    <li>
-      <i class="bi bi-github contact-icon"></i>
-      <a href="https://github.com/zaewc" target="_blank" rel="noopener noreferrer"
-        >github.com/zaewc</a
-      >
-    </li>
-  </ul>
+  <div class="contact-grid">
+    <ul class="contact-list">
+      <li>
+        <i class="bi bi-envelope contact-icon"></i>
+        <a href="mailto:s24064@gsm.hs.kr">s24064@gsm.hs.kr</a>
+      </li>
+      <li>
+        <i class="bi bi-telephone contact-icon"></i>
+        010-7745-5407
+      </li>
+    </ul>
+    <ul class="contact-list">
+      <li>
+        <i class="bi bi-github contact-icon"></i>
+        <a href="https://github.com/zaewc" target="_blank" rel="noopener noreferrer"
+          >github.com/zaewc</a
+        >
+      </li>
+      <li>
+        <i class="bi bi-journal-text contact-icon"></i>
+        <a href="https://velog.io/@haensol/posts" target="_blank" rel="noopener noreferrer"
+          >velog.io/@haensol</a
+        >
+      </li>
+    </ul>
+  </div>
 </section>
 
 <style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.25rem 1.5rem;
+  }
+
   .contact-list {
     list-style: none;
     padding: 0;
