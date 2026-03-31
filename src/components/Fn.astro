@@ -1,0 +1,8 @@
+---
+interface Props {
+  note: string;
+}
+const { note }: Props = Astro.props;
+---
+
+<span class="fn" data-fn={note}></span>

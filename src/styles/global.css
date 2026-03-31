@@ -47,6 +47,7 @@
   body {
     background-color: var(--bg);
     color: var(--text);
+    counter-reset: fn;
   }
 
   ::selection {
@@ -166,8 +167,12 @@
     cursor: default;
     white-space: nowrap;
     user-select: none;
+    counter-increment: fn;
   }
-  .fn:hover {
+  .fn::before {
+    content: '[' counter(fn) ']';
+  }
+  .fn:hover::before {
     text-decoration: underline;
     text-underline-offset: 2px;
   }
