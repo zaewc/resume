@@ -23,12 +23,11 @@ import DateLabel from '../DateLabel.astro';
         <DateLabel date="2025. 02. ~ 2025. 10." />
       </div>
       <p class="desc">
-        교육청과 광주고등학생의회가 주도하는 오디션 프로그램 공식 플랫폼.
+        교육청과 광주고등학생의회가 주도하는 오디션 프로그램 '광탈페'의 공식 플랫폼.
         <span class="fn" data-fn="기존 23~24년 예매 서비스는 교육청이 SI 업체에 위탁해 운영했으나, 기능적 완성도와 UX 측면에서 불편이 있었음">[1]</span>
-        예매 기능에 그치지 않고 프로그램 소개, 슬로건 공모, 참여 신청, 실시간 투표까지 통합 제공하는 플랫폼으로 확장 개발.
+        예매 기능에 그치지 않고 프로그램 소개, 슬로건 공모, 참여 신청, 실시간 투표까지 제공하는 플랫폼으로 확장 개발.
         <strong>1,000만+원의 외주 입찰 비용을 절감.</strong>
-        행사 당일 <strong>DAU 3,000+명</strong>,
-        <span class="fn" data-fn="2025년 행사 당일 기준 최고치. Vercel 기준 누적 트래픽 7.3만+, GA 기준 이벤트 5만+건">[2]</span>
+        행사 당일 <strong>DAU 3,000+명</strong><span class="fn" data-fn="Vercel 기준 누적 트래픽 7.3만+, GA 기준 이벤트 5만+건">[2]</span>
       </p>
 
       <ul class="bul-list">
@@ -37,14 +36,12 @@ import DateLabel from '../DateLabel.astro';
           실시간 좌석 예매 기능(SSE) 구현, 계정별 예매 여부에 따라 동적 라우팅 적용
           <ul class="sub-bul-list">
             <li>
-              useMemo 의존성에 불변 객체 queryClient를 넣어 UI가 갱신되지 않던 문제를, useQueries로 전환해
-              <strong>SSE 수신 즉시 좌석 점유율 실시간 반영</strong>
-              <span
+              useMemo 의존성에 불변 객체 queryClient를 넣어 UI가 갱신되지 않던<span
                 class="fn"
-                data-fn="queryClient.getQueryData()는 호출 시점의 캐시만 반환하는 일회성 조회라 reactive 시스템과 연결되지 않았던 것이 원인"
-              >
-                [4]
-              </span>
+                data-fn="queryClient.getQueryData()는 호출 시점의 캐시만 반환하는 일회성 조회라 reactive 시스템과 연결되지 않음"
+              >[4]</span> 문제를, useQueries로 전환해
+              <strong>SSE 수신 즉시 좌석 점유율 실시간 반영</strong>
+              
             </li>
           </ul>
         </li>
@@ -89,7 +86,7 @@ import DateLabel from '../DateLabel.astro';
         </li>
         <li>질문 제목 기반 slugify ID → UUID 기반으로 교체하여 데이터 무결성 확보</li>
       </ul>
-    </div>
+    </div>ㅇ
 
     <!-- 시민화폐 광산 -->
     <div class="proj-block">
