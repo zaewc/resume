@@ -36,7 +36,20 @@ import Fn from '../Fn.astro';
       <li>
         급식 조회, 자습 신청 리마인드, 미니게임 등. Python + MariaDB, Docker + CloudType 릴리즈
       </li>
-      <li>In-memory 캐싱으로 응답 시간 최적화. <strong>40+개 서버 도입, DAU 100+명</strong></li>
+      <li>
+        캐싱 이원화로 응답 속도 최적화. <strong
+          >40+개 디스코드 서버 도입,<Fn note="학교 공식 서버에도 도입" /> DAU 100+명</strong
+        >
+        <ul class="sub-bul-list">
+          <li>모든 외부 API·DB 접근 서비스: In-memory 캐싱 적용</li>
+          <li>
+            급식 조회 시 주간 배치 조회 후 DB 캐싱 → 외부 API 중복 호출 제거<Fn
+              note="조회한 주간 데이터는 Upsert 기반으로 DB에 영속화하여 이후 요청은 DB 캐시에서 즉시 반환"
+            />
+          </li>
+          <li>봇 시작 시 asyncio.gather()로 오늘/내일 급식 비동기 병렬 preload → 캐시 히트 보장</li>
+        </ul>
+      </li>
     </ul>
   </div>
 
