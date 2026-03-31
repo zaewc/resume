@@ -113,16 +113,16 @@
     gap: 0.375rem;
   }
   .bul-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
     font-size: 0.875rem;
     color: var(--text-muted);
     line-height: 1.7;
-    padding-left: 1rem;
   }
   .bul-list li::before {
     content: "•";
-    display: inline-block;
-    width: 1rem;
-    margin-left: -1rem;
+    flex-shrink: 0;
     color: var(--text-faint);
   }
   .bul-list strong {
