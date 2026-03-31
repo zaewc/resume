@@ -133,43 +133,43 @@ import PrLink from '../PrLink.astro';
         <li>개발 기간 데일리 스크럼 주최, 팀 전원 목표 공유 및 이슈 파악 체계화</li>
       </ul>
     </div>
-  </div>
 
-  <!-- EXPO -->
-  <div class="proj-block">
-    <div class="proj-header">
-      <span class="proj-name">
-        EXPO
-        <ChipLink
-          href="https://github.com/School-of-Company/Expo-Client"
-          icon="bi-github"
-          label="GitHub"
+    <!-- EXPO -->
+    <div class="proj-block">
+      <div class="proj-header">
+        <span class="proj-name">
+          EXPO
+          <ChipLink
+            href="https://github.com/School-of-Company/Expo-Client"
+            icon="bi-github"
+            label="GitHub"
+          />
+        </span>
+        <DateLabel date="2024. 10. ~ 현재" />
+      </div>
+      <p class="desc">
+        광주광역시교육청 수주 프로젝트. 사전 신청·QR 현장 인증·만족도 조사·Excel 자동 정리를 통합
+        제공.
+        <strong>기존 외주 입찰 비용 2,000만+원 절감, 3만+명 운영.</strong><Fn
+          note="AI·SW 체험 축전과 미래교육박람회를 포함한 수치"
         />
-      </span>
-      <DateLabel date="2024. 10. ~ 현재" />
+      </p>
+      <ul class="bul-list">
+        <li>
+          동적 폼 스키마/타입 고도화 및 API payload/데이터 변환 로직 구현
+          <ul class="sub-bul-list">
+            <li>
+              렌더링 시점마다 반복 실행되던 JSON.parse()를 Zod Schema 기반 Wrapper Layer로 이동 →
+              <strong>JSON.parse() 1회로 감소, White Screen of Death 위험 차단</strong><Fn
+                note="잘못된 JSON 형식 진입 시 전체 폼이 렌더링되지 않는 문제가 있었음. Zod로 수신 직후 검증하여 UI 컴포넌트 내 런타임 타입 가드를 완전 제거"
+              />
+            </li>
+            <li>질문 제목 기반 slugify ID → UUID 기반으로 교체하여 데이터 무결성 확보</li>
+          </ul>
+        </li>
+        <li>요청 데이터 기반 QR 정보 주입, 토큰 유무 등 현장 예외 케이스 대응</li>
+      </ul>
     </div>
-    <p class="desc">
-      광주광역시교육청 수주 프로젝트. 사전 신청·QR 현장 인증·만족도 조사·Excel 자동 정리를 통합
-      제공.
-      <strong>기존 외주 입찰 비용 2,000만+원 절감, 3만+명 운영.</strong><Fn
-        note="AI·SW 체험 축전과 미래교육박람회를 포함한 수치"
-      />
-    </p>
-    <ul class="bul-list">
-      <li>
-        동적 폼 스키마/타입 고도화 및 API payload/데이터 변환 로직 구현
-        <ul class="sub-bul-list">
-          <li>
-            렌더링 시점마다 반복 실행되던 JSON.parse()를 Zod Schema 기반 Wrapper Layer로 이동 →
-            <strong>JSON.parse() 1회로 감소, White Screen of Death 위험 차단</strong><Fn
-              note="잘못된 JSON 형식 진입 시 전체 폼이 렌더링되지 않는 문제가 있었음. Zod로 수신 직후 검증하여 UI 컴포넌트 내 런타임 타입 가드를 완전 제거"
-            />
-          </li>
-          <li>질문 제목 기반 slugify ID → UUID 기반으로 교체하여 데이터 무결성 확보</li>
-        </ul>
-      </li>
-      <li>요청 데이터 기반 QR 정보 주입, 토큰 유무 등 현장 예외 케이스 대응</li>
-    </ul>
   </div>
 
   <!-- GOGO팀 -->
