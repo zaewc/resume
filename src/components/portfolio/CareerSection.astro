@@ -141,6 +141,21 @@ import Fn from '../Fn.astro';
             </li>
           </ul>
         </li>
+        <li>
+          Jest + MSW 기반 단위 테스트 및 에러 시나리오 독립 검증, Detox iOS/Android E2E 자동화 구축
+          <ul class="sub-bul-list">
+            <li>
+              Unit은 PR마다 Jest 커버리지 리포트 자동 코멘트, E2E는 babel-plugin-istanbul로
+              시뮬레이터 실행 결과에서 커버리지 추출 → <strong
+                >두 레이어 모두 CI에서 커버리지 자동 보고</strong
+              >
+            </li>
+            <li>
+              CocoaPods·Detox·Xcode 중간 산출물 캐싱으로 CI 시간 단축, Discord 웹훅으로 결과 즉시
+              공유
+            </li>
+          </ul>
+        </li>
         <li>개발 기간 데일리 스크럼 주최, 팀 전원 목표 공유 및 이슈 파악 체계화</li>
       </ul>
     </div>
