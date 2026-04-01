@@ -177,3 +177,116 @@
     text-underline-offset: 2px;
   }
 }
+
+@media print {
+  :root {
+    --bg: #ffffff;
+    --bg-subtle: #f9f9f9;
+    --border: #e0e0e0;
+    --text: #000000;
+    --text-muted: #404040;
+    --text-faint: #808080;
+    --accent: #0051ba;
+    --accent-light: #f0f0f0;
+    --tt-bg: #ffffff;
+    --tt-text: #000000;
+    --tt-border: #e0e0e0;
+  }
+
+  html.dark {
+    --bg: #ffffff;
+    --bg-subtle: #f9f9f9;
+    --border: #e0e0e0;
+    --text: #000000;
+    --text-muted: #404040;
+    --text-faint: #808080;
+    --accent: #0051ba;
+    --accent-light: #f0f0f0;
+    --tt-bg: #ffffff;
+    --tt-text: #000000;
+    --tt-border: #e0e0e0;
+  }
+
+  /* ── 기본 크기 축소: rem 단위를 쓰는 모든 간격이 자동 비례 축소됨 ── */
+  html {
+    font-size: 8.5pt !important;
+  }
+
+  body {
+    background: white !important;
+    color: black;
+  }
+
+  /* Remove scrollbar in print */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Page setup — 0.25in 여백으로 최대 콘텐츠 영역 확보 */
+  @page {
+    margin: 0.25in;
+    size: letter;
+  }
+
+  /* Career section fills page 1; everything after starts on page 2 */
+  section.print-page-1 {
+    page-break-after: always;
+    margin-bottom: 0 !important;
+  }
+
+  /* 줄간격: rem으로 지정되지 않은 명시적 값들을 일괄 축소 */
+  .desc,
+  .bul-list li,
+  .plain-list li,
+  .sub-bul-list li,
+  .bio,
+  .availability p {
+    line-height: 1.35 !important;
+  }
+
+  /* Prevent section title from being alone at bottom of page */
+  .section-title {
+    page-break-after: avoid;
+  }
+
+  /* Remove shadows and unnecessary styling */
+  .availability {
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+  }
+
+  /* Links remain visible in print */
+  a {
+    color: #0051ba;
+    text-decoration: none;
+  }
+  a::after {
+    content: '';
+  }
+
+  /* Hide interactive elements */
+  #portfolio-section,
+  .portfolio-section,
+  #fixed-cta,
+  .fixed-cta,
+  #vignette,
+  #theme-toggle,
+  .theme-toggle,
+  .scroll-progress,
+  .fn {
+    display: none !important;
+  }
+
+  /* availability 박스가 페이지 경계에서 잘리지 않도록 */
+  .availability {
+    page-break-inside: avoid;
+  }
+
+  /* Widen content area for print */
+  main {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
