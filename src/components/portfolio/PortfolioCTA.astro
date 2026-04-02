@@ -1,15 +1,10 @@
 ---
-
+const driveUrl = import.meta.env.PUBLIC_PORTFOLIO_DRIVE_URL;
 ---
 
 <section id="portfolio-section" class="portfolio-section">
   <p class="portfolio-sub">더 다양한 경험을 자세히 담았습니다.</p>
-  <a
-    href="https://drive.google.com/file/d/1NEpGHHxnBUZIYO9gUsKr0Z4-72HK74av/view?usp=sharing"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="portfolio-btn"
-  >
+  <a href={driveUrl} target="_blank" rel="noopener noreferrer" class="portfolio-btn">
     포트폴리오 보러가기
     <i class="bi bi-arrow-right"></i>
   </a>
