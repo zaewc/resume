@@ -1,0 +1,77 @@
+---
+import ChipLink from '../ChipLink.astro';
+---
+
+<section class="mb-10">
+  <h2 class="section-title">experience</h2>
+
+  <div class="exp-block">
+    <h3 class="exp-title">Python 기반 모델 서빙 및 운영 환경 구성</h3>
+    <ul class="bul-list">
+      <li>
+        FastAPI lifespan, BackgroundTasks, asyncio 기반으로 모델 로드·추론·재학습 흐름을 서비스
+        lifecycle에 맞게 분리
+      </li>
+      <li>
+        vLLM OpenAI-compatible endpoint, Transformers inference service, GBDT artifact serving 등
+        서로 다른 모델 서빙 방식을 운영 목적에 맞게 구성
+      </li>
+      <li>
+        Docker Compose, volume, private network, healthcheck를 활용해 bot / API Gateway / inference
+        / worker / DB / cache를 분리 운영
+      </li>
+    </ul>
+  </div>
+
+  <div class="exp-block">
+    <h3 class="exp-title">운영 안정성을 고려한 fallback / cache / async 설계</h3>
+    <ul class="bul-list">
+      <li>
+        Redis TTL 캐싱과 in-memory cache를 병행해 반복 외부 API 호출 비용과 rate limit 부담을 제어
+      </li>
+      <li>
+        추론 서버 timeout, invalid response, http error를 명시적으로 분류하고 rule-only fallback으로
+        본 서비스 장애 전파를 차단
+      </li>
+      <li>
+        동기 torch 추론을 <code>asyncio.to_thread</code>로 격리해 이벤트 루프 블로킹을 줄이고 Kafka
+        consumer와 healthcheck 응답성을 개선
+      </li>
+    </ul>
+  </div>
+
+  <div class="exp-block">
+    <h3 class="exp-title">
+      관련 링크
+      <ChipLink href="https://github.com/8G4B/JEE6-INFRA" icon="bi-github" label="JEE6 Infra" />
+      <ChipLink href="https://github.com/team-gogo/gogo-ai" icon="bi-github" label="GOGO AI" />
+      <ChipLink href="https://github.com/gsm-club-inside" icon="bi-github" label="GCinside" />
+    </h3>
+    <ul class="bul-list">
+      <li>Python, FastAPI, Redis, Docker Compose, GitHub Actions 기반의 실제 운영 프로젝트 경험</li>
+      <li>모델을 제품 결정의 단일 주체가 아닌 운영 가능한 위험 신호 중 하나로 다루는 구조 설계</li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .exp-block {
+    margin-bottom: 1.25rem;
+  }
+
+  .exp-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.375rem;
+  }
+
+  code {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.78em;
+    color: var(--text);
+    background: var(--accent-light);
+    border-radius: 4px;
+    padding: 0.08rem 0.25rem;
+  }
+</style>

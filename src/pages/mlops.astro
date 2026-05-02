@@ -1,0 +1,627 @@
+---
+import PortfolioLayout from '../layouts/PortfolioLayout.astro';
+import ScrollProgress from '../components/ScrollProgress.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import FootnoteTooltip from '../components/FootnoteTooltip.astro';
+import FixedCTA from '../components/FixedCTA.astro';
+import ChipLink from '../components/ChipLink.astro';
+import LeadershipSection from '../components/portfolio/LeadershipSection.astro';
+import EducationSection from '../components/portfolio/EducationSection.astro';
+import PortfolioCTA from '../components/portfolio/PortfolioCTA.astro';
+import Fn from '../components/Fn.astro';
+---
+
+<PortfolioLayout
+  title="송재욱 | MLOps"
+  description="Python, FastAPI, Docker 기반 MLOps 프로젝트 경험을 정리한 송재욱의 상세 이력서입니다."
+>
+  <ScrollProgress />
+  <ThemeToggle />
+
+  <main>
+    <section class="mb-12">
+      <h1 class="name">
+        송재욱 <span class="name-sub">(MLOps)</span>
+      </h1>
+      <p class="bio">
+        <span class="bio-bold">문제의 '왜'를 추적, 본질을 명확히 규명하는 개발자입니다.</span><br />
+        복잡한 요구사항 속에서 진짜 문제를 재정의하고, 가장 단순하고 비용 효율적인 솔루션을 도출합니다.
+        <br />
+        책임감을 바탕으로 오너십을 실천하고, 독단보다는 소통을 통해 팀이 같은 방향을 바라보게 합니다.
+        <br />
+        목적을 위해 개인적인 리소스를 아낌없이 투자하며 팀과 사용자 모두에게 유의미한 결과를 만듭니다.
+      </p>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="section-title">contact</h2>
+      <div class="contact-grid">
+        <ul class="contact-list">
+          <li>
+            <i class="bi bi-envelope contact-icon"></i>
+            <a href="mailto:s24064@gsm.hs.kr">s24064@gsm.hs.kr</a>
+          </li>
+          <li>
+            <i class="bi bi-telephone contact-icon"></i>
+            010-7745-5407
+          </li>
+        </ul>
+        <ul class="contact-list">
+          <li>
+            <i class="bi bi-github contact-icon"></i>
+            <a href="https://github.com/976520" target="_blank" rel="noopener noreferrer"
+              >github.com/976520</a
+            >
+          </li>
+          <li>
+            <i class="bi bi-journal-text contact-icon"></i>
+            <a href="https://velog.io/@haensol" target="_blank" rel="noopener noreferrer"
+              >velog.io/@haensol</a
+            >
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="mb-10 print-page-1">
+      <h2 class="section-title">project</h2>
+
+      <div class="org-block">
+        <div class="org-header">
+          <h3 class="org-name">
+            JEE6
+            <ChipLink href="https://github.com/8G4B/JEE6.v1" icon="bi-github" label="App" />
+            <ChipLink href="https://github.com/8G4B/JEE6-LLM" icon="bi-github" label="LLM" />
+            <ChipLink href="https://github.com/8G4B/JEE6-API" icon="bi-github" label="Gateway" />
+            <ChipLink href="https://github.com/8G4B/JEE6-FILTER" icon="bi-github" label="Filter" />
+          </h3>
+        </div>
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name">개요</span>
+          </div>
+          <p class="desc">
+            급식 조회, 자습 신청 리마인드, 미니게임 등의 기능을 제공하는
+            <strong>교내 디스코드 편의성 봇</strong>
+          </p>
+          <ul class="bul-list">
+            <li>자체 Ubuntu server로 Docker Compose 기반 릴리즈</li>
+            <li><strong>40+개 디스코드 서버 도입, DAU 100+명</strong></li>
+          </ul>
+        </div>
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name">1. vLLM 기반 OpenAI-compatible LLM 서버 구축</span>
+          </div>
+          <ul class="bul-list">
+            <li>
+              Discord 봇의 자연어 명령 처리를 위해 <code>vllm/vllm-openai</code> 기반 LLM 서버를 Docker
+              Compose로 <strong>별도 컨테이너로 분리</strong>하고,
+              <code>ChatOpenAI</code> 클라이언트가 로컬 OpenAI-compatible endpoint를 바라보도록 구성
+              <Fn
+                note="MODEL_NAME, PORT, HF_HOME, HUGGING_FACE_HUB_TOKEN 등을 env로 분리하고 llm_data:/data 볼륨으로 모델 캐시를 영속화"
+              />
+            </li>
+            <li>NVIDIA GPU reservation 설정으로 GPU 서버 배포 대응</li>
+          </ul>
+        </div>
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name">2. Transformer 욕설 필터 모델 서빙 API 구현</span>
+          </div>
+          <ul class="bul-list">
+            <li>
+              Transformer 욕설 탐지 모델을 FastAPI inference service로 분리하고, application
+              lifespan(서버 시작 시점)에 tokenizer/model을 1회 로드한 뒤 <code>/predict</code>
+              요청에서 재사용하는 구조로 구성
+            </li>
+            <li>
+              fine-tuned 모델은 별도의 volume에 저장해 컨테이너 재시작 이후에도 유지<Fn
+                note="fine-tuned 모델이 있으면 /data/fine_tuned_model에서 로드, 없으면 base model 로드"
+              />
+            </li>
+          </ul>
+        </div>
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name"
+              >3. Discord 반응 기반 Human-in-the-loop 피드백 및 재학습 파이프라인</span
+            >
+          </div>
+          <p class="desc">
+            Discord reaction을 모델 피드백 인터페이스로 사용해 오탐/미탐 데이터를 수집하고, 누적
+            피드백을 기반으로 재학습을 트리거하는 human-in-the-loop 파이프라인을 구현
+          </p>
+          <ul class="bul-list">
+            <li>
+              봇이 욕설 의심 메시지에 reaction 추가 → 관리자가 reaction으로
+              <code>false positive</code> or <code>false negative</code> 피드백 제공 →
+              <code>/feedback</code> endpoint가 <code>feedback.json</code>에 학습 샘플 저장
+            </li>
+            <li>
+              쌓인 feedback을 바탕으로 <code>/train</code> endpoint가 FastAPI
+              <code>BackgroundTasks</code>로 재학습 실행 → <code>/status</code>로 fine-tuned 모델
+              적용 여부와 피드백 개수 확인
+            </li>
+            <li>피드백 데이터는 별도의 volume에 저장해 서비스 재배포에서 독립</li>
+          </ul>
+        </div>
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name">4. FastAPI Gateway + Redis Cache로 외부 API 호출 비용 제어</span
+            >
+          </div>
+          <p class="desc">
+            외부 API 호출 경로를 bot 내부에서 FastAPI Gateway로 분리하고 Redis TTL 캐싱 적용 → 반복
+            요청 응답 속도 및 rate limit 부담 개선
+          </p>
+          <ul class="bul-list">
+            <li>모든 외부 API 접근을 <code>jee6-api</code> Gateway로 통합</li>
+            <li>
+              bot은 <code>API_GATEWAY_URL</code>만 호출하고, Gateway가 NEIS / Seoul Open Data / Riot
+              / Spotify API 호출 담당
+            </li>
+            <li>
+              급식 조회는 주간 단위로 조회 후 Redis에 <code>meal:{'{week}'}</code> key로 6시간 캐싱 →
+              동일 주간 급식 외부 API 중복 호출 제거
+            </li>
+            <li>
+              Riot 계정, 티어, 전적, 로테이션 응답을 Redis TTL 캐싱 → 반복 조회 지연 및 Riot API
+              호출량 감소<Fn
+                note="한강 수온, Spotify playlist metadata도 TTL 캐싱 및 in-memory cache 병행 적용"
+              />
+            </li>
+            <li>
+              Docker Compose로 bot, API Gateway, Redis, MariaDB, vLLM, filter service를 분리
+              운영하고 GitHub Actions + SSH 배포 자동화
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="org-block">
+        <div class="org-header">
+          <h3 class="org-name">
+            GOGO
+            <ChipLink href="https://github.com/team-gogo/gogo-ai" icon="bi-github" label="AI" />
+            <ChipLink
+              href="https://www.notion.so/GOGO-V3-1b220f98a3f680e4888ad58b02139d42?pvs=21"
+              icon="bi-file-text"
+              label="Docs"
+            />
+          </h3>
+        </div>
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name">개요</span>
+          </div>
+          <p class="desc">
+            전국 중·고등학교 대상 스포츠 행사 플랫폼. 수기 신청서와 디스코드 의존도를 없애고, 팀
+            신청·동적 대진표·일정 관리를 통합. 승부 예측 기능을 제공하여 사용자 98%가 “기존
+            체육대회보다 더 즐거웠다” 라고 응답.
+            <strong
+              >본교 체육대회 DAU 300+명, GA 기준 누적 이벤트 17만+건, 본교 데브 페스티벌에서 우수상
+              수상</strong
+            >
+          </p>
+        </div>
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name">1. 욕설 필터 추론 모델 서버 latency 개선</span>
+          </div>
+          <ul class="bul-list">
+            <li>
+              매 Kafka 메시지마다 <code>predictor()</code> 함수 내부에서 HuggingFace로부터 ELECTRA 모델
+              및 토크나이저를 재다운로드 후 디바이스 적재하던 구조를 ModelService 싱글톤으로 1회 로드
+              후 클래스 변수에 캐싱하도록 수정 → 메시지당 모델 로드 비용 제거
+              <Fn
+                note="개선 전에는 Kafka 메시지 처리 시점마다 모델 및 토크나이저를 로드했고, 개선 후에는 FastAPI lifespan 시점에 사전 로드한 ModelService를 재사용"
+              />
+            </li>
+            <li>
+              FastAPI lifespan 시점에 사전 로드 + <code>asyncio.Lock</code>으로 동시 호출 시 중복
+              로드 차단 → 첫 메시지 cold-start 제거, 컨테이너 lifecycle당 HuggingFace Hub 호출 N →
+              1로 감소
+            </li>
+            <li>
+              async def로만 감싸여 있던 동기 torch 추론을 <code>asyncio.to_thread</code>로 분리 →
+              추론 중 이벤트 루프 블로킹 제거, Kafka consumer + 헬스체크 동시 응답성 회복
+            </li>
+          </ul>
+          <p class="desc metric-title">동일 샘플 N=20 마이크로벤치 결과</p>
+          <ol class="metric-list">
+            <li>p50 1054.6ms → 17.7ms (59.6× 개선)</li>
+            <li>p95 1258.2ms → 29.2ms (43.1× 개선)</li>
+            <li>throughput 0.93 → 53.98 req/s (58× 향상)</li>
+            <li>메시지당 약 1037ms 절감</li>
+          </ol>
+        </div>
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name">2.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="org-block">
+        <div class="org-header">
+          <h3 class="org-name">
+            GCinside
+            <ChipLink
+              href="https://github.com/gsm-club-inside/gcinside-app"
+              icon="bi-github"
+              label="App"
+            />
+            <ChipLink
+              href="https://github.com/gsm-club-inside/gcinside-inference"
+              icon="bi-github"
+              label="Inference"
+            />
+            <ChipLink
+              href="https://github.com/gsm-club-inside/gcinside-ml-pipeline"
+              icon="bi-github"
+              label="Pipeline"
+            />
+            <ChipLink
+              href="https://github.com/gsm-club-inside/gcinside-infra"
+              icon="bi-github"
+              label="Infra"
+            />
+            <ChipLink
+              href="https://github.com/gsm-club-inside/gcinside-abuse-worker"
+              icon="bi-github"
+              label="Worker"
+            />
+            <ChipLink
+              href="https://gcinside.zaewc.site:25128/"
+              icon="bi-box-arrow-up-right"
+              label="Live"
+            />
+          </h3>
+        </div>
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name">1. 모델을 단일 결정자가 아닌 6개 위험 채널 중 하나로 격리</span>
+          </div>
+          <p class="desc">
+            규칙, 행동 텔레메트리, 요청 속도, 평판, 콘텐츠 유사도, ML 점수를
+            <strong>6개 채널의 가중 평균</strong>으로 결합. ML 응답이 없으면 분모에서 제외해 점수
+            분포가 깨지지 않도록 처리했습니다.
+          </p>
+          <ul class="bul-list">
+            <li><code>mlScore=null</code>이어도 rule-only 결정이 계속 반환되는 구조 구현</li>
+            <li>
+              자동화 UA + 무텔레메트리, 초고속 제출 등 명확한 자동화 패턴은 score floor로 보정
+            </li>
+            <li>모델 오탐이 곧바로 hard block으로 이어지지 않도록 영향 범위를 제한</li>
+          </ul>
+        </div>
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name"
+              >2. Shadow / Canary / Enforce가 가능한 런타임 모델 운영 흐름</span
+            >
+          </div>
+          <p class="desc">
+            AI 모드를 <code>OFF</code> / <code>SHADOW</code> / <code>ENFORCE</code>로 분리하고, 후보
+            모델과 canary ratio를 런타임 설정으로 선택하도록 설계했습니다. SHADOW에서는 모델 점수만
+            기록하고 실제 결정에는 반영하지 않아, 운영 데이터 위에서 모델을 먼저 검증할 수 있습니다.
+          </p>
+          <ul class="bul-list">
+            <li><code>chooseModelForRequest()</code>로 active / candidate 모델 라우팅</li>
+            <li>SHADOW 점수는 audit metadata에 남기고, ENFORCE에서만 결정에 반영</li>
+            <li>모델 교체를 코드 배포가 아닌 운영 설정 변경 문제로 낮춤</li>
+          </ul>
+        </div>
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name"
+              >3. Feature → Train → Eval → Drift → Publish까지 이어지는 ML 파이프라인</span
+            >
+          </div>
+          <p class="desc">
+            <code>gcml</code> CLI로 학습·평가·드리프트 탐지·게시를 단일 진입점으로 묶었습니다. LightGBM을
+            우선 사용하되, 환경에 따라 XGBoost, sklearn HistGradientBoosting으로 fallback해 로컬/CI/운영
+            환경 차이를 흡수합니다.<Fn
+              note="Kaggle fraud / fake-social 데이터셋 어댑터로 콜드스타트 학습 데이터 확보"
+            />
+          </p>
+          <ul class="bul-list">
+            <li><code>TrainingFeature</code> Pydantic 스키마로 학습 데이터 컨트랙트 고정</li>
+            <li>
+              LightGBM <code>class_weight=&quot;balanced&quot;</code>와
+              <code>average_precision</code> 지표로 불균형 라벨 대응
+            </li>
+            <li>baseline/current feature mean 변화율 기반 drift report 제공</li>
+          </ul>
+        </div>
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name"
+              >4. 추론 서버 장애를 본 서비스 장애로 전파하지 않는 서빙 구조</span
+            >
+          </div>
+          <p class="desc">
+            FastAPI 추론 서버는 Mock / GBDT 모델을 동일한 <code>RiskModel</code> 인터페이스 뒤에 숨기고,
+            메인 앱은 250ms timeout + retry 후 실패 사유를 audit에 남긴 뒤 rule-only 경로로 계속 진행합니다.
+          </p>
+          <ul class="bul-list">
+            <li>초기 데이터 부족기에는 deterministic mock model로 운영 가능</li>
+            <li>
+              <code>MODEL_PATH</code> 기반 GBDT artifact 로딩과 운영형 API 구성<Fn
+                note="pickle artifact 로딩, Bearer token, healthcheck, reason code 포함"
+              />
+            </li>
+            <li>timeout / http error / invalid response를 명시적 failure reason으로 분류</li>
+          </ul>
+        </div>
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name">5. 결정 이후의 부작용을 비동기 워커와 인프라로 분리</span>
+          </div>
+          <p class="desc">
+            동기 요청 경로는 판단만 담당하고, 평판 조정·임시 차단·중복 콘텐츠 기록·의심 큐 집계는
+            worker로 분리했습니다. Docker Compose는 app, inference, worker, ml-pipeline, PostgreSQL,
+            Redis, NATS, MinIO, Caddy를 한 스택으로 묶고 내부 서비스는 private network와 localhost
+            binding으로 노출을 제한합니다.<Fn
+              note="app / ai-inference / postgres / redis healthcheck와 private network 구성"
+            />
+          </p>
+          <ul class="bul-list">
+            <li>결정 레벨별 reputation delta 테이블 정의</li>
+            <li>user / ip / device 스코프를 분리하고 IP·device는 0.5배 가중</li>
+            <li>TEMP_BLOCK TTL, suspicious queue flush 등 운영 부작용을 주기 job으로 분리</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <LeadershipSection />
+    <section class="mb-10">
+      <h2 class="section-title">skills</h2>
+      <div class="exp-block">
+        <h3 class="exp-title">Python / Backend</h3>
+        <ul class="plain-list">
+          <li>Python, FastAPI, Django, Flask, Pydantic</li>
+          <li>REST API, asyncio, BackgroundTasks, lifespan</li>
+        </ul>
+      </div>
+
+      <div class="exp-block">
+        <h3 class="exp-title">MLOps / Pipeline</h3>
+        <ul class="plain-list">
+          <li>Transformers, HuggingFace, vLLM</li>
+          <li>PyTorch inference, GBDT artifact serving</li>
+          <li>LightGBM, XGBoost, scikit-learn, training/evaluation/drift reporting</li>
+        </ul>
+      </div>
+
+      <div class="exp-block">
+        <h3 class="exp-title">Infra / Data</h3>
+        <ul class="plain-list">
+          <li>Docker Compose, GitHub Actions, SSH deploy, healthcheck, private network</li>
+          <li>Redis, MariaDB, PostgreSQL, Kafka, NATS, MinIO</li>
+        </ul>
+      </div>
+    </section>
+    <EducationSection />
+
+    <PortfolioCTA />
+  </main>
+
+  <FixedCTA />
+  <FootnoteTooltip />
+</PortfolioLayout>
+
+<style>
+  main {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 5rem;
+  }
+
+  .name {
+    font-size: 1.875rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 0.625rem;
+    line-height: 1.2;
+  }
+
+  .name-sub {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  .bio {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  .bio-bold {
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.25rem 1.5rem;
+  }
+
+  .contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .contact-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .contact-list a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .contact-list a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .contact-icon {
+    font-size: 0.8rem;
+    color: var(--text-faint);
+    flex-shrink: 0;
+  }
+
+  .org-block {
+    margin-bottom: 2rem;
+  }
+
+  .org-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.875rem;
+  }
+
+  .org-name {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .proj-block {
+    margin-bottom: 1.25rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--border);
+  }
+
+  .proj-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .proj-name {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .exp-block {
+    margin-bottom: 1.25rem;
+  }
+
+  .exp-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.375rem;
+  }
+
+  .bul-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .bul-list > li {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .bul-list > li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--text-faint);
+  }
+
+  .bul-list strong,
+  .plain-list strong {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .metric-title {
+    margin-top: 0.625rem;
+    margin-bottom: 0.25rem;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .metric-list {
+    margin: 0;
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  code {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.78em;
+    color: var(--text);
+    background: var(--accent-light);
+    border-radius: 4px;
+    padding: 0.08rem 0.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .name {
+      font-size: 2.25rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    main {
+      max-width: 760px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,235 @@
+---
+import ChipLink from '../ChipLink.astro';
+import Fn from '../Fn.astro';
+---
+
+<section class="mb-10 print-page-1">
+  <h2 class="section-title">career</h2>
+
+  <div class="org-block">
+    <div class="org-header">
+      <h3 class="org-name">MLOps / Python Projects</h3>
+    </div>
+    <p class="org-role">Python Backend & MLOps</p>
+
+    <div class="proj-block">
+      <div class="proj-header">
+        <span class="proj-name">
+          JEE6
+          <ChipLink href="https://github.com/8G4B/JEE6-INFRA" icon="bi-github" label="Infra" />
+        </span>
+      </div>
+      <p class="desc">
+        급식 조회, 자습 신청 리마인드, 미니게임 등의 기능을 제공하는 교내 디스코드 편의성 봇. 자체
+        Ubuntu server에서 Docker Compose 기반으로 릴리즈했으며,
+        <strong>40+개 디스코드 서버 도입, DAU 100+명</strong>을 기록.
+      </p>
+      <ul class="bul-list">
+        <li>
+          Discord 봇의 자연어 명령 처리를 위해 <code>vllm/vllm-openai</code> 기반 LLM 서버를 별도 컨테이너로
+          분리하고, <code>ChatOpenAI</code>가 로컬 OpenAI-compatible endpoint를 바라보도록 구성
+        </li>
+        <li>
+          <code>MODEL_NAME</code>, <code>HF_HOME</code>, <code>HUGGING_FACE_HUB_TOKEN</code> 등을 env로
+          분리하고 <code>llm_data:/data</code> 볼륨으로 모델 캐시를 영속화하여 재다운로드 비용 절감
+        </li>
+        <li>
+          Transformer 욕설 탐지 모델을 FastAPI inference service로 분리하고, application lifespan
+          시점에 tokenizer/model을 1회 로드한 뒤 <code>/predict</code> 요청에서 재사용
+        </li>
+        <li>
+          Discord reaction을 Human-in-the-loop 피드백 인터페이스로 사용해 오탐/미탐 데이터를
+          수집하고,
+          <code>/train</code> endpoint가 FastAPI <code>BackgroundTasks</code>로 재학습 실행
+        </li>
+        <li>
+          외부 API 호출 경로를 FastAPI Gateway로 통합하고 Redis TTL 캐싱 적용
+          <ul class="sub-bul-list">
+            <li>
+              bot은 <code>API_GATEWAY_URL</code>만 호출하고 Gateway가 NEIS / Seoul Open Data / Riot
+              / Spotify API 호출 담당
+            </li>
+            <li>
+              급식 조회는 주간 단위로 조회 후 Redis에 <code>meal:{'{week}'}</code> key로 6시간 캐싱해
+              동일 주간 외부 API 중복 호출 제거
+            </li>
+            <li>
+              bot, API Gateway, Redis, MariaDB, vLLM, filter service를 Docker Compose로 분리
+              운영하고 GitHub Actions + SSH 배포 자동화
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="proj-block">
+      <div class="proj-header">
+        <span class="proj-name">
+          GOGO AI
+          <ChipLink href="https://github.com/team-gogo/gogo-ai" icon="bi-github" label="GitHub" />
+          <ChipLink
+            href="https://www.notion.so/GOGO-V3-1b220f98a3f680e4888ad58b02139d42?pvs=21"
+            icon="bi-file-text"
+            label="Docs"
+          />
+        </span>
+      </div>
+      <p class="desc">
+        전국 중·고등학교 대상 스포츠 행사 플랫폼의 AI 서버. 팀 신청·동적 대진표·일정 관리·승부 예측
+        기능을 통합했으며,
+        <strong>본교 체육대회 DAU 300+명, GA 기준 누적 이벤트 17만+건</strong>을 기록.
+      </p>
+      <ul class="bul-list">
+        <li>
+          Kafka 메시지마다 <code>predictor()</code> 내부에서 ELECTRA 모델과 토크나이저를 재다운로드하던
+          구조를 <code>ModelService</code> 싱글톤으로 변경해 메시지당 모델 로드 비용 제거
+        </li>
+        <li>
+          FastAPI lifespan 시점에 모델을 사전 로드하고 <code>asyncio.Lock</code>으로 동시 호출 시
+          중복 로드 차단 → 컨테이너 lifecycle당 HuggingFace Hub 호출 N회에서 1회로 감소
+        </li>
+        <li>
+          동기 torch 추론을 <code>asyncio.to_thread</code>로 분리해 추론 중 이벤트 루프 블로킹 제거,
+          Kafka consumer와 healthcheck 동시 응답성 회복
+        </li>
+        <li>
+          동일 샘플 N=20 마이크로벤치 기준 <strong>p50 1054.6ms → 17.7ms</strong>,
+          <strong>p95 1258.2ms → 29.2ms</strong>, <strong>throughput 58x 향상</strong><Fn
+            note="0.93 → 53.98 req/s, 메시지당 약 1037ms 절감"
+          />
+        </li>
+      </ul>
+    </div>
+
+    <div class="proj-block">
+      <div class="proj-header">
+        <span class="proj-name">
+          GCinside
+          <ChipLink href="https://github.com/gsm-club-inside" icon="bi-github" label="GitHub" />
+          <ChipLink
+            href="https://gcinside.zaewc.site:25128/"
+            icon="bi-box-arrow-up-right"
+            label="Live"
+          />
+        </span>
+      </div>
+      <p class="desc">
+        커뮤니티 서비스의 악성 활동 탐지와 운영 대응을 위해 규칙 기반 판단, 행동 텔레메트리, ML
+        추론, 비동기 운영 부작용 처리를 분리한 위험도 평가 시스템 설계.
+      </p>
+      <ul class="bul-list">
+        <li>
+          규칙, 행동 텔레메트리, 요청 속도, 평판, 콘텐츠 유사도, ML 점수를 6개 채널의 가중 평균으로
+          결합하고, <code>mlScore=null</code>이어도 rule-only 결정이 계속 반환되도록 구성
+        </li>
+        <li>
+          AI 모드를 <code>OFF</code> / <code>SHADOW</code> / <code>ENFORCE</code>로 분리하고
+          active/candidate 모델 및 canary ratio를 런타임 설정으로 선택
+        </li>
+        <li>
+          <code>gcml</code> CLI로 Feature → Train → Eval → Drift → Publish 흐름을 단일 진입점으로 통합
+          <ul class="sub-bul-list">
+            <li><code>TrainingFeature</code> Pydantic 스키마로 학습 데이터 컨트랙트 고정</li>
+            <li>
+              LightGBM을 우선 사용하되 XGBoost, sklearn HistGradientBoosting fallback으로
+              로컬/CI/운영 환경 차이 흡수
+            </li>
+            <li>baseline/current feature mean 변화율 기반 drift report 제공</li>
+          </ul>
+        </li>
+        <li>
+          FastAPI 추론 서버 장애 시 250ms timeout + retry 후 실패 사유를 audit에 남기고 rule-only
+          경로로 계속 진행해 추론 서버 장애가 본 서비스 장애로 전파되지 않도록 설계
+        </li>
+        <li>
+          평판 조정, 임시 차단, 중복 콘텐츠 기록, 의심 큐 집계는 worker로 분리하고 PostgreSQL,
+          Redis, NATS, MinIO, Caddy를 Docker Compose 한 스택으로 구성
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .org-block {
+    margin-bottom: 2rem;
+  }
+
+  .org-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.125rem;
+  }
+
+  .org-name {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .org-role {
+    font-size: 0.8125rem;
+    color: var(--text-faint);
+    margin-bottom: 0.875rem;
+  }
+
+  .proj-block {
+    margin-bottom: 1.5rem;
+  }
+
+  .proj-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.375rem;
+  }
+
+  .proj-name {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .sub-bul-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .sub-bul-list > li {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .sub-bul-list > li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--text-faint);
+  }
+
+  .sub-bul-list strong {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  code {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.78em;
+    color: var(--text);
+    background: var(--accent-light);
+    border-radius: 4px;
+    padding: 0.08rem 0.25rem;
+  }
+</style>
