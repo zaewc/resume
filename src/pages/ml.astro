@@ -80,6 +80,328 @@ const projectImages = {
 
     <section class="mb-10 print-page-1">
       <h2 class="section-title">project</h2>
+      <div class="org-block">
+        <div class="org-header">
+          <h3 class="org-name">
+            GOGO
+            <ChipLink href="https://github.com/team-gogo/gogo-ai" icon="bi-github" label="AI" />
+            <ChipLink
+              href="https://www.notion.so/GOGO-V3-1b220f98a3f680e4888ad58b02139d42?pvs=21"
+              icon="bi-file-text"
+              label="Docs"
+            />
+          </h3>
+        </div>
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name">개요</span>
+          </div>
+          <p class="desc">
+            전국 중·고등학교 대상 스포츠 행사 플랫폼. 수기 신청서와 디스코드 의존도를 없애고, 팀
+            신청·동적 대진표·일정 관리를 통합. 승부 예측 기능을 제공하여 사용자 98%가 “기존
+            체육대회보다 더 즐거웠다” 라고 응답.
+            <strong
+              >본교 체육대회 DAU 300+명, GA 기준 누적 이벤트 17만+건, 본교 데브 페스티벌에서 우수상
+              수상</strong
+            >
+          </p>
+        </div>
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name">1. 욕설 필터 추론 모델 서버 latency 개선</span>
+          </div>
+          <ul class="bul-list">
+            <li>
+              매 Kafka 메시지마다 <code>predictor()</code> 함수 내부에서 HuggingFace로부터 ELECTRA 모델
+              및 토크나이저를 재다운로드 후 디바이스 적재하던 구조를 ModelService 싱글톤으로 1회 로드
+              후 클래스 변수에 캐싱하도록 수정 → 메시지당 모델 로드 비용 제거
+            </li>
+            <li>개선 전: Kafka 메시지 처리 시점마다 모델 및 토크나이저 로드</li>
+            <div class="figure-pair">
+              {
+                projectImages.gogoBefore.exists && (
+                  <figure class="project-figure">
+                    <a
+                      href={projectImages.gogoBefore.src}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        src={projectImages.gogoBefore.src}
+                        alt="GOGO 욕설 필터 추론 서버 개선 전 흐름"
+                        loading="lazy"
+                      />
+                    </a>
+                  </figure>
+                )
+              }
+            </div>
+            <li>개선 후: FastAPI lifespan 시점에 사전 로드한 ModelService 재사용</li>
+            <div class="figure-pair">
+              {
+                projectImages.gogoAfter.exists && (
+                  <figure class="project-figure">
+                    <a href={projectImages.gogoAfter.src} target="_blank" rel="noopener noreferrer">
+                      <img
+                        src={projectImages.gogoAfter.src}
+                        alt="GOGO 욕설 필터 추론 서버 개선 후 흐름"
+                        loading="lazy"
+                      />
+                    </a>
+                  </figure>
+                )
+              }
+            </div>
+            <li>
+              FastAPI lifespan 시점에 사전 로드 + <code>asyncio.Lock</code>으로 동시 호출 시 중복
+              로드 차단 → 첫 메시지 cold-start 제거, 컨테이너 lifecycle당 HuggingFace Hub 호출 N →
+              1로 감소
+            </li>
+            <li>
+              async def로만 감싸여 있던 동기 torch 추론을 <code>asyncio.to_thread</code>로 분리 →
+              추론 중 이벤트 루프 블로킹 제거, Kafka consumer + 헬스체크 동시 응답성 회복
+            </li>
+            <li>
+              동일 샘플 N=20 마이크로벤치 결과
+              <ul class="sub-bul-list">
+                <li>p50 1054.6ms → 17.7ms (98.3% 감소)</li>
+                <li>p95 1258.2ms → 29.2ms (97.7% 감소)</li>
+                <li>throughput 0.93 → 53.98 req/s (58배 향상)</li>
+                <li>메시지당 약 1037ms 절감</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name">2. 욕설 필터 모델의 학습-서빙 재현성 및 운영 관측성 개선</span>
+          </div>
+          <p class="desc">
+            학습 결과와 운영 추론 환경에서 분리되어 관리되던 문제를 해결하기 위해, MLflow 기반 실험
+            추적부터 HuggingFace revision pinning, 이미지 bake-in, Prometheus metrics까지 이어지는
+            모델 운영 흐름을 구축했습니다.
+          </p>
+          <ul class="bul-list">
+            <li>
+              MLflow Tracking을 도입해 학습 run별 hyperparameter, train/eval metric, base model
+              metadata, model artifact를 기록<Fn
+                note="동일한 MLflow tracking 패턴을 AI_relay YOLO 학습 및 hyperparameter tuning에도 적용해 실험별 metric/parameter 비교 기반을 확장했습니다."
+              />
+            </li>
+            <li>
+              <code>train_loss</code>, <code>eval_loss</code>, <code>eval_accuracy</code>, <code
+                >eval_f1</code
+              >을 epoch 단위로 추적하고,
+              <code>final_eval_loss</code>와 <code>final_eval_f1</code>을 기준으로 run 간 성능 비교
+              → 선택된 모델 artifact를 MLflow artifact store에 경로에 저장하고, run ID와 모델
+              provenance를 운영 models.yaml에 연결하도록 설계
+
+              <div class="figure-pair mlflow-pair">
+                {
+                  projectImages.gogoMlflowBefore.exists && (
+                    <figure class="project-figure wide">
+                      <a
+                        href={projectImages.gogoMlflowBefore.src}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img
+                          src={projectImages.gogoMlflowBefore.src}
+                          alt="MLflow Tracking 개선 전 실험 기록 화면"
+                          loading="lazy"
+                        />
+                      </a>
+                    </figure>
+                  )
+                }
+                <span class="figure-arrow" aria-hidden="true">
+                  <i class="bi bi-arrow-right"></i>
+                </span>
+                {
+                  projectImages.gogoMlflowAfter.exists && (
+                    <figure class="project-figure wide">
+                      <a
+                        href={projectImages.gogoMlflowAfter.src}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img
+                          src={projectImages.gogoMlflowAfter.src}
+                          alt="MLflow Tracking 개선 후 실험 비교 화면"
+                          loading="lazy"
+                        />
+                      </a>
+                    </figure>
+                  )
+                }
+              </div>
+            </li>
+            <li>
+              HuggingFace model/tokenizer revision을 <code>models.yaml</code> 단일 출처로 고정하고 Docker
+              build 시 사전 다운로드 → 런타임 HF Hub 장애, rate limit, cold-start 의존 제거
+            </li>
+            <li>
+              health check 엔드포인트에서 현재 로드된 model/tokenizer revision과
+              <code>loaded_at</code>을 노출하고, Prometheus <code>/metrics</code>로 inference
+              latency, prediction label, model load duration, Kafka 처리 상태를 관측
+            </li>
+            <li>
+              학습 데이터셋 SHA256, file count, size bytes 계산 스크립트를 추가해 model artifact뿐
+              아니라 학습 데이터 provenance까지 추적 가능하게 구성
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="org-block">
+        <div class="org-header">
+          <h3 class="org-name">
+            GCinside
+            <ChipLink
+              href="https://github.com/gsm-club-inside/gcinside-app"
+              icon="bi-github"
+              label="App"
+            />
+            <ChipLink
+              href="https://github.com/gsm-club-inside/gcinside-inference"
+              icon="bi-github"
+              label="Inference"
+            />
+            <ChipLink
+              href="https://github.com/gsm-club-inside/gcinside-ml-pipeline"
+              icon="bi-github"
+              label="Pipeline"
+            />
+            <ChipLink
+              href="https://github.com/gsm-club-inside/gcinside-infra"
+              icon="bi-github"
+              label="Infra"
+            />
+            <ChipLink
+              href="https://github.com/gsm-club-inside/gcinside-abuse-worker"
+              icon="bi-github"
+              label="Worker"
+            />
+            <ChipLink
+              href="https://gcinside.zaewc.site:25128/"
+              icon="bi-box-arrow-up-right"
+              label="Live"
+            />
+          </h3>
+        </div>
+        {
+          projectImages.gcinsideArch.exists && (
+            <figure class="project-figure wide org-figure">
+              <a href={projectImages.gcinsideArch.src} target="_blank" rel="noopener noreferrer">
+                <img
+                  src={projectImages.gcinsideArch.src}
+                  alt="GCinside 서비스와 MLOps 인프라 아키텍처"
+                  loading="lazy"
+                />
+              </a>
+            </figure>
+          )
+        }
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name">1. 모델을 단일 결정자가 아닌 6개 위험 채널 중 하나로 격리</span>
+          </div>
+          <p class="desc">
+            규칙, 행동 텔레메트리, 요청 속도, 평판, 콘텐츠 유사도, ML 점수를
+            <strong>6개 채널의 가중 평균</strong>으로 결합. ML 응답이 없으면 분모에서 제외해 점수
+            분포가 깨지지 않도록 처리했습니다.
+          </p>
+          <ul class="bul-list">
+            <li><code>mlScore=null</code>이어도 rule-only 결정이 계속 반환되는 구조 구현</li>
+            <li>
+              자동화 UA + 무텔레메트리, 초고속 제출 등 명확한 자동화 패턴은 score floor로 보정
+            </li>
+            <li>모델 오탐이 곧바로 hard block으로 이어지지 않도록 영향 범위를 제한</li>
+          </ul>
+        </div>
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name"
+              >2. Shadow / Canary / Enforce가 가능한 런타임 모델 운영 흐름</span
+            >
+          </div>
+          <p class="desc">
+            AI 모드를 <code>OFF</code> / <code>SHADOW</code> / <code>ENFORCE</code>로 분리하고, 후보
+            모델과 canary ratio를 런타임 설정으로 선택하도록 설계했습니다. SHADOW에서는 모델 점수만
+            기록하고 실제 결정에는 반영하지 않아, 운영 데이터 위에서 모델을 먼저 검증할 수 있습니다.
+          </p>
+          <ul class="bul-list">
+            <li><code>chooseModelForRequest()</code>로 active / candidate 모델 라우팅</li>
+            <li>SHADOW 점수는 audit metadata에 남기고, ENFORCE에서만 결정에 반영</li>
+            <li>모델 교체를 코드 배포가 아닌 운영 설정 변경 문제로 낮춤</li>
+          </ul>
+        </div>
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name"
+              >3. Feature → Train → Eval → Drift → Publish까지 이어지는 ML 파이프라인</span
+            >
+          </div>
+          <p class="desc">
+            <code>gcml</code> CLI로 학습·평가·드리프트 탐지·게시를 단일 진입점으로 묶었습니다. LightGBM을
+            우선 사용하되, 환경에 따라 XGBoost, sklearn HistGradientBoosting으로 fallback해 로컬/CI/운영
+            환경 차이를 흡수합니다.
+          </p>
+          <ul class="bul-list">
+            <li><code>TrainingFeature</code> Pydantic 스키마로 학습 데이터 컨트랙트 고정</li>
+            <li>
+              LightGBM <code>class_weight=&quot;balanced&quot;</code>와
+              <code>average_precision</code> 지표로 불균형 라벨 대응
+            </li>
+            <li>Kaggle fraud / fake-social 데이터셋 어댑터로 콜드스타트 학습 데이터 확보</li>
+            <li>baseline/current feature mean 변화율 기반 drift report 제공</li>
+          </ul>
+        </div>
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name"
+              >4. 추론 서버 장애를 본 서비스 장애로 전파하지 않는 서빙 구조</span
+            >
+          </div>
+          <p class="desc">
+            FastAPI 추론 서버는 Mock / GBDT 모델을 동일한 <code>RiskModel</code> 인터페이스 뒤에 숨기고,
+            메인 앱은 250ms timeout + retry 후 실패 사유를 audit에 남긴 뒤 rule-only 경로로 계속 진행합니다.
+          </p>
+          <ul class="bul-list">
+            <li>초기 데이터 부족기에는 deterministic mock model로 운영 가능</li>
+            <li>
+              <code>MODEL_PATH</code>만 있으면 pickle 기반 GBDT artifact 로딩
+            </li>
+            <li>Bearer token, healthcheck, reason code를 포함한 운영형 API 구성</li>
+            <li>timeout / http error / invalid response를 명시적 failure reason으로 분류</li>
+          </ul>
+        </div>
+
+        <div class="proj-block">
+          <div class="proj-header">
+            <span class="proj-name">5. 결정 이후의 부작용을 비동기 워커와 인프라로 분리</span>
+          </div>
+          <p class="desc">
+            동기 요청 경로는 판단만 담당하고, 평판 조정·임시 차단·중복 콘텐츠 기록·의심 큐 집계는
+            worker로 분리했습니다. Docker Compose는 app, inference, worker, ml-pipeline, PostgreSQL,
+            Redis, NATS, MinIO, Caddy를 한 스택으로 묶고 내부 서비스는 private network와 localhost
+            binding으로 노출을 제한합니다.
+          </p>
+          <ul class="bul-list">
+            <li>결정 레벨별 reputation delta 테이블 정의</li>
+            <li>user / ip / device 스코프를 분리하고 IP·device는 0.5배 가중</li>
+            <li>TEMP_BLOCK TTL, suspicious queue flush 등 운영 부작용을 주기 job으로 분리</li>
+            <li>app / ai-inference / postgres / redis healthcheck와 private network 구성</li>
+          </ul>
+        </div>
+      </div>
 
       <div class="org-block">
         <div class="org-header">
@@ -249,328 +571,6 @@ const projectImages = {
               </figure>
             )
           }
-        </div>
-      </div>
-
-      <div class="org-block">
-        <div class="org-header">
-          <h3 class="org-name">
-            GOGO
-            <ChipLink href="https://github.com/team-gogo/gogo-ai" icon="bi-github" label="AI" />
-            <ChipLink
-              href="https://www.notion.so/GOGO-V3-1b220f98a3f680e4888ad58b02139d42?pvs=21"
-              icon="bi-file-text"
-              label="Docs"
-            />
-          </h3>
-        </div>
-
-        <div class="proj-block">
-          <div class="proj-header">
-            <span class="proj-name">개요</span>
-          </div>
-          <p class="desc">
-            전국 중·고등학교 대상 스포츠 행사 플랫폼. 수기 신청서와 디스코드 의존도를 없애고, 팀
-            신청·동적 대진표·일정 관리를 통합. 승부 예측 기능을 제공하여 사용자 98%가 “기존
-            체육대회보다 더 즐거웠다” 라고 응답.
-            <strong
-              >본교 체육대회 DAU 300+명, GA 기준 누적 이벤트 17만+건, 본교 데브 페스티벌에서 우수상
-              수상</strong
-            >
-          </p>
-        </div>
-
-        <div class="proj-block">
-          <div class="proj-header">
-            <span class="proj-name">1. 욕설 필터 추론 모델 서버 latency 개선</span>
-          </div>
-          <ul class="bul-list">
-            <li>
-              매 Kafka 메시지마다 <code>predictor()</code> 함수 내부에서 HuggingFace로부터 ELECTRA 모델
-              및 토크나이저를 재다운로드 후 디바이스 적재하던 구조를 ModelService 싱글톤으로 1회 로드
-              후 클래스 변수에 캐싱하도록 수정 → 메시지당 모델 로드 비용 제거
-            </li>
-            <li>개선 전: Kafka 메시지 처리 시점마다 모델 및 토크나이저 로드</li>
-            <div class="figure-pair">
-              {
-                projectImages.gogoBefore.exists && (
-                  <figure class="project-figure">
-                    <a
-                      href={projectImages.gogoBefore.src}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img
-                        src={projectImages.gogoBefore.src}
-                        alt="GOGO 욕설 필터 추론 서버 개선 전 흐름"
-                        loading="lazy"
-                      />
-                    </a>
-                  </figure>
-                )
-              }
-            </div>
-            <li>개선 후: FastAPI lifespan 시점에 사전 로드한 ModelService 재사용</li>
-            <div class="figure-pair">
-              {
-                projectImages.gogoAfter.exists && (
-                  <figure class="project-figure">
-                    <a href={projectImages.gogoAfter.src} target="_blank" rel="noopener noreferrer">
-                      <img
-                        src={projectImages.gogoAfter.src}
-                        alt="GOGO 욕설 필터 추론 서버 개선 후 흐름"
-                        loading="lazy"
-                      />
-                    </a>
-                  </figure>
-                )
-              }
-            </div>
-            <li>
-              FastAPI lifespan 시점에 사전 로드 + <code>asyncio.Lock</code>으로 동시 호출 시 중복
-              로드 차단 → 첫 메시지 cold-start 제거, 컨테이너 lifecycle당 HuggingFace Hub 호출 N →
-              1로 감소
-            </li>
-            <li>
-              async def로만 감싸여 있던 동기 torch 추론을 <code>asyncio.to_thread</code>로 분리 →
-              추론 중 이벤트 루프 블로킹 제거, Kafka consumer + 헬스체크 동시 응답성 회복
-            </li>
-            <li>
-              동일 샘플 N=20 마이크로벤치 결과
-              <ul class="sub-bul-list">
-                <li>p50 1054.6ms → 17.7ms (98.3% 감소)</li>
-                <li>p95 1258.2ms → 29.2ms (97.7% 감소)</li>
-                <li>throughput 0.93 → 53.98 req/s (58배 향상)</li>
-                <li>메시지당 약 1037ms 절감</li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-
-        <div class="proj-block">
-          <div class="proj-header">
-            <span class="proj-name">2. 욕설 필터 모델의 학습-서빙 재현성 및 운영 관측성 개선</span>
-          </div>
-          <p class="desc">
-            학습 결과와 운영 추론 환경에서 분리되어 관리되던 문제를 해결하기 위해, MLflow 기반 실험
-            추적부터 HuggingFace revision pinning, 이미지 bake-in, Prometheus metrics까지 이어지는
-            모델 운영 흐름을 구축했습니다.
-          </p>
-          <ul class="bul-list">
-            <li>
-              MLflow Tracking을 도입해 학습 run별 hyperparameter, train/eval metric, base model
-              metadata, model artifact를 기록<Fn
-                note="동일한 MLflow tracking 패턴을 AI_relay YOLO 학습 및 hyperparameter tuning에도 적용해 실험별 metric/parameter 비교 기반을 확장했습니다."
-              />
-              <div class="figure-pair mlflow-pair">
-                {
-                  projectImages.gogoMlflowBefore.exists && (
-                    <figure class="project-figure wide">
-                      <a
-                        href={projectImages.gogoMlflowBefore.src}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <img
-                          src={projectImages.gogoMlflowBefore.src}
-                          alt="MLflow Tracking 개선 전 실험 기록 화면"
-                          loading="lazy"
-                        />
-                      </a>
-                    </figure>
-                  )
-                }
-                <span class="figure-arrow" aria-hidden="true">
-                  <i class="bi bi-arrow-right"></i>
-                </span>
-                {
-                  projectImages.gogoMlflowAfter.exists && (
-                    <figure class="project-figure wide">
-                      <a
-                        href={projectImages.gogoMlflowAfter.src}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <img
-                          src={projectImages.gogoMlflowAfter.src}
-                          alt="MLflow Tracking 개선 후 실험 비교 화면"
-                          loading="lazy"
-                        />
-                      </a>
-                    </figure>
-                  )
-                }
-              </div>
-            </li>
-            <li>
-              <code>train_loss</code>, <code>eval_loss</code>, <code>eval_accuracy</code>, <code
-                >eval_f1</code
-              >을 epoch 단위로 추적하고,
-              <code>final_eval_loss</code>와 <code>final_eval_f1</code>을 기준으로 run 간 성능 비교
-              → 선택된 모델 artifact를 MLflow artifact store에 경로에 저장하고, run ID와 모델
-              provenance를 운영 models.yaml에 연결하도록 설계
-            </li>
-            <li>
-              HuggingFace model/tokenizer revision을 <code>models.yaml</code> 단일 출처로 고정하고 Docker
-              build 시 사전 다운로드 → 런타임 HF Hub 장애, rate limit, cold-start 의존 제거
-            </li>
-            <li>
-              health check 엔드포인트에서 현재 로드된 model/tokenizer revision과
-              <code>loaded_at</code>을 노출하고, Prometheus <code>/metrics</code>로 inference
-              latency, prediction label, model load duration, Kafka 처리 상태를 관측
-            </li>
-            <li>
-              학습 데이터셋 SHA256, file count, size bytes 계산 스크립트를 추가해 model artifact뿐
-              아니라 학습 데이터 provenance까지 추적 가능하게 구성
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="org-block">
-        <div class="org-header">
-          <h3 class="org-name">
-            GCinside
-            <ChipLink
-              href="https://github.com/gsm-club-inside/gcinside-app"
-              icon="bi-github"
-              label="App"
-            />
-            <ChipLink
-              href="https://github.com/gsm-club-inside/gcinside-inference"
-              icon="bi-github"
-              label="Inference"
-            />
-            <ChipLink
-              href="https://github.com/gsm-club-inside/gcinside-ml-pipeline"
-              icon="bi-github"
-              label="Pipeline"
-            />
-            <ChipLink
-              href="https://github.com/gsm-club-inside/gcinside-infra"
-              icon="bi-github"
-              label="Infra"
-            />
-            <ChipLink
-              href="https://github.com/gsm-club-inside/gcinside-abuse-worker"
-              icon="bi-github"
-              label="Worker"
-            />
-            <ChipLink
-              href="https://gcinside.zaewc.site:25128/"
-              icon="bi-box-arrow-up-right"
-              label="Live"
-            />
-          </h3>
-        </div>
-        {
-          projectImages.gcinsideArch.exists && (
-            <figure class="project-figure wide org-figure">
-              <a href={projectImages.gcinsideArch.src} target="_blank" rel="noopener noreferrer">
-                <img
-                  src={projectImages.gcinsideArch.src}
-                  alt="GCinside 서비스와 MLOps 인프라 아키텍처"
-                  loading="lazy"
-                />
-              </a>
-            </figure>
-          )
-        }
-
-        <div class="proj-block">
-          <div class="proj-header">
-            <span class="proj-name">1. 모델을 단일 결정자가 아닌 6개 위험 채널 중 하나로 격리</span>
-          </div>
-          <p class="desc">
-            규칙, 행동 텔레메트리, 요청 속도, 평판, 콘텐츠 유사도, ML 점수를
-            <strong>6개 채널의 가중 평균</strong>으로 결합. ML 응답이 없으면 분모에서 제외해 점수
-            분포가 깨지지 않도록 처리했습니다.
-          </p>
-          <ul class="bul-list">
-            <li><code>mlScore=null</code>이어도 rule-only 결정이 계속 반환되는 구조 구현</li>
-            <li>
-              자동화 UA + 무텔레메트리, 초고속 제출 등 명확한 자동화 패턴은 score floor로 보정
-            </li>
-            <li>모델 오탐이 곧바로 hard block으로 이어지지 않도록 영향 범위를 제한</li>
-          </ul>
-        </div>
-
-        <div class="proj-block">
-          <div class="proj-header">
-            <span class="proj-name"
-              >2. Shadow / Canary / Enforce가 가능한 런타임 모델 운영 흐름</span
-            >
-          </div>
-          <p class="desc">
-            AI 모드를 <code>OFF</code> / <code>SHADOW</code> / <code>ENFORCE</code>로 분리하고, 후보
-            모델과 canary ratio를 런타임 설정으로 선택하도록 설계했습니다. SHADOW에서는 모델 점수만
-            기록하고 실제 결정에는 반영하지 않아, 운영 데이터 위에서 모델을 먼저 검증할 수 있습니다.
-          </p>
-          <ul class="bul-list">
-            <li><code>chooseModelForRequest()</code>로 active / candidate 모델 라우팅</li>
-            <li>SHADOW 점수는 audit metadata에 남기고, ENFORCE에서만 결정에 반영</li>
-            <li>모델 교체를 코드 배포가 아닌 운영 설정 변경 문제로 낮춤</li>
-          </ul>
-        </div>
-
-        <div class="proj-block">
-          <div class="proj-header">
-            <span class="proj-name"
-              >3. Feature → Train → Eval → Drift → Publish까지 이어지는 ML 파이프라인</span
-            >
-          </div>
-          <p class="desc">
-            <code>gcml</code> CLI로 학습·평가·드리프트 탐지·게시를 단일 진입점으로 묶었습니다. LightGBM을
-            우선 사용하되, 환경에 따라 XGBoost, sklearn HistGradientBoosting으로 fallback해 로컬/CI/운영
-            환경 차이를 흡수합니다.
-          </p>
-          <ul class="bul-list">
-            <li><code>TrainingFeature</code> Pydantic 스키마로 학습 데이터 컨트랙트 고정</li>
-            <li>
-              LightGBM <code>class_weight=&quot;balanced&quot;</code>와
-              <code>average_precision</code> 지표로 불균형 라벨 대응
-            </li>
-            <li>Kaggle fraud / fake-social 데이터셋 어댑터로 콜드스타트 학습 데이터 확보</li>
-            <li>baseline/current feature mean 변화율 기반 drift report 제공</li>
-          </ul>
-        </div>
-
-        <div class="proj-block">
-          <div class="proj-header">
-            <span class="proj-name"
-              >4. 추론 서버 장애를 본 서비스 장애로 전파하지 않는 서빙 구조</span
-            >
-          </div>
-          <p class="desc">
-            FastAPI 추론 서버는 Mock / GBDT 모델을 동일한 <code>RiskModel</code> 인터페이스 뒤에 숨기고,
-            메인 앱은 250ms timeout + retry 후 실패 사유를 audit에 남긴 뒤 rule-only 경로로 계속 진행합니다.
-          </p>
-          <ul class="bul-list">
-            <li>초기 데이터 부족기에는 deterministic mock model로 운영 가능</li>
-            <li>
-              <code>MODEL_PATH</code>만 있으면 pickle 기반 GBDT artifact 로딩
-            </li>
-            <li>Bearer token, healthcheck, reason code를 포함한 운영형 API 구성</li>
-            <li>timeout / http error / invalid response를 명시적 failure reason으로 분류</li>
-          </ul>
-        </div>
-
-        <div class="proj-block">
-          <div class="proj-header">
-            <span class="proj-name">5. 결정 이후의 부작용을 비동기 워커와 인프라로 분리</span>
-          </div>
-          <p class="desc">
-            동기 요청 경로는 판단만 담당하고, 평판 조정·임시 차단·중복 콘텐츠 기록·의심 큐 집계는
-            worker로 분리했습니다. Docker Compose는 app, inference, worker, ml-pipeline, PostgreSQL,
-            Redis, NATS, MinIO, Caddy를 한 스택으로 묶고 내부 서비스는 private network와 localhost
-            binding으로 노출을 제한합니다.
-          </p>
-          <ul class="bul-list">
-            <li>결정 레벨별 reputation delta 테이블 정의</li>
-            <li>user / ip / device 스코프를 분리하고 IP·device는 0.5배 가중</li>
-            <li>TEMP_BLOCK TTL, suspicious queue flush 등 운영 부작용을 주기 job으로 분리</li>
-            <li>app / ai-inference / postgres / redis healthcheck와 private network 구성</li>
-          </ul>
         </div>
       </div>
     </section>
