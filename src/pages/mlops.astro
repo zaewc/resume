@@ -824,11 +824,10 @@ const projectImages = {
     -webkit-user-drag: none;
     cursor: inherit;
     transform-origin: center center;
-    transition: opacity 0.12s ease;
     will-change: transform;
   }
 
-  .lightbox-flight-image {
+  :global(.lightbox-flight-image) {
     position: fixed;
     z-index: 102;
     margin: 0;
@@ -943,6 +942,8 @@ const projectImages = {
   let activePointers = new Map();
   let pinchStartDistance = 0;
   let pinchStartZoom = 1;
+  let gestureStartZoom = 1;
+  let lightboxOpenToken = 0;
 
   const renderLightboxImage = () => {
     if (!(lightboxImage instanceof HTMLImageElement)) return;
@@ -999,11 +1000,14 @@ const projectImages = {
     }
   };
 
-  const animateOpenFrom = async (sourceImage) => {
+  const nextFrame = () => new Promise((resolve) => requestAnimationFrame(resolve));
+
+  const animateOpenFrom = async (sourceImage, openToken) => {
     if (!(lightbox instanceof HTMLElement) || !(lightboxImage instanceof HTMLImageElement)) return;
 
     lightbox.classList.add('opening');
     await waitForLightboxImage();
+    if (openToken !== lightboxOpenToken || !lightbox.classList.contains('open')) return;
 
     const from = sourceImage.getBoundingClientRect();
     const to = lightboxImage.getBoundingClientRect();
@@ -1045,8 +1049,14 @@ const projectImages = {
     );
 
     await animation.finished.catch(() => undefined);
-    flightImage.remove();
+    if (openToken !== lightboxOpenToken || !lightbox.classList.contains('open')) {
+      flightImage.remove();
+      return;
+    }
     lightbox.classList.remove('opening');
+    await nextFrame();
+    await nextFrame();
+    flightImage.remove();
   };
 
   document.querySelectorAll('.project-figure a').forEach((frame) => {
@@ -1068,7 +1078,8 @@ const projectImages = {
       lightbox.classList.add('open');
       lightbox.setAttribute('aria-hidden', 'false');
       document.documentElement.classList.add('lightbox-open');
-      void animateOpenFrom(image);
+      lightboxOpenToken += 1;
+      void animateOpenFrom(image, lightboxOpenToken);
     });
 
     frame.addEventListener('dragstart', (event) => {
@@ -1083,6 +1094,8 @@ const projectImages = {
 
     lightbox.classList.remove('open');
     lightbox.classList.remove('opening', 'dragging');
+    lightboxOpenToken += 1;
+    document.querySelectorAll('.lightbox-flight-image').forEach((image) => image.remove());
     lightbox.setAttribute('aria-hidden', 'true');
     lightboxImage.removeAttribute('src');
     resetLightboxImage();
@@ -1092,21 +1105,45 @@ const projectImages = {
   };
 
   lightbox?.addEventListener('click', (event) => {
-    if (event.target === lightbox) closeLightbox();
+    if (
+      event.target === lightbox ||
+      (event.target instanceof HTMLElement && event.target.classList.contains('lightbox-stage'))
+    ) {
+      closeLightbox();
+    }
   });
 
-  lightbox?.addEventListener(
-    'wheel',
-    (event) => {
-      event.preventDefault();
-      const normalizedDelta = clamp(event.deltaY, -120, 120);
-      zoomLightboxBy(Math.exp(-normalizedDelta * 0.0012), event.clientX, event.clientY);
-    },
-    { passive: false }
-  );
+  const handleLightboxWheel = (event) => {
+    if (!(lightbox instanceof HTMLElement) || !lightbox.classList.contains('open')) return;
+    if (event.target instanceof HTMLElement && event.target.closest('.lightbox-toolbar')) return;
+    if (event.defaultPrevented) return;
+
+    event.preventDefault();
+    const normalizedDelta = clamp(event.deltaY, -120, 120);
+    const sensitivity = event.ctrlKey ? 0.003 : 0.0012;
+    zoomLightboxBy(Math.exp(-normalizedDelta * sensitivity), event.clientX, event.clientY);
+  };
+
+  lightbox?.addEventListener('wheel', handleLightboxWheel, { passive: false });
+  lightboxImage?.addEventListener('wheel', handleLightboxWheel, { passive: false });
+
+  const handleGestureStart = (event) => {
+    event.preventDefault();
+    gestureStartZoom = lightboxZoom;
+  };
+
+  const handleGestureChange = (event) => {
+    if (!(lightbox instanceof HTMLElement) || !lightbox.classList.contains('open')) return;
+    event.preventDefault();
+    const nextZoom = clamp(gestureStartZoom * event.scale, 0.5, 6);
+    zoomLightboxBy(nextZoom / lightboxZoom, event.clientX, event.clientY);
+  };
+
+  lightbox?.addEventListener('gesturestart', handleGestureStart, { passive: false });
+  lightbox?.addEventListener('gesturechange', handleGestureChange, { passive: false });
 
   lightbox?.addEventListener('pointerdown', (event) => {
-    if (event.target instanceof HTMLButtonElement) return;
+    if (event.target instanceof HTMLElement && event.target.closest('.lightbox-toolbar')) return;
     event.preventDefault();
     activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
 
