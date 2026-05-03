@@ -22,6 +22,7 @@ const projectImages = {
   jee6Gateway: image('FastAPI_Lifespan_May_2_2026_(3).png'),
   gogoBefore: image('FastAPI_Lifespan_May_2_2026.png'),
   gogoAfter: image('FastAPI_Lifespan_May_2_2026_(1).png'),
+  gogoMlflow: image('MLflow_screenshot.png'),
   gcinsideArch: image('Arch_from_GCinside.svg'),
 };
 ---
@@ -346,8 +347,54 @@ const projectImages = {
 
         <div class="proj-block">
           <div class="proj-header">
-            <span class="proj-name">2.</span>
+            <span class="proj-name">2. 욕설 필터 모델의 학습-서빙 재현성 및 운영 관측성 개선</span>
           </div>
+          <p class="desc">
+            욕설 필터 모델이 학습 결과와 운영 추론 환경에서 분리되어 관리되던 문제를 해결하기 위해,
+            MLflow 기반 실험 추적부터 HuggingFace revision pinning, 이미지 bake-in, Prometheus
+            metrics까지 이어지는 모델 운영 흐름을 구축했습니다.
+          </p>
+          <ul class="bul-list">
+            <li>
+              Profanity_Filter 학습에 <code>MLflow Tracking</code>을 도입해 hyperparameter, final
+              eval metric, model artifact, base model metadata를 run 단위로 기록
+              {
+                projectImages.gogoMlflow.exists && (
+                  <figure class="project-figure wide">
+                    <a
+                      href={projectImages.gogoMlflow.src}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        src={projectImages.gogoMlflow.src}
+                        alt="MLflow Tracking 기반 실험 추적 화면"
+                        width="20%"
+                        loading="lazy"
+                      />
+                    </a>
+                  </figure>
+                )
+              }
+            </li>
+            <li>
+              AI_relay YOLO 학습 및 hyperparameter tuning에도 <code>MLflow</code>를 연동해 실험별
+              metric·parameter 비교와 재현 가능한 재학습 기반 마련
+            </li>
+            <li>
+              HuggingFace model/tokenizer revision을 <code>models.yaml</code> 단일 출처로 고정하고 Docker
+              build 시 사전 다운로드해, 런타임 HF Hub 장애·rate limit·cold-start 의존 제거
+            </li>
+            <li>
+              <code>/ai/health</code>에서 현재 로드된 model/tokenizer revision과
+              <code>loaded_at</code>을 노출하고, Prometheus <code>/metrics</code>로 inference
+              latency, prediction label, model load duration, Kafka 처리 상태를 관측
+            </li>
+            <li>
+              학습 데이터셋 sha256, file count, size bytes 계산 스크립트를 추가해 모델 artifact뿐
+              아니라 학습 데이터 provenance까지 추적 가능하게 구성
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -513,9 +560,11 @@ const projectImages = {
       <div class="exp-block">
         <h3 class="exp-title">MLOps / Pipeline</h3>
         <ul class="plain-list">
-          <li>Transformers, HuggingFace, vLLM</li>
+          <li>Transformers, HuggingFace, vLLM, YOLO</li>
           <li>PyTorch inference, GBDT artifact serving</li>
-          <li>LightGBM, XGBoost, scikit-learn, training/evaluation/drift reporting</li>
+          <li>
+            MLflow Tracking, LightGBM, XGBoost, scikit-learn, training/evaluation/drift reporting
+          </li>
         </ul>
       </div>
 
@@ -523,6 +572,7 @@ const projectImages = {
         <h3 class="exp-title">Infra / Data</h3>
         <ul class="plain-list">
           <li>Docker Compose, GitHub Actions, SSH deploy, healthcheck, private network</li>
+          <li>Prometheus metrics, model healthcheck, revision pinning</li>
           <li>Redis, MariaDB, PostgreSQL, Kafka, NATS, MinIO</li>
         </ul>
       </div>
