@@ -1,4 +1,5 @@
 ---
+import { existsSync } from 'node:fs';
 import PortfolioLayout from '../layouts/PortfolioLayout.astro';
 import ScrollProgress from '../components/ScrollProgress.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
@@ -8,7 +9,21 @@ import ChipLink from '../components/ChipLink.astro';
 import LeadershipSection from '../components/portfolio/LeadershipSection.astro';
 import EducationSection from '../components/portfolio/EducationSection.astro';
 import PortfolioCTA from '../components/portfolio/PortfolioCTA.astro';
-import Fn from '../components/Fn.astro';
+
+const image = (file: string) => ({
+  src: `/mlops/${file}`,
+  exists: existsSync(new URL(`../../public/mlops/${file}`, import.meta.url)),
+});
+
+const projectImages = {
+  jee6Infra: image('image.png'),
+  jee6Llm: image('FastAPI_Lifespan_May_2_2026_(2).png'),
+  jee6Feedback: image('Screenshot_2026-05-02_at_6.15.18_PM.png'),
+  jee6Gateway: image('FastAPI_Lifespan_May_2_2026_(3).png'),
+  gogoBefore: image('FastAPI_Lifespan_May_2_2026.png'),
+  gogoAfter: image('FastAPI_Lifespan_May_2_2026_(1).png'),
+  gcinsideArch: image('Arch_from_GCinside.svg'),
+};
 ---
 
 <PortfolioLayout
@@ -89,6 +104,19 @@ import Fn from '../components/Fn.astro';
             <li>자체 Ubuntu server로 Docker Compose 기반 릴리즈</li>
             <li><strong>40+개 디스코드 서버 도입, DAU 100+명</strong></li>
           </ul>
+          {
+            projectImages.jee6Infra.exists && (
+              <figure class="project-figure wide">
+                <a href={projectImages.jee6Infra.src} target="_blank" rel="noopener noreferrer">
+                  <img
+                    src={projectImages.jee6Infra.src}
+                    alt="JEE6-INFRA Runtime and Deployment Architecture"
+                    loading="lazy"
+                  />
+                </a>
+              </figure>
+            )
+          }
         </div>
 
         <div class="proj-block">
@@ -100,12 +128,27 @@ import Fn from '../components/Fn.astro';
               Discord 봇의 자연어 명령 처리를 위해 <code>vllm/vllm-openai</code> 기반 LLM 서버를 Docker
               Compose로 <strong>별도 컨테이너로 분리</strong>하고,
               <code>ChatOpenAI</code> 클라이언트가 로컬 OpenAI-compatible endpoint를 바라보도록 구성
-              <Fn
-                note="MODEL_NAME, PORT, HF_HOME, HUGGING_FACE_HUB_TOKEN 등을 env로 분리하고 llm_data:/data 볼륨으로 모델 캐시를 영속화"
-              />
+            </li>
+            <li>
+              <code>MODEL_NAME</code>(모델명), <code>PORT</code>, <code>HF_HOME</code>(허깅페이스
+              캐시 경로), <code>HUGGING_FACE_HUB_TOKEN</code> 등을 env로 빼고
+              <code>llm_data:/data</code> 볼륨을 사용해 모델을 캐시 영속화하여 재다운로드 비용을 절감
             </li>
             <li>NVIDIA GPU reservation 설정으로 GPU 서버 배포 대응</li>
           </ul>
+          {
+            projectImages.jee6Llm.exists && (
+              <figure class="project-figure wide">
+                <a href={projectImages.jee6Llm.src} target="_blank" rel="noopener noreferrer">
+                  <img
+                    src={projectImages.jee6Llm.src}
+                    alt="vLLM 기반 OpenAI-compatible LLM 서버 구조"
+                    loading="lazy"
+                  />
+                </a>
+              </figure>
+            )
+          }
         </div>
 
         <div class="proj-block">
@@ -118,10 +161,10 @@ import Fn from '../components/Fn.astro';
               lifespan(서버 시작 시점)에 tokenizer/model을 1회 로드한 뒤 <code>/predict</code>
               요청에서 재사용하는 구조로 구성
             </li>
+            <li>fine-tuned 모델은 별도의 volume에 저장해 컨테이너 재시작 이후에도 유지</li>
             <li>
-              fine-tuned 모델은 별도의 volume에 저장해 컨테이너 재시작 이후에도 유지<Fn
-                note="fine-tuned 모델이 있으면 /data/fine_tuned_model에서 로드, 없으면 base model 로드"
-              />
+              fine-tuned 모델이 있으면 <code>/data/fine_tuned_model</code>에서 로드, 없으면 base
+              model 로드
             </li>
           </ul>
         </div>
@@ -149,6 +192,19 @@ import Fn from '../components/Fn.astro';
             </li>
             <li>피드백 데이터는 별도의 volume에 저장해 서비스 재배포에서 독립</li>
           </ul>
+          {
+            projectImages.jee6Feedback.exists && (
+              <figure class="project-figure compact">
+                <a href={projectImages.jee6Feedback.src} target="_blank" rel="noopener noreferrer">
+                  <img
+                    src={projectImages.jee6Feedback.src}
+                    alt="Discord reaction 기반 피드백 및 재학습 실행 화면"
+                    loading="lazy"
+                  />
+                </a>
+              </figure>
+            )
+          }
         </div>
 
         <div class="proj-block">
@@ -172,15 +228,27 @@ import Fn from '../components/Fn.astro';
             </li>
             <li>
               Riot 계정, 티어, 전적, 로테이션 응답을 Redis TTL 캐싱 → 반복 조회 지연 및 Riot API
-              호출량 감소<Fn
-                note="한강 수온, Spotify playlist metadata도 TTL 캐싱 및 in-memory cache 병행 적용"
-              />
+              호출량 감소
             </li>
+            <li>한강 수온, Spotify playlist metadata도 TTL 캐싱 및 in-memory cache 병행 적용</li>
             <li>
               Docker Compose로 bot, API Gateway, Redis, MariaDB, vLLM, filter service를 분리
               운영하고 GitHub Actions + SSH 배포 자동화
             </li>
           </ul>
+          {
+            projectImages.jee6Gateway.exists && (
+              <figure class="project-figure wide">
+                <a href={projectImages.jee6Gateway.src} target="_blank" rel="noopener noreferrer">
+                  <img
+                    src={projectImages.jee6Gateway.src}
+                    alt="FastAPI Gateway와 Redis Cache 기반 외부 API 호출 구조"
+                    loading="lazy"
+                  />
+                </a>
+              </figure>
+            )
+          }
         </div>
       </div>
 
@@ -221,10 +289,9 @@ import Fn from '../components/Fn.astro';
               매 Kafka 메시지마다 <code>predictor()</code> 함수 내부에서 HuggingFace로부터 ELECTRA 모델
               및 토크나이저를 재다운로드 후 디바이스 적재하던 구조를 ModelService 싱글톤으로 1회 로드
               후 클래스 변수에 캐싱하도록 수정 → 메시지당 모델 로드 비용 제거
-              <Fn
-                note="개선 전에는 Kafka 메시지 처리 시점마다 모델 및 토크나이저를 로드했고, 개선 후에는 FastAPI lifespan 시점에 사전 로드한 ModelService를 재사용"
-              />
             </li>
+            <li>개선 전: Kafka 메시지 처리 시점마다 모델 및 토크나이저 로드</li>
+            <li>개선 후: FastAPI lifespan 시점에 사전 로드한 ModelService 재사용</li>
             <li>
               FastAPI lifespan 시점에 사전 로드 + <code>asyncio.Lock</code>으로 동시 호출 시 중복
               로드 차단 → 첫 메시지 cold-start 제거, 컨테이너 lifecycle당 HuggingFace Hub 호출 N →
@@ -235,6 +302,34 @@ import Fn from '../components/Fn.astro';
               추론 중 이벤트 루프 블로킹 제거, Kafka consumer + 헬스체크 동시 응답성 회복
             </li>
           </ul>
+          <div class="figure-pair">
+            {
+              projectImages.gogoBefore.exists && (
+                <figure class="project-figure">
+                  <a href={projectImages.gogoBefore.src} target="_blank" rel="noopener noreferrer">
+                    <img
+                      src={projectImages.gogoBefore.src}
+                      alt="GOGO 욕설 필터 추론 서버 개선 전 흐름"
+                      loading="lazy"
+                    />
+                  </a>
+                </figure>
+              )
+            }
+            {
+              projectImages.gogoAfter.exists && (
+                <figure class="project-figure">
+                  <a href={projectImages.gogoAfter.src} target="_blank" rel="noopener noreferrer">
+                    <img
+                      src={projectImages.gogoAfter.src}
+                      alt="GOGO 욕설 필터 추론 서버 개선 후 흐름"
+                      loading="lazy"
+                    />
+                  </a>
+                </figure>
+              )
+            }
+          </div>
           <p class="desc metric-title">동일 샘플 N=20 마이크로벤치 결과</p>
           <ol class="metric-list">
             <li>p50 1054.6ms → 17.7ms (59.6× 개선)</li>
@@ -287,6 +382,19 @@ import Fn from '../components/Fn.astro';
             />
           </h3>
         </div>
+        {
+          projectImages.gcinsideArch.exists && (
+            <figure class="project-figure wide org-figure">
+              <a href={projectImages.gcinsideArch.src} target="_blank" rel="noopener noreferrer">
+                <img
+                  src={projectImages.gcinsideArch.src}
+                  alt="GCinside 서비스와 MLOps 인프라 아키텍처"
+                  loading="lazy"
+                />
+              </a>
+            </figure>
+          )
+        }
 
         <div class="proj-block">
           <div class="proj-header">
@@ -333,9 +441,7 @@ import Fn from '../components/Fn.astro';
           <p class="desc">
             <code>gcml</code> CLI로 학습·평가·드리프트 탐지·게시를 단일 진입점으로 묶었습니다. LightGBM을
             우선 사용하되, 환경에 따라 XGBoost, sklearn HistGradientBoosting으로 fallback해 로컬/CI/운영
-            환경 차이를 흡수합니다.<Fn
-              note="Kaggle fraud / fake-social 데이터셋 어댑터로 콜드스타트 학습 데이터 확보"
-            />
+            환경 차이를 흡수합니다.
           </p>
           <ul class="bul-list">
             <li><code>TrainingFeature</code> Pydantic 스키마로 학습 데이터 컨트랙트 고정</li>
@@ -343,6 +449,7 @@ import Fn from '../components/Fn.astro';
               LightGBM <code>class_weight=&quot;balanced&quot;</code>와
               <code>average_precision</code> 지표로 불균형 라벨 대응
             </li>
+            <li>Kaggle fraud / fake-social 데이터셋 어댑터로 콜드스타트 학습 데이터 확보</li>
             <li>baseline/current feature mean 변화율 기반 drift report 제공</li>
           </ul>
         </div>
@@ -360,10 +467,9 @@ import Fn from '../components/Fn.astro';
           <ul class="bul-list">
             <li>초기 데이터 부족기에는 deterministic mock model로 운영 가능</li>
             <li>
-              <code>MODEL_PATH</code> 기반 GBDT artifact 로딩과 운영형 API 구성<Fn
-                note="pickle artifact 로딩, Bearer token, healthcheck, reason code 포함"
-              />
+              <code>MODEL_PATH</code>만 있으면 pickle 기반 GBDT artifact 로딩
             </li>
+            <li>Bearer token, healthcheck, reason code를 포함한 운영형 API 구성</li>
             <li>timeout / http error / invalid response를 명시적 failure reason으로 분류</li>
           </ul>
         </div>
@@ -376,14 +482,13 @@ import Fn from '../components/Fn.astro';
             동기 요청 경로는 판단만 담당하고, 평판 조정·임시 차단·중복 콘텐츠 기록·의심 큐 집계는
             worker로 분리했습니다. Docker Compose는 app, inference, worker, ml-pipeline, PostgreSQL,
             Redis, NATS, MinIO, Caddy를 한 스택으로 묶고 내부 서비스는 private network와 localhost
-            binding으로 노출을 제한합니다.<Fn
-              note="app / ai-inference / postgres / redis healthcheck와 private network 구성"
-            />
+            binding으로 노출을 제한합니다.
           </p>
           <ul class="bul-list">
             <li>결정 레벨별 reputation delta 테이블 정의</li>
             <li>user / ip / device 스코프를 분리하고 IP·device는 0.5배 가중</li>
             <li>TEMP_BLOCK TTL, suspicious queue flush 등 운영 부작용을 주기 job으로 분리</li>
+            <li>app / ai-inference / postgres / redis healthcheck와 private network 구성</li>
           </ul>
         </div>
       </div>
@@ -598,6 +703,94 @@ import Fn from '../components/Fn.astro';
     line-height: 1.7;
   }
 
+  .project-figure {
+    margin: 0.875rem 0 0;
+    position: relative;
+  }
+
+  .project-figure a {
+    display: block;
+    position: relative;
+    border-radius: 6px;
+    overflow: visible;
+    background: transparent;
+    cursor: grab;
+    touch-action: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    z-index: 0;
+    isolation: isolate;
+  }
+
+  .project-figure img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    user-select: none;
+    pointer-events: none;
+    -webkit-user-drag: none;
+  }
+
+  .project-figure a.is-dragging {
+    cursor: grabbing;
+  }
+
+  .project-figure a.is-floating img {
+    opacity: 0;
+  }
+
+  .zoom-float-frame {
+    position: fixed;
+    z-index: 80;
+    border-radius: 6px;
+    overflow: hidden;
+    pointer-events: none;
+    user-select: none;
+    -webkit-mask-image:
+      linear-gradient(to right, transparent, #000 2rem, #000 calc(100% - 2rem), transparent),
+      linear-gradient(to bottom, transparent, #000 2rem, #000 calc(100% - 2rem), transparent);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to right, transparent, #000 2rem, #000 calc(100% - 2rem), transparent),
+      linear-gradient(to bottom, transparent, #000 2rem, #000 calc(100% - 2rem), transparent);
+    mask-composite: intersect;
+  }
+
+  .zoom-float-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    pointer-events: none;
+    user-select: none;
+    transform-origin: center center;
+    will-change: transform;
+    -webkit-user-drag: none;
+  }
+
+  .project-figure.wide img {
+    object-fit: contain;
+    background: transparent;
+  }
+
+  .project-figure.compact img {
+    max-height: 300px;
+    object-fit: contain;
+    background: transparent;
+  }
+
+  .org-figure {
+    margin: 0 0 1.25rem;
+  }
+
+  .figure-pair {
+    display: grid;
+    gap: 0.75rem;
+  }
+
   code {
     font-family: 'JetBrains Mono', ui-monospace, monospace;
     font-size: 0.78em;
@@ -625,3 +818,149 @@ import Fn from '../components/Fn.astro';
     }
   }
 </style>
+
+<script>
+  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+  document.querySelectorAll('.project-figure a').forEach((frame) => {
+    const image = frame.querySelector('img');
+    if (!image) return;
+
+    frame.setAttribute('draggable', 'false');
+    image.setAttribute('draggable', 'false');
+
+    let scale = 1;
+    let translateX = 0;
+    let translateY = 0;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let startTranslateX = 0;
+    let startTranslateY = 0;
+    let floatFrame = null;
+    let floatImage = null;
+
+    const removeFloatImage = () => {
+      if (!floatFrame) return;
+      floatFrame.remove();
+      floatFrame = null;
+      floatImage = null;
+      frame.classList.remove('is-floating');
+    };
+
+    const ensureFloatImage = () => {
+      if (floatImage) return floatImage;
+      floatFrame = document.createElement('div');
+      floatFrame.className = 'zoom-float-frame';
+      floatImage = image.cloneNode();
+      floatImage.className = 'zoom-float-image';
+      floatImage.setAttribute('draggable', 'false');
+      floatImage.setAttribute('aria-hidden', 'true');
+      floatFrame.appendChild(floatImage);
+      document.body.appendChild(floatFrame);
+      frame.classList.add('is-floating');
+      return floatImage;
+    };
+
+    const clampPan = (rect) => {
+      const maxX = (rect.width * (scale - 1)) / 2;
+      const maxY = (rect.height * (scale - 1)) / 2;
+      translateX = clamp(translateX, -maxX, maxX);
+      translateY = clamp(translateY, -maxY, maxY);
+    };
+
+    const render = () => {
+      if (scale <= 1.01) {
+        removeFloatImage();
+        return;
+      }
+
+      const rect = image.getBoundingClientRect();
+      const activeImage = ensureFloatImage();
+      clampPan(rect);
+      floatFrame.style.left = `${rect.left}px`;
+      floatFrame.style.top = `${rect.top}px`;
+      floatFrame.style.width = `${rect.width}px`;
+      floatFrame.style.height = `${rect.height}px`;
+      activeImage.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+    };
+
+    const reset = () => {
+      scale = 1;
+      translateX = 0;
+      translateY = 0;
+      render();
+    };
+
+    frame.addEventListener('click', (event) => {
+      event.preventDefault();
+    });
+
+    frame.addEventListener('dragstart', (event) => {
+      event.preventDefault();
+    });
+
+    frame.addEventListener(
+      'wheel',
+      (event) => {
+        event.preventDefault();
+
+        const rect = frame.getBoundingClientRect();
+        const pointerX = event.clientX - rect.left - rect.width / 2;
+        const pointerY = event.clientY - rect.top - rect.height / 2;
+        const previousScale = scale;
+        const normalizedDelta = clamp(event.deltaY, -120, 120);
+        const zoomStep = Math.exp(-normalizedDelta * 0.00045);
+        const nextScale = clamp(scale * zoomStep, 1, 8);
+
+        if (nextScale === previousScale) return;
+
+        const zoomRatio = nextScale / previousScale;
+        translateX = pointerX - (pointerX - translateX) * zoomRatio;
+        translateY = pointerY - (pointerY - translateY) * zoomRatio;
+        scale = nextScale;
+
+        if (scale === 1) {
+          translateX = 0;
+          translateY = 0;
+        }
+
+        render();
+      },
+      { passive: false }
+    );
+
+    frame.addEventListener('pointerdown', (event) => {
+      event.preventDefault();
+      isDragging = true;
+      dragStartX = event.clientX;
+      dragStartY = event.clientY;
+      startTranslateX = translateX;
+      startTranslateY = translateY;
+      frame.classList.add('is-dragging');
+      frame.setPointerCapture(event.pointerId);
+    });
+
+    frame.addEventListener('pointermove', (event) => {
+      if (!isDragging) return;
+      translateX = startTranslateX + event.clientX - dragStartX;
+      translateY = startTranslateY + event.clientY - dragStartY;
+      render();
+    });
+
+    const stopDrag = (event) => {
+      if (!isDragging) return;
+      isDragging = false;
+      frame.classList.remove('is-dragging');
+      if (frame.hasPointerCapture(event.pointerId)) {
+        frame.releasePointerCapture(event.pointerId);
+      }
+    };
+
+    frame.addEventListener('pointerup', stopDrag);
+    frame.addEventListener('pointercancel', stopDrag);
+    frame.addEventListener('dblclick', reset);
+    window.addEventListener('scroll', render, { passive: true });
+    window.addEventListener('resize', render);
+  });
+</script>

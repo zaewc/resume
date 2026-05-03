@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 880" font-family="-apple-system, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+    <marker id="arrDash" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="arrBatch" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0891b2"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="880" fill="#fafafa"/>
+
+  <!-- Title -->
+  <text x="640" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#111827">GCinside — Service Architecture</text>
+  <text x="640" y="62" text-anchor="middle" font-size="13" fill="#6b7280">5 services · 4 data planes · Caddy edge · docker-compose (gcinside-infra)</text>
+
+  <!-- Public boundary -->
+  <rect x="40" y="90" width="1200" height="100" rx="10" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="58" y="112" font-size="11" font-weight="600" fill="#1d4ed8" letter-spacing="1">PUBLIC INTERNET</text>
+
+  <!-- Client -->
+  <rect x="540" y="120" width="200" height="56" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="640" y="144" text-anchor="middle" font-size="14" font-weight="600" fill="#1e3a8a">Client</text>
+  <text x="640" y="162" text-anchor="middle" font-size="11" fill="#1e40af">browser / mobile</text>
+
+  <!-- Edge -->
+  <rect x="40" y="210" width="1200" height="90" rx="10" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+  <text x="58" y="232" font-size="11" font-weight="600" fill="#15803d" letter-spacing="1">EDGE  ·  gcinside-infra</text>
+
+  <rect x="540" y="240" width="200" height="50" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="640" y="262" text-anchor="middle" font-size="14" font-weight="600" fill="#14532d">Caddy</text>
+  <text x="640" y="280" text-anchor="middle" font-size="11" fill="#166534">HTTPS · ACME · :80/:443</text>
+
+  <!-- Application boundary -->
+  <rect x="40" y="320" width="1200" height="240" rx="10" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+  <text x="58" y="342" font-size="11" font-weight="600" fill="#c2410c" letter-spacing="1">APPLICATION  ·  private network (gcinside-private)</text>
+
+  <!-- App (Next.js) -->
+  <rect x="500" y="360" width="280" height="70" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="640" y="385" text-anchor="middle" font-size="15" font-weight="700" fill="#78350f">gcinside-app</text>
+  <text x="640" y="403" text-anchor="middle" font-size="11" fill="#92400e">Next.js · :3000</text>
+  <text x="640" y="419" text-anchor="middle" font-size="11" fill="#92400e">anti-abuse gate · audit sinks</text>
+
+  <!-- AI inference -->
+  <rect x="120" y="470" width="240" height="76" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="240" y="494" text-anchor="middle" font-size="14" font-weight="700" fill="#7f1d1d">gcinside-ai-inference</text>
+  <text x="240" y="511" text-anchor="middle" font-size="11" fill="#991b1b">FastAPI · :8081</text>
+  <text x="240" y="527" text-anchor="middle" font-size="11" fill="#991b1b">POST /v1/predict-risk</text>
+  <text x="240" y="541" text-anchor="middle" font-size="10" fill="#b91c1c" font-style="italic">sync HTTP</text>
+
+  <!-- NATS queue -->
+  <rect x="540" y="470" width="200" height="76" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="640" y="494" text-anchor="middle" font-size="14" font-weight="700" fill="#4c1d95">NATS JetStream</text>
+  <text x="640" y="511" text-anchor="middle" font-size="11" fill="#5b21b6">queue · :4222</text>
+  <text x="640" y="527" text-anchor="middle" font-size="11" fill="#5b21b6">AbuseEventEnvelope</text>
+  <text x="640" y="541" text-anchor="middle" font-size="10" fill="#6d28d9" font-style="italic">async</text>
+
+  <!-- Abuse worker -->
+  <rect x="900" y="470" width="240" height="76" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="1020" y="494" text-anchor="middle" font-size="14" font-weight="700" fill="#78350f">gcinside-abuse-worker</text>
+  <text x="1020" y="511" text-anchor="middle" font-size="11" fill="#92400e">Node consumer</text>
+  <text x="1020" y="527" text-anchor="middle" font-size="11" fill="#92400e">aggregate · expire blocks</text>
+  <text x="1020" y="541" text-anchor="middle" font-size="10" fill="#b45309" font-style="italic">persists results</text>
+
+  <!-- Data plane -->
+  <rect x="40" y="590" width="900" height="160" rx="10" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="58" y="612" font-size="11" font-weight="600" fill="#334155" letter-spacing="1">DATA PLANE</text>
+
+  <rect x="80" y="630" width="190" height="100" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="175" y="660" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Postgres 16</text>
+  <text x="175" y="680" text-anchor="middle" font-size="11" fill="#475569">events · features</text>
+  <text x="175" y="697" text-anchor="middle" font-size="11" fill="#475569">user / session state</text>
+  <text x="175" y="717" text-anchor="middle" font-size="10" fill="#64748b">:5432</text>
+
+  <rect x="290" y="630" width="190" height="100" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="385" y="660" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Redis 7</text>
+  <text x="385" y="680" text-anchor="middle" font-size="11" fill="#475569">reputation · cache</text>
+  <text x="385" y="697" text-anchor="middle" font-size="11" fill="#475569">temp blocks</text>
+  <text x="385" y="717" text-anchor="middle" font-size="10" fill="#64748b">:6379</text>
+
+  <rect x="500" y="630" width="190" height="100" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="595" y="660" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">MinIO</text>
+  <text x="595" y="680" text-anchor="middle" font-size="11" fill="#475569">S3-compat object store</text>
+  <text x="595" y="697" text-anchor="middle" font-size="11" fill="#475569">snapshots · models</text>
+  <text x="595" y="717" text-anchor="middle" font-size="10" fill="#64748b">:9000</text>
+
+  <rect x="710" y="630" width="190" height="100" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="805" y="660" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">(NATS — queue)</text>
+  <text x="805" y="680" text-anchor="middle" font-size="11" fill="#475569">shown above</text>
+  <text x="805" y="697" text-anchor="middle" font-size="10" fill="#64748b" font-style="italic">part of data plane</text>
+
+  <!-- ML pipeline (batch, side panel) -->
+  <rect x="980" y="590" width="260" height="160" rx="10" fill="#ecfeff" stroke="#06b6d4" stroke-width="1.5"/>
+  <text x="998" y="612" font-size="11" font-weight="600" fill="#0e7490" letter-spacing="1">BATCH  ·  compose profile: jobs</text>
+
+  <rect x="1000" y="628" width="220" height="106" rx="8" fill="#cffafe" stroke="#0891b2" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="1110" y="654" text-anchor="middle" font-size="14" font-weight="700" fill="#164e63">gcinside-ml-pipeline</text>
+  <text x="1110" y="672" text-anchor="middle" font-size="11" fill="#155e75">CLI: gcml</text>
+  <text x="1110" y="690" text-anchor="middle" font-size="11" fill="#155e75">export · train · evaluate</text>
+  <text x="1110" y="706" text-anchor="middle" font-size="11" fill="#155e75">drift · publish</text>
+  <text x="1110" y="725" text-anchor="middle" font-size="10" fill="#0e7490" font-style="italic">offline / on-demand</text>
+
+  <!-- ===== Arrows ===== -->
+  <!-- Client -> Caddy -->
+  <line x1="640" y1="176" x2="640" y2="238" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="652" y="208" font-size="10" fill="#374151">HTTPS</text>
+
+  <!-- Caddy -> App -->
+  <line x1="640" y1="290" x2="640" y2="358" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="652" y="326" font-size="10" fill="#374151">reverse proxy</text>
+
+  <!-- App -> AI inference (sync) -->
+  <path d="M 540 410 Q 400 440 360 472" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="370" y="448" font-size="10" fill="#374151">predict-risk (sync HTTP)</text>
+
+  <!-- App -> NATS (publish) -->
+  <line x1="640" y1="430" x2="640" y2="468" stroke="#7c3aed" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrDash)"/>
+  <text x="652" y="452" font-size="10" fill="#7c3aed">publish</text>
+
+  <!-- NATS -> abuse-worker (consume) -->
+  <line x1="740" y1="508" x2="898" y2="508" stroke="#7c3aed" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrDash)"/>
+  <text x="760" y="500" font-size="10" fill="#7c3aed">consume</text>
+
+  <!-- App -> Postgres (direct read/write) -->
+  <path d="M 560 430 Q 320 540 220 628" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="240" y="585" font-size="10" fill="#374151">prisma</text>
+
+  <!-- abuse-worker -> Postgres -->
+  <path d="M 980 548 Q 700 580 270 628" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- abuse-worker -> Redis -->
+  <path d="M 1010 548 Q 800 590 460 628" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- abuse-worker -> MinIO -->
+  <path d="M 1040 548 Q 900 580 660 628" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ai-inference -> MinIO (model load) -->
+  <path d="M 280 548 Q 380 580 540 628" fill="none" stroke="#374151" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr)"/>
+  <text x="370" y="592" font-size="10" fill="#374151" font-style="italic">load model</text>
+
+  <!-- ml-pipeline -> Postgres (read features) -->
+  <path d="M 1000 660 Q 700 660 270 670" fill="none" stroke="#0891b2" stroke-width="1.5" marker-end="url(#arrBatch)"/>
+  <text x="540" y="652" font-size="10" fill="#0891b2">read features</text>
+
+  <!-- ml-pipeline -> MinIO (publish models) -->
+  <path d="M 1000 705 Q 820 720 690 705" fill="none" stroke="#0891b2" stroke-width="1.5" marker-end="url(#arrBatch)"/>
+  <text x="780" y="735" font-size="10" fill="#0891b2">publish artifacts</text>
+
+  <!-- Legend -->
+  <rect x="40" y="790" width="1200" height="60" rx="8" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="60" y="812" font-size="11" font-weight="700" fill="#111827">Legend</text>
+
+  <line x1="60" y1="832" x2="100" y2="832" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="108" y="836" font-size="11" fill="#374151">sync (HTTP / DB)</text>
+
+  <line x1="240" y1="832" x2="280" y2="832" stroke="#7c3aed" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrDash)"/>
+  <text x="288" y="836" font-size="11" fill="#7c3aed">async (queue)</text>
+
+  <line x1="400" y1="832" x2="440" y2="832" stroke="#0891b2" stroke-width="1.5" marker-end="url(#arrBatch)"/>
+  <text x="448" y="836" font-size="11" fill="#0891b2">batch (offline)</text>
+
+  <rect x="560" y="824" width="14" height="14" fill="#fef3c7" stroke="#f59e0b"/>
+  <text x="582" y="836" font-size="11" fill="#374151">first-party service</text>
+
+  <rect x="720" y="824" width="14" height="14" fill="#ffffff" stroke="#64748b"/>
+  <text x="742" y="836" font-size="11" fill="#374151">data plane (third-party image)</text>
+
+  <rect x="940" y="824" width="14" height="14" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="962" y="836" font-size="11" fill="#374151">edge / proxy</text>
+</svg>
