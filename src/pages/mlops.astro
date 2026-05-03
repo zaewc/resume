@@ -797,6 +797,10 @@ const projectImages = {
     cursor: grabbing;
   }
 
+  #image-lightbox.zooming #lightbox-image {
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
   #image-lightbox.opening #lightbox-image {
     opacity: 0;
   }
@@ -944,6 +948,7 @@ const projectImages = {
   let pinchStartZoom = 1;
   let gestureStartZoom = 1;
   let lightboxOpenToken = 0;
+  let lightboxPointerMoved = false;
 
   const renderLightboxImage = () => {
     if (!(lightboxImage instanceof HTMLImageElement)) return;
@@ -958,6 +963,19 @@ const projectImages = {
     lightboxX = 0;
     lightboxY = 0;
     renderLightboxImage();
+  };
+
+  const animateNextLightboxTransform = () => {
+    if (!(lightbox instanceof HTMLElement)) return;
+    lightbox.classList.add('zooming');
+    window.setTimeout(() => {
+      lightbox.classList.remove('zooming');
+    }, 220);
+  };
+
+  const resetLightboxImageAnimated = () => {
+    animateNextLightboxTransform();
+    resetLightboxImage();
   };
 
   const zoomLightboxBy = (factor, originX, originY) => {
@@ -1105,12 +1123,21 @@ const projectImages = {
   };
 
   lightbox?.addEventListener('click', (event) => {
-    if (
-      event.target === lightbox ||
-      (event.target instanceof HTMLElement && event.target.classList.contains('lightbox-stage'))
-    ) {
-      closeLightbox();
+    if (lightboxPointerMoved) {
+      lightboxPointerMoved = false;
+      return;
     }
+    if (event.target instanceof HTMLElement && event.target.closest('.lightbox-toolbar')) return;
+    if (lightboxImage instanceof HTMLImageElement) {
+      const imageRect = lightboxImage.getBoundingClientRect();
+      const isInsideImage =
+        event.clientX >= imageRect.left &&
+        event.clientX <= imageRect.right &&
+        event.clientY >= imageRect.top &&
+        event.clientY <= imageRect.bottom;
+      if (isInsideImage) return;
+    }
+    closeLightbox();
   });
 
   const handleLightboxWheel = (event) => {
@@ -1159,6 +1186,7 @@ const projectImages = {
     isLightboxDragging = true;
     dragStartX = event.clientX;
     dragStartY = event.clientY;
+    lightboxPointerMoved = false;
     startX = lightboxX;
     startY = lightboxY;
     lightbox.classList.add('dragging');
@@ -1181,6 +1209,9 @@ const projectImages = {
     }
 
     if (!isLightboxDragging) return;
+    if (Math.hypot(event.clientX - dragStartX, event.clientY - dragStartY) > 4) {
+      lightboxPointerMoved = true;
+    }
     lightboxX = startX + event.clientX - dragStartX;
     lightboxY = startY + event.clientY - dragStartY;
     renderLightboxImage();
@@ -1203,18 +1234,28 @@ const projectImages = {
 
   lightbox?.addEventListener('pointerup', stopPointer);
   lightbox?.addEventListener('pointercancel', stopPointer);
-  lightbox?.addEventListener('dblclick', resetLightboxImage);
+  lightbox?.addEventListener('dblclick', (event) => {
+    if (event.target instanceof HTMLElement && event.target.closest('.lightbox-toolbar')) return;
+    event.preventDefault();
+    event.stopPropagation();
+    animateNextLightboxTransform();
+    if (lightboxZoom < 1.6) {
+      zoomLightboxBy(2.25 / lightboxZoom, event.clientX, event.clientY);
+    } else {
+      resetLightboxImage();
+    }
+  });
 
   lightboxClose?.addEventListener('click', closeLightbox);
   lightboxZoomIn?.addEventListener('click', () => zoomLightboxBy(1.2));
   lightboxZoomOut?.addEventListener('click', () => zoomLightboxBy(1 / 1.2));
-  lightboxReset?.addEventListener('click', resetLightboxImage);
+  lightboxReset?.addEventListener('click', resetLightboxImageAnimated);
 
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') closeLightbox();
     if (!(lightbox instanceof HTMLElement) || !lightbox.classList.contains('open')) return;
     if (event.key === '+' || event.key === '=') zoomLightboxBy(1.18);
     if (event.key === '-') zoomLightboxBy(1 / 1.18);
-    if (event.key === '0') resetLightboxImage();
+    if (event.key === '0') resetLightboxImageAnimated();
   });
 </script>
