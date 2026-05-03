@@ -332,15 +332,16 @@ const projectImages = {
               async def로만 감싸여 있던 동기 torch 추론을 <code>asyncio.to_thread</code>로 분리 →
               추론 중 이벤트 루프 블로킹 제거, Kafka consumer + 헬스체크 동시 응답성 회복
             </li>
+            <li>
+              동일 샘플 N=20 마이크로벤치 결과
+              <ul class="sub-bul-list">
+                <li>p50 1054.6ms → 17.7ms (98.3% 감소)</li>
+                <li>p95 1258.2ms → 29.2ms (97.7% 감소)</li>
+                <li>throughput 0.93 → 53.98 req/s (58배 향상)</li>
+                <li>메시지당 약 1037ms 절감</li>
+              </ul>
+            </li>
           </ul>
-
-          <p class="desc metric-title">동일 샘플 N=20 마이크로벤치 결과</p>
-          <ol class="metric-list">
-            <li>p50 1054.6ms → 17.7ms (59.6× 개선)</li>
-            <li>p95 1258.2ms → 29.2ms (43.1× 개선)</li>
-            <li>throughput 0.93 → 53.98 req/s (58× 향상)</li>
-            <li>메시지당 약 1037ms 절감</li>
-          </ol>
         </div>
 
         <div class="proj-block">
@@ -710,22 +711,28 @@ const projectImages = {
     color: var(--text);
   }
 
-  .metric-title {
-    margin-top: 0.625rem;
-    margin-bottom: 0.25rem;
-    color: var(--text);
-    font-weight: 600;
-  }
-
-  .metric-list {
-    margin: 0;
-    padding-left: 1.25rem;
+  .sub-bul-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.375rem 0 0;
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+  }
+
+  .sub-bul-list > li {
     font-size: 0.875rem;
     color: var(--text-muted);
     line-height: 1.7;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+
+  .sub-bul-list > li::before {
+    content: '◦';
+    position: absolute;
+    left: 0.25rem;
+    color: var(--text-faint);
   }
 
   .project-figure {
