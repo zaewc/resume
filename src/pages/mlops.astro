@@ -5,6 +5,7 @@ import ScrollProgress from '../components/ScrollProgress.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import FootnoteTooltip from '../components/FootnoteTooltip.astro';
 import FixedCTA from '../components/FixedCTA.astro';
+import Fn from '../components/Fn.astro';
 import ChipLink from '../components/ChipLink.astro';
 import LeadershipSection from '../components/portfolio/LeadershipSection.astro';
 import EducationSection from '../components/portfolio/EducationSection.astro';
@@ -22,7 +23,8 @@ const projectImages = {
   jee6Gateway: image('FastAPI_Lifespan_May_2_2026_(3).png'),
   gogoBefore: image('FastAPI_Lifespan_May_2_2026.png'),
   gogoAfter: image('FastAPI_Lifespan_May_2_2026_(1).png'),
-  gogoMlflow: image('MLflow_screenshot.png'),
+  gogoMlflowBefore: image('MLflow_screenshot3.png'),
+  gogoMlflowAfter: image('MLflow_screenshot4.png'),
   gcinsideArch: image('Arch_from_GCinside.svg'),
 };
 ---
@@ -356,34 +358,61 @@ const projectImages = {
           </p>
           <ul class="bul-list">
             <li>
-              MLflow를 도입하여 hyperparameter, final eval metric, model artifact, base model
-              metadata를 run 단위로 tracking
+              MLflow Tracking을 도입해 학습 run별 hyperparameter, train/eval metric, base model
+              metadata, model artifact를 기록<Fn
+                note="동일한 MLflow tracking 패턴을 AI_relay YOLO 학습 및 hyperparameter tuning에도 적용해 실험별 metric/parameter 비교 기반을 확장했습니다."
+              />
+              <div class="figure-pair mlflow-pair">
+                {
+                  projectImages.gogoMlflowBefore.exists && (
+                    <figure class="project-figure wide">
+                      <a
+                        href={projectImages.gogoMlflowBefore.src}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img
+                          src={projectImages.gogoMlflowBefore.src}
+                          alt="MLflow Tracking 개선 전 실험 기록 화면"
+                          loading="lazy"
+                        />
+                      </a>
+                    </figure>
+                  )
+                }
+                <span class="figure-arrow" aria-hidden="true">
+                  <i class="bi bi-arrow-right"></i>
+                </span>
+                {
+                  projectImages.gogoMlflowAfter.exists && (
+                    <figure class="project-figure wide">
+                      <a
+                        href={projectImages.gogoMlflowAfter.src}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img
+                          src={projectImages.gogoMlflowAfter.src}
+                          alt="MLflow Tracking 개선 후 실험 비교 화면"
+                          loading="lazy"
+                        />
+                      </a>
+                    </figure>
+                  )
+                }
+              </div>
             </li>
             <li>
-              AI_relay YOLO 학습 및 hyperparameter tuning에도 MLflow 연동 → 실험별 metric·parameter
-              비교, 재현 가능한 재학습 기반 마련
-              {
-                projectImages.gogoMlflow.exists && (
-                  <figure class="project-figure wide">
-                    <a
-                      href={projectImages.gogoMlflow.src}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img
-                        src={projectImages.gogoMlflow.src}
-                        alt="MLflow Tracking 기반 실험 추적 화면"
-                        width="20%"
-                        loading="lazy"
-                      />
-                    </a>
-                  </figure>
-                )
-              }
+              <code>train_loss</code>, <code>eval_loss</code>, <code>eval_accuracy</code>, <code
+                >eval_f1</code
+              >을 epoch 단위로 추적하고,
+              <code>final_eval_loss</code>와 <code>final_eval_f1</code>을 기준으로 run 간 성능 비교
+              → 선택된 모델 artifact를 MLflow artifact store에 경로에 저장하고, run ID와 모델
+              provenance를 운영 models.yaml에 연결하도록 설계
             </li>
             <li>
               HuggingFace model/tokenizer revision을 <code>models.yaml</code> 단일 출처로 고정하고 Docker
-              build 시 사전 다운로드해 → 런타임 HF Hub 장애·rate limit·cold-start 의존 제거
+              build 시 사전 다운로드 → 런타임 HF Hub 장애, rate limit, cold-start 의존 제거
             </li>
             <li>
               <code>/ai/health</code>에서 현재 로드된 model/tokenizer revision과
@@ -832,6 +861,33 @@ const projectImages = {
     gap: 0.75rem;
   }
 
+  .mlflow-pair {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.875rem;
+  }
+
+  .mlflow-pair .project-figure {
+    margin-top: 0;
+  }
+
+  .figure-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 999px;
+    color: var(--text-muted);
+    background: var(--accent-light);
+    flex-shrink: 0;
+  }
+
+  .figure-arrow i {
+    font-size: 0.9rem;
+  }
+
   #image-lightbox {
     position: fixed;
     inset: 0;
@@ -972,6 +1028,15 @@ const projectImages = {
   @media (max-width: 640px) {
     .contact-grid {
       grid-template-columns: 1fr;
+    }
+
+    .mlflow-pair {
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
+
+    .figure-arrow {
+      transform: rotate(90deg);
     }
 
     #image-lightbox {
