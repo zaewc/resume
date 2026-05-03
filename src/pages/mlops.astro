@@ -524,6 +524,27 @@ const projectImages = {
     <PortfolioCTA />
   </main>
 
+  <div id="image-lightbox" aria-hidden="true">
+    <div class="lightbox-toolbar" role="toolbar" aria-label="이미지 보기 도구">
+      <button type="button" id="lightbox-zoom-out" aria-label="축소" title="축소">
+        <i class="bi bi-zoom-out"></i>
+      </button>
+      <button type="button" id="lightbox-reset" aria-label="원래 크기" title="원래 크기">
+        <i class="bi bi-aspect-ratio"></i>
+      </button>
+      <output id="lightbox-scale">100%</output>
+      <button type="button" id="lightbox-zoom-in" aria-label="확대" title="확대">
+        <i class="bi bi-zoom-in"></i>
+      </button>
+      <button type="button" class="lightbox-close" aria-label="닫기" title="닫기">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+    <div class="lightbox-stage">
+      <img id="lightbox-image" alt="" />
+    </div>
+  </div>
+
   <FixedCTA />
   <FootnoteTooltip />
 </PortfolioLayout>
@@ -709,14 +730,11 @@ const projectImages = {
     display: block;
     position: relative;
     border-radius: 6px;
-    overflow: visible;
+    overflow: hidden;
     background: transparent;
-    cursor: grab;
-    touch-action: none;
+    cursor: zoom-in;
     -webkit-user-drag: none;
     user-select: none;
-    z-index: 0;
-    isolation: isolate;
   }
 
   .project-figure img {
@@ -727,44 +745,6 @@ const projectImages = {
     border-radius: 6px;
     user-select: none;
     pointer-events: none;
-    -webkit-user-drag: none;
-  }
-
-  .project-figure a.is-dragging {
-    cursor: grabbing;
-  }
-
-  .project-figure a.is-floating img {
-    opacity: 0;
-  }
-
-  .zoom-float-frame {
-    position: fixed;
-    z-index: 80;
-    border-radius: 6px;
-    overflow: hidden;
-    pointer-events: none;
-    user-select: none;
-    -webkit-mask-image:
-      linear-gradient(to right, transparent, #000 2rem, #000 calc(100% - 2rem), transparent),
-      linear-gradient(to bottom, transparent, #000 2rem, #000 calc(100% - 2rem), transparent);
-    -webkit-mask-composite: source-in;
-    mask-image:
-      linear-gradient(to right, transparent, #000 2rem, #000 calc(100% - 2rem), transparent),
-      linear-gradient(to bottom, transparent, #000 2rem, #000 calc(100% - 2rem), transparent);
-    mask-composite: intersect;
-  }
-
-  .zoom-float-image {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 6px;
-    pointer-events: none;
-    user-select: none;
-    transform-origin: center center;
-    will-change: transform;
     -webkit-user-drag: none;
   }
 
@@ -786,6 +766,119 @@ const projectImages = {
   .figure-pair {
     display: grid;
     gap: 0.75rem;
+  }
+
+  #image-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.78);
+    cursor: grab;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity 0.18s ease,
+      visibility 0.18s ease;
+    touch-action: none;
+  }
+
+  #image-lightbox.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  #image-lightbox.dragging {
+    cursor: grabbing;
+  }
+
+  #image-lightbox.opening #lightbox-image {
+    opacity: 0;
+  }
+
+  html.lightbox-open,
+  html.lightbox-open body {
+    overflow: hidden;
+  }
+
+  .lightbox-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  #lightbox-image {
+    max-width: min(100%, 1200px);
+    max-height: calc(100vh - 4rem);
+    border-radius: 6px;
+    object-fit: contain;
+    opacity: 1;
+    user-select: none;
+    -webkit-user-drag: none;
+    cursor: inherit;
+    transform-origin: center center;
+    transition: opacity 0.12s ease;
+    will-change: transform;
+  }
+
+  .lightbox-flight-image {
+    position: fixed;
+    z-index: 102;
+    margin: 0;
+    border-radius: 6px;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    will-change: left, top, width, height, opacity;
+  }
+
+  .lightbox-toolbar {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    z-index: 101;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    transform: translateX(-50%);
+    padding: 0.35rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    background: rgba(18, 18, 24, 0.78);
+    backdrop-filter: blur(16px);
+  }
+
+  .lightbox-toolbar button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .lightbox-toolbar button:hover {
+    background: rgba(255, 255, 255, 0.14);
+  }
+
+  #lightbox-scale {
+    min-width: 3.4rem;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.72);
+    text-align: center;
   }
 
   code {
@@ -813,11 +906,148 @@ const projectImages = {
     .contact-grid {
       grid-template-columns: 1fr;
     }
+
+    #image-lightbox {
+      padding: 1rem;
+    }
+
+    .lightbox-toolbar {
+      top: auto;
+      bottom: 1rem;
+    }
+
+    #lightbox-image {
+      max-height: calc(100vh - 2rem);
+    }
   }
 </style>
 
 <script>
+  const lightbox = document.getElementById('image-lightbox');
+  const lightboxImage = document.getElementById('lightbox-image');
+  const lightboxClose = lightbox?.querySelector('.lightbox-close');
+  const lightboxScale = document.getElementById('lightbox-scale');
+  const lightboxZoomIn = document.getElementById('lightbox-zoom-in');
+  const lightboxZoomOut = document.getElementById('lightbox-zoom-out');
+  const lightboxReset = document.getElementById('lightbox-reset');
+
   const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+  let lightboxZoom = 1;
+  let lightboxX = 0;
+  let lightboxY = 0;
+  let isLightboxDragging = false;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let startX = 0;
+  let startY = 0;
+  let activePointers = new Map();
+  let pinchStartDistance = 0;
+  let pinchStartZoom = 1;
+
+  const renderLightboxImage = () => {
+    if (!(lightboxImage instanceof HTMLImageElement)) return;
+    lightboxImage.style.transform = `translate(${lightboxX}px, ${lightboxY}px) scale(${lightboxZoom})`;
+    if (lightboxScale instanceof HTMLOutputElement) {
+      lightboxScale.textContent = `${Math.round(lightboxZoom * 100)}%`;
+    }
+  };
+
+  const resetLightboxImage = () => {
+    lightboxZoom = 1;
+    lightboxX = 0;
+    lightboxY = 0;
+    renderLightboxImage();
+  };
+
+  const zoomLightboxBy = (factor, originX, originY) => {
+    const previousZoom = lightboxZoom;
+    lightboxZoom = clamp(lightboxZoom * factor, 0.5, 6);
+    if (lightboxZoom === previousZoom) return;
+
+    if (
+      typeof originX === 'number' &&
+      typeof originY === 'number' &&
+      lightboxImage instanceof HTMLImageElement
+    ) {
+      const rect = lightboxImage.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const zoomRatio = lightboxZoom / previousZoom;
+      lightboxX += (centerX - originX) * (zoomRatio - 1);
+      lightboxY += (centerY - originY) * (zoomRatio - 1);
+    }
+
+    if (Math.abs(lightboxZoom - 1) < 0.01) {
+      lightboxZoom = 1;
+      lightboxX = 0;
+      lightboxY = 0;
+    }
+    renderLightboxImage();
+  };
+
+  const waitForLightboxImage = async () => {
+    if (!(lightboxImage instanceof HTMLImageElement)) return;
+    if (lightboxImage.complete && lightboxImage.naturalWidth > 0) return;
+
+    try {
+      await lightboxImage.decode();
+    } catch {
+      await new Promise((resolve) => {
+        lightboxImage.addEventListener('load', resolve, { once: true });
+        lightboxImage.addEventListener('error', resolve, { once: true });
+      });
+    }
+  };
+
+  const animateOpenFrom = async (sourceImage) => {
+    if (!(lightbox instanceof HTMLElement) || !(lightboxImage instanceof HTMLImageElement)) return;
+
+    lightbox.classList.add('opening');
+    await waitForLightboxImage();
+
+    const from = sourceImage.getBoundingClientRect();
+    const to = lightboxImage.getBoundingClientRect();
+    if (!from.width || !from.height || !to.width || !to.height) {
+      lightbox.classList.remove('opening');
+      return;
+    }
+
+    const flightImage = sourceImage.cloneNode(true);
+    flightImage.className = 'lightbox-flight-image';
+    flightImage.removeAttribute('loading');
+    flightImage.style.left = `${from.left}px`;
+    flightImage.style.top = `${from.top}px`;
+    flightImage.style.width = `${from.width}px`;
+    flightImage.style.height = `${from.height}px`;
+    document.body.appendChild(flightImage);
+
+    const animation = flightImage.animate(
+      [
+        {
+          left: `${from.left}px`,
+          top: `${from.top}px`,
+          width: `${from.width}px`,
+          height: `${from.height}px`,
+          opacity: 0.78,
+        },
+        {
+          left: `${to.left}px`,
+          top: `${to.top}px`,
+          width: `${to.width}px`,
+          height: `${to.height}px`,
+          opacity: 1,
+        },
+      ],
+      {
+        duration: 320,
+        easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+      }
+    );
+
+    await animation.finished.catch(() => undefined);
+    flightImage.remove();
+    lightbox.classList.remove('opening');
+  };
 
   document.querySelectorAll('.project-figure a').forEach((frame) => {
     const image = frame.querySelector('img');
@@ -826,138 +1056,128 @@ const projectImages = {
     frame.setAttribute('draggable', 'false');
     image.setAttribute('draggable', 'false');
 
-    let scale = 1;
-    let translateX = 0;
-    let translateY = 0;
-    let isDragging = false;
-    let dragStartX = 0;
-    let dragStartY = 0;
-    let startTranslateX = 0;
-    let startTranslateY = 0;
-    let floatFrame = null;
-    let floatImage = null;
-
-    const removeFloatImage = () => {
-      if (!floatFrame) return;
-      floatFrame.remove();
-      floatFrame = null;
-      floatImage = null;
-      frame.classList.remove('is-floating');
-    };
-
-    const ensureFloatImage = () => {
-      if (floatImage) return floatImage;
-      floatFrame = document.createElement('div');
-      floatFrame.className = 'zoom-float-frame';
-      floatImage = image.cloneNode();
-      floatImage.className = 'zoom-float-image';
-      floatImage.setAttribute('draggable', 'false');
-      floatImage.setAttribute('aria-hidden', 'true');
-      floatFrame.appendChild(floatImage);
-      document.body.appendChild(floatFrame);
-      frame.classList.add('is-floating');
-      return floatImage;
-    };
-
-    const clampPan = (rect) => {
-      const maxX = (rect.width * (scale - 1)) / 2;
-      const maxY = (rect.height * (scale - 1)) / 2;
-      translateX = clamp(translateX, -maxX, maxX);
-      translateY = clamp(translateY, -maxY, maxY);
-    };
-
-    const render = () => {
-      if (scale <= 1.01) {
-        removeFloatImage();
+    frame.addEventListener('click', (event) => {
+      event.preventDefault();
+      if (!(lightbox instanceof HTMLElement) || !(lightboxImage instanceof HTMLImageElement)) {
         return;
       }
 
-      const rect = image.getBoundingClientRect();
-      const activeImage = ensureFloatImage();
-      clampPan(rect);
-      floatFrame.style.left = `${rect.left}px`;
-      floatFrame.style.top = `${rect.top}px`;
-      floatFrame.style.width = `${rect.width}px`;
-      floatFrame.style.height = `${rect.height}px`;
-      activeImage.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-    };
-
-    const reset = () => {
-      scale = 1;
-      translateX = 0;
-      translateY = 0;
-      render();
-    };
-
-    frame.addEventListener('click', (event) => {
-      event.preventDefault();
+      lightboxImage.src = frame.href;
+      lightboxImage.alt = image.alt;
+      resetLightboxImage();
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.documentElement.classList.add('lightbox-open');
+      void animateOpenFrom(image);
     });
 
     frame.addEventListener('dragstart', (event) => {
       event.preventDefault();
     });
+  });
 
-    frame.addEventListener(
-      'wheel',
-      (event) => {
-        event.preventDefault();
+  const closeLightbox = () => {
+    if (!(lightbox instanceof HTMLElement) || !(lightboxImage instanceof HTMLImageElement)) {
+      return;
+    }
 
-        const rect = frame.getBoundingClientRect();
-        const pointerX = event.clientX - rect.left - rect.width / 2;
-        const pointerY = event.clientY - rect.top - rect.height / 2;
-        const previousScale = scale;
-        const normalizedDelta = clamp(event.deltaY, -120, 120);
-        const zoomStep = Math.exp(-normalizedDelta * 0.00045);
-        const nextScale = clamp(scale * zoomStep, 1, 8);
+    lightbox.classList.remove('open');
+    lightbox.classList.remove('opening', 'dragging');
+    lightbox.setAttribute('aria-hidden', 'true');
+    lightboxImage.removeAttribute('src');
+    resetLightboxImage();
+    activePointers.clear();
+    isLightboxDragging = false;
+    document.documentElement.classList.remove('lightbox-open');
+  };
 
-        if (nextScale === previousScale) return;
+  lightbox?.addEventListener('click', (event) => {
+    if (event.target === lightbox) closeLightbox();
+  });
 
-        const zoomRatio = nextScale / previousScale;
-        translateX = pointerX - (pointerX - translateX) * zoomRatio;
-        translateY = pointerY - (pointerY - translateY) * zoomRatio;
-        scale = nextScale;
-
-        if (scale === 1) {
-          translateX = 0;
-          translateY = 0;
-        }
-
-        render();
-      },
-      { passive: false }
-    );
-
-    frame.addEventListener('pointerdown', (event) => {
+  lightbox?.addEventListener(
+    'wheel',
+    (event) => {
       event.preventDefault();
-      isDragging = true;
-      dragStartX = event.clientX;
-      dragStartY = event.clientY;
-      startTranslateX = translateX;
-      startTranslateY = translateY;
-      frame.classList.add('is-dragging');
-      frame.setPointerCapture(event.pointerId);
-    });
+      const normalizedDelta = clamp(event.deltaY, -120, 120);
+      zoomLightboxBy(Math.exp(-normalizedDelta * 0.0012), event.clientX, event.clientY);
+    },
+    { passive: false }
+  );
 
-    frame.addEventListener('pointermove', (event) => {
-      if (!isDragging) return;
-      translateX = startTranslateX + event.clientX - dragStartX;
-      translateY = startTranslateY + event.clientY - dragStartY;
-      render();
-    });
+  lightbox?.addEventListener('pointerdown', (event) => {
+    if (event.target instanceof HTMLButtonElement) return;
+    event.preventDefault();
+    activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
 
-    const stopDrag = (event) => {
-      if (!isDragging) return;
-      isDragging = false;
-      frame.classList.remove('is-dragging');
-      if (frame.hasPointerCapture(event.pointerId)) {
-        frame.releasePointerCapture(event.pointerId);
-      }
-    };
+    if (activePointers.size === 2) {
+      const [first, second] = [...activePointers.values()];
+      pinchStartDistance = Math.hypot(second.x - first.x, second.y - first.y);
+      pinchStartZoom = lightboxZoom;
+      isLightboxDragging = false;
+      lightbox.classList.remove('dragging');
+      return;
+    }
 
-    frame.addEventListener('pointerup', stopDrag);
-    frame.addEventListener('pointercancel', stopDrag);
-    frame.addEventListener('dblclick', reset);
-    window.addEventListener('scroll', render, { passive: true });
-    window.addEventListener('resize', render);
+    isLightboxDragging = true;
+    dragStartX = event.clientX;
+    dragStartY = event.clientY;
+    startX = lightboxX;
+    startY = lightboxY;
+    lightbox.classList.add('dragging');
+    lightbox.setPointerCapture(event.pointerId);
+  });
+
+  lightbox?.addEventListener('pointermove', (event) => {
+    if (activePointers.has(event.pointerId)) {
+      activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    }
+
+    if (activePointers.size === 2 && pinchStartDistance > 0) {
+      const [first, second] = [...activePointers.values()];
+      const distance = Math.hypot(second.x - first.x, second.y - first.y);
+      const centerX = (first.x + second.x) / 2;
+      const centerY = (first.y + second.y) / 2;
+      const nextZoom = clamp(pinchStartZoom * (distance / pinchStartDistance), 0.5, 6);
+      zoomLightboxBy(nextZoom / lightboxZoom, centerX, centerY);
+      return;
+    }
+
+    if (!isLightboxDragging) return;
+    lightboxX = startX + event.clientX - dragStartX;
+    lightboxY = startY + event.clientY - dragStartY;
+    renderLightboxImage();
+  });
+
+  const stopLightboxDrag = (event) => {
+    if (!(lightbox instanceof HTMLElement) || !isLightboxDragging) return;
+    activePointers.delete(event.pointerId);
+    isLightboxDragging = false;
+    lightbox.classList.remove('dragging');
+    if (lightbox.hasPointerCapture(event.pointerId)) {
+      lightbox.releasePointerCapture(event.pointerId);
+    }
+  };
+
+  const stopPointer = (event) => {
+    activePointers.delete(event.pointerId);
+    stopLightboxDrag(event);
+  };
+
+  lightbox?.addEventListener('pointerup', stopPointer);
+  lightbox?.addEventListener('pointercancel', stopPointer);
+  lightbox?.addEventListener('dblclick', resetLightboxImage);
+
+  lightboxClose?.addEventListener('click', closeLightbox);
+  lightboxZoomIn?.addEventListener('click', () => zoomLightboxBy(1.2));
+  lightboxZoomOut?.addEventListener('click', () => zoomLightboxBy(1 / 1.2));
+  lightboxReset?.addEventListener('click', resetLightboxImage);
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeLightbox();
+    if (!(lightbox instanceof HTMLElement) || !lightbox.classList.contains('open')) return;
+    if (event.key === '+' || event.key === '=') zoomLightboxBy(1.18);
+    if (event.key === '-') zoomLightboxBy(1 / 1.18);
+    if (event.key === '0') resetLightboxImage();
   });
 </script>
