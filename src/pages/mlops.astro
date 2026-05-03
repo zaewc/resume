@@ -288,7 +288,41 @@ const projectImages = {
               후 클래스 변수에 캐싱하도록 수정 → 메시지당 모델 로드 비용 제거
             </li>
             <li>개선 전: Kafka 메시지 처리 시점마다 모델 및 토크나이저 로드</li>
+            <div class="figure-pair">
+              {
+                projectImages.gogoBefore.exists && (
+                  <figure class="project-figure">
+                    <a
+                      href={projectImages.gogoBefore.src}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        src={projectImages.gogoBefore.src}
+                        alt="GOGO 욕설 필터 추론 서버 개선 전 흐름"
+                        loading="lazy"
+                      />
+                    </a>
+                  </figure>
+                )
+              }
+            </div>
             <li>개선 후: FastAPI lifespan 시점에 사전 로드한 ModelService 재사용</li>
+            <div class="figure-pair">
+              {
+                projectImages.gogoAfter.exists && (
+                  <figure class="project-figure">
+                    <a href={projectImages.gogoAfter.src} target="_blank" rel="noopener noreferrer">
+                      <img
+                        src={projectImages.gogoAfter.src}
+                        alt="GOGO 욕설 필터 추론 서버 개선 후 흐름"
+                        loading="lazy"
+                      />
+                    </a>
+                  </figure>
+                )
+              }
+            </div>
             <li>
               FastAPI lifespan 시점에 사전 로드 + <code>asyncio.Lock</code>으로 동시 호출 시 중복
               로드 차단 → 첫 메시지 cold-start 제거, 컨테이너 lifecycle당 HuggingFace Hub 호출 N →
@@ -299,34 +333,7 @@ const projectImages = {
               추론 중 이벤트 루프 블로킹 제거, Kafka consumer + 헬스체크 동시 응답성 회복
             </li>
           </ul>
-          <div class="figure-pair">
-            {
-              projectImages.gogoBefore.exists && (
-                <figure class="project-figure">
-                  <a href={projectImages.gogoBefore.src} target="_blank" rel="noopener noreferrer">
-                    <img
-                      src={projectImages.gogoBefore.src}
-                      alt="GOGO 욕설 필터 추론 서버 개선 전 흐름"
-                      loading="lazy"
-                    />
-                  </a>
-                </figure>
-              )
-            }
-            {
-              projectImages.gogoAfter.exists && (
-                <figure class="project-figure">
-                  <a href={projectImages.gogoAfter.src} target="_blank" rel="noopener noreferrer">
-                    <img
-                      src={projectImages.gogoAfter.src}
-                      alt="GOGO 욕설 필터 추론 서버 개선 후 흐름"
-                      loading="lazy"
-                    />
-                  </a>
-                </figure>
-              )
-            }
-          </div>
+
           <p class="desc metric-title">동일 샘플 N=20 마이크로벤치 결과</p>
           <ol class="metric-list">
             <li>p50 1054.6ms → 17.7ms (59.6× 개선)</li>
