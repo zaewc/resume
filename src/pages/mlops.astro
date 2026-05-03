@@ -415,7 +415,7 @@ const projectImages = {
               build 시 사전 다운로드 → 런타임 HF Hub 장애, rate limit, cold-start 의존 제거
             </li>
             <li>
-              <code>/ai/health</code>에서 현재 로드된 model/tokenizer revision과
+              health check 엔드포인트에서 현재 로드된 model/tokenizer revision과
               <code>loaded_at</code>을 노출하고, Prometheus <code>/metrics</code>로 inference
               latency, prediction label, model load duration, Kafka 처리 상태를 관측
             </li>
