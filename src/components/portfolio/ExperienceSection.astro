@@ -29,7 +29,7 @@ import Fn from '../Fn.astro';
 
   <div class="exp-block">
     <a href="/ml#project" class="ml-link">
-      <span class="ml-link-title">MLOps 엔지니어로서의 경험 보기</span>
+      <span class="ml-link-title">MLOps 엔지니어 경험</span>
       <i class="bi bi-arrow-right ml-link-arrow"></i>
     </a>
   </div>
@@ -84,23 +84,17 @@ import Fn from '../Fn.astro';
     margin-bottom: 0.375rem;
   }
   .ml-link {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    padding: 0.7rem 0.9rem;
-    border: 1px solid var(--border);
-    border-radius: 0.5rem;
+    gap: 0.3rem;
     color: var(--text);
-    text-decoration: none;
-    transition:
-      color 0.15s,
-      border-color 0.15s,
-      background 0.15s;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    transition: color 0.15s;
   }
   .ml-link:hover {
     color: var(--accent);
-    border-color: var(--accent);
-    background: var(--accent-light);
   }
   .ml-link:hover .ml-link-arrow {
     transform: translateX(3px);
@@ -109,22 +103,8 @@ import Fn from '../Fn.astro';
     font-size: 0.875rem;
     font-weight: 700;
   }
-  .ml-link-sub {
-    flex: 1;
-    font-size: 0.75rem;
-    color: var(--text-faint);
-  }
   .ml-link-arrow {
-    font-size: 0.95rem;
+    font-size: 0.875rem;
     transition: transform 0.15s;
-  }
-  @media (max-width: 480px) {
-    .ml-link {
-      flex-wrap: wrap;
-      gap: 0.25rem 0.6rem;
-    }
-    .ml-link-sub {
-      flex-basis: 100%;
-    }
   }
 </style>
