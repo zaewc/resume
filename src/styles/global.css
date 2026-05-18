@@ -209,7 +209,7 @@
 
   /* ── 기본 크기 축소: rem 단위를 쓰는 모든 간격이 자동 비례 축소됨 ── */
   html {
-    font-size: 8.5pt !important;
+    font-size: 8.7pt !important;
   }
 
   body {
@@ -222,15 +222,16 @@
     display: none;
   }
 
-  /* Page setup — 0.25in 여백으로 최대 콘텐츠 영역 확보 */
+  /* Page setup — A4 (210mm × 297mm) 기준, 좌우 12mm·상하 14mm 여백 */
   @page {
-    margin: 0.25in;
-    size: letter;
+    size: A4;
+    margin: 14mm 12mm;
   }
 
   /* Career section fills page 1; everything after starts on page 2 */
   section.print-page-1 {
     page-break-after: always;
+    break-after: page;
     margin-bottom: 0 !important;
   }
 
@@ -241,12 +242,122 @@
   .sub-bul-list li,
   .bio,
   .availability p {
-    line-height: 1.35 !important;
+    line-height: 1.4 !important;
   }
 
   /* Prevent section title from being alone at bottom of page */
   .section-title {
     page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  /* Keep related blocks together across page breaks */
+  .exp-block,
+  .org-header,
+  .availability,
+  figure,
+  .project-figure,
+  .figure-pair,
+  .mlflow-pair {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* 개별 프로젝트는 가급적 한 페이지 안에 묶음 (길어서 안 들어가면 브라우저가 알아서 분할) */
+  .proj-block {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* org-block(GOGO/GCinside/JEE6 등)은 여러 페이지에 걸칠 수 있게 */
+  .org-block,
+  .bul-list,
+  .sub-bul-list {
+    page-break-inside: auto;
+    break-inside: auto;
+  }
+
+  /* 두 번째 이후 org-block은 새 페이지에서 시작 — 프로젝트 단위 깔끔하게 끊김 */
+  .org-block + .org-block {
+    page-break-before: always;
+    break-before: page;
+  }
+
+  /* 리스트 항목과 sub-list가 페이지 경계에서 한 줄짜리로 분리되지 않게 */
+  .bul-list > li,
+  .sub-bul-list > li,
+  .plain-list > li {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* 인쇄 시 이미지 크기 — A4 본문 영역(약 186mm 너비)에 맞춘 절대 단위
+     ml.astro의 스코프 스타일(width:100%, height:auto)을 이기려면 !important 필수.
+     width:auto + max-width:100% + max-height로 두 제약 안에서 비율 유지 */
+  .project-figure {
+    text-align: center;
+    margin: 0.5rem auto !important;
+  }
+  .project-figure img {
+    width: auto !important;
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: 55mm !important;
+    object-fit: contain;
+    margin: 0 auto !important;
+  }
+  .project-figure.wide img {
+    max-height: 65mm !important;
+  }
+  .project-figure.compact img {
+    max-height: 42mm !important;
+    width: 100% !important;
+  }
+
+  /* 폭이 작은 이미지(.compact)는 인쇄 모드에서 텍스트와 같은 줄에 배치
+     기본은 우측 float, .left 클래스가 있으면 좌측 — 텍스트가 자연스럽게 옆으로 흐름 */
+  .project-figure.compact {
+    float: right;
+    width: 48mm !important;
+    max-width: 48mm !important;
+    margin: 0 0 0.5rem 1rem !important;
+    shape-outside: margin-box;
+    text-align: center;
+  }
+  .project-figure.compact.left,
+  .project-figure.compact:nth-of-type(even) {
+    float: left;
+    margin: 0 1rem 0.5rem 0 !important;
+  }
+  /* float이 부모 밖으로 빠져나가 다음 섹션을 침범하지 않게 clearfix */
+  .proj-block::after,
+  .org-block::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+  /* 아키텍처 다이어그램(SVG)은 비율이 크므로 별도 상한 */
+  .org-figure img {
+    max-height: 75mm !important;
+  }
+  /* MLflow before/after 비교는 가로 2분할이라 더 낮게 */
+  .mlflow-pair .project-figure img {
+    max-height: 40mm !important;
+  }
+
+  /* 문단·리스트의 widow/orphan 제어 — 끝줄 한 줄만 다음 페이지로 넘어가는 현상 방지 */
+  p,
+  li,
+  .desc,
+  .bio {
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* 한글 단어가 줄 끝에서 어색하게 잘리지 않도록 */
+  body {
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
 
   /* Remove shadows and unnecessary styling */
@@ -273,13 +384,9 @@
   #theme-toggle,
   .theme-toggle,
   .scroll-progress,
-  .fn {
+  .fn,
+  #image-lightbox {
     display: none !important;
-  }
-
-  /* availability 박스가 페이지 경계에서 잘리지 않도록 */
-  .availability {
-    page-break-inside: avoid;
   }
 
   /* Widen content area for print */
@@ -288,5 +395,16 @@
     width: 100% !important;
     padding: 0 !important;
     margin: 0 !important;
+  }
+
+  /* Headings shouldn't be orphaned at the bottom of a page */
+  h1,
+  h2,
+  h3,
+  .org-name,
+  .exp-title,
+  .proj-name {
+    page-break-after: avoid;
+    break-after: avoid;
   }
 }
