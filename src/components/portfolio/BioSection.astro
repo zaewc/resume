@@ -1,10 +1,26 @@
 ---
-
+interface Props {
+  active: 'web' | 'ml';
+}
+const { active }: Props = Astro.props;
 ---
 
 <section class="mb-12">
   <h1 class="name">
-    송재욱 <span class="name-sub">(Web Developer)</span>
+    송재욱
+    <span class="name-sub">
+      (<a
+        href="/"
+        class:list={['role-tab', { active: active === 'web' }]}
+        aria-current={active === 'web' ? 'page' : undefined}>Web Developer</a
+      >
+      <span class="role-sep" aria-hidden="true">·</span>
+      <a
+        href="/ml"
+        class:list={['role-tab', { active: active === 'ml' }]}
+        aria-current={active === 'ml' ? 'page' : undefined}>MLOps</a
+      >)
+    </span>
   </h1>
   <p class="bio">
     <span class="bio-bold">문제의 '왜'를 추적, 본질을 명확히 규명하는 개발자입니다.</span><br />
@@ -33,6 +49,27 @@
     font-size: 1.1rem;
     font-weight: 500;
     color: var(--text-muted);
+  }
+  .role-tab {
+    color: var(--text-faint);
+    text-decoration: none;
+    transition:
+      color 0.15s,
+      text-decoration-color 0.15s;
+  }
+  .role-tab:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .role-tab.active {
+    color: var(--text);
+    font-weight: 700;
+    pointer-events: none;
+  }
+  .role-sep {
+    color: var(--text-faint);
+    margin: 0 0.15rem;
   }
   .bio {
     font-size: 0.9rem;
