@@ -1,13 +1,10 @@
----
-const driveUrl = import.meta.env.PUBLIC_PORTFOLIO_DRIVE_URL;
----
-
 <section id="portfolio-section" class="portfolio-section">
   <p class="portfolio-sub">더 다양한 경험을 자세히 담았습니다.</p>
-  <a href={driveUrl} target="_blank" rel="noopener noreferrer" class="portfolio-btn">
+  <a href="/p" class="portfolio-btn">
     포트폴리오 보러가기
     <i class="bi bi-arrow-right"></i>
   </a>
+  <a href="#contact" class="contact-btn">연락처 보기</a>
 </section>
 
 <style>
@@ -43,5 +40,20 @@ const driveUrl = import.meta.env.PUBLIC_PORTFOLIO_DRIVE_URL;
   }
   .portfolio-btn i {
     font-size: 0.9rem;
+  }
+  .contact-btn {
+    display: block;
+    width: fit-content;
+    margin: 0.75rem auto 0;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .contact-btn:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 </style>

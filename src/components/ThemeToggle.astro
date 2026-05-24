@@ -6,11 +6,21 @@
   <span class="icon-sun">☀︎</span>
   <span class="icon-moon">☽</span>
 </button>
+<a
+  id="github-source-link"
+  href="https://github.com/zaewc/resume"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="GitHub 저장소"
+  title="GitHub 저장소"
+>
+  <i class="bi bi-github"></i>
+</a>
 
 <style>
-  #theme-toggle {
+  #theme-toggle,
+  #github-source-link {
     position: fixed;
-    top: 1.25rem;
     right: 1.25rem;
     z-index: 50;
     width: 2.25rem;
@@ -26,13 +36,35 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  #theme-toggle {
+    top: 1.25rem;
     transition:
       border-color 0.2s,
       color 0.2s;
   }
-  #theme-toggle:hover {
+  #theme-toggle:hover,
+  #github-source-link:hover {
     border-color: var(--accent);
     color: var(--accent);
+  }
+  #github-source-link {
+    top: 4rem;
+    font-size: 1.05rem;
+    text-decoration: none;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition:
+      opacity 0.2s,
+      transform 0.2s,
+      border-color 0.2s,
+      color 0.2s;
+  }
+  #github-source-link.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
   .icon-sun {
     display: none;
@@ -50,8 +82,20 @@
 
 <script>
   const toggle = document.getElementById('theme-toggle')!;
+  const githubSourceLink = document.getElementById('github-source-link')!;
+
+  const updateGithubSourceLink = () => {
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const isAtBottom = maxScroll <= 0 || window.scrollY >= maxScroll - 2;
+    githubSourceLink.classList.toggle('visible', isAtBottom);
+  };
+
   toggle.addEventListener('click', () => {
     const isDark = document.documentElement.classList.toggle('dark');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
   });
+
+  window.addEventListener('scroll', updateGithubSourceLink, { passive: true });
+  window.addEventListener('resize', updateGithubSourceLink);
+  updateGithubSourceLink();
 </script>
