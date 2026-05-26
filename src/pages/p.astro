@@ -1,0 +1,1580 @@
+---
+import '../styles/global.css';
+
+const title = '송재욱 포트폴리오';
+const description = '웹 개발자 송재욱 포트폴리오';
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="author" content="송재욱" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <title>{title}</title>
+  </head>
+  <body class="p-body">
+    <main class="p-main">
+      <!-- =================== 1. 표지 / 자기소개 =================== -->
+      <section class="page page-cover">
+        <h1 class="cover-title">안녕하세요, <strong>웹 개발자 송재욱</strong>입니다.</h1>
+
+        <div class="cover-divider"></div>
+
+        <div class="bio-block">
+          <h2 class="bio-heading">
+            문제의 '왜'를 추적, 본질을 명확히 규명하는 개발자입니다 <span aria-hidden="true"
+              >🔍</span>
+          </h2>
+          <p>
+            복잡한 요구사항 속에서 <strong>진짜 문제</strong>를 재정의하고, 가장 단순하고 비용
+            효율적인 솔루션을 도출합니다.
+          </p>
+          <p>
+            여러 공공기관으로부터 위탁받은 프로젝트들에서 쉽게 예상하기 어려운 수많은 요구사항과
+            피드백을 받았습니다. 이 과정에서 그대로 개발하는 대신 기획자·원청과의 기대를 조율하며,
+            더 나은 타협점을 제안해 프로젝트의 낭비를 줄여 왔습니다.
+          </p>
+          <p>
+            디자인이 목적에 맞지 않다고 판단되면, 디자이너와의 토의를 거쳐 직접 리디자인을 주도해
+            사용성을 끌어올린 경험이 있습니다. UI/UX를 심미성을 넘어선 <strong>문제 해결</strong>의
+            영역으로 바라보며, 최종적으로 모든 이해관계자에게 최선의 가치를 전달하는 결과를 만드는
+            데 집중합니다.
+          </p>
+        </div>
+
+        <div class="bio-block">
+          <h2 class="bio-heading">
+            책임감을 바탕으로 오너십을 실천하는 리더입니다 <span aria-hidden="true">🚀</span>
+          </h2>
+          <p>
+            서비스의 소유자가 아닌 책임자의 스탠스로, 독단보다는 소통을 통해 팀이 같은 방향을
+            바라보게 합니다. 본 문서에 담긴 6개의 서비스는 제가 기획, 개발, 배포, 운영까지 전체
+            과정을 직접 참여한 프로젝트입니다.
+          </p>
+          <p>
+            <strong>2년간 부회장</strong>으로 활동하며 학생회와 학교 전체를 리드하고 매주 교장·교감
+            선생님과의 정기 회의를 통해 학교의 주요 현안을 논의했습니다. 또한 웹 개발 전공 동아리
+            'INCUBE'를 창단하고, <strong>교내 최대 규모</strong>까지 성장시켜 후배의 양성을 핵심
+            가치로 삼아 운영해 오고 있습니다.
+          </p>
+          <p>
+            목적을 위해 개인적인 리소스를 아낌없이 투자하며 팀과 사용자 모두에게 유의미한 결과를
+            만들어내고자 합니다.
+          </p>
+        </div>
+
+        <div class="contact-block">
+          <h3 class="contact-title">연락처</h3>
+          <div class="contact-divider"></div>
+          <div class="contact-grid">
+            <div class="contact-col">
+              <div class="contact-item"><span aria-hidden="true">📞</span> 010-7745-5407</div>
+              <div class="contact-item"><span aria-hidden="true">📧</span> s24064@gsm.hs.kr</div>
+            </div>
+            <div class="contact-col">
+              <a
+                class="contact-item"
+                href="https://github.com/zaewc"
+                target="_blank"
+                rel="noopener"
+              >
+                <i class="bi bi-github"></i>
+                <u>@zaewc</u>
+              </a>
+              <a
+                class="contact-item"
+                href="https://velog.io/@haensol"
+                target="_blank"
+                rel="noopener"
+              >
+                <i class="bi bi-pencil-fill"></i>
+                <u>@haensol</u>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== 2. 광탈페 플랫폼 개요 =================== -->
+      <section class="page">
+        <header class="proj-header">
+          <img src="/p/gwangtalpe-logo.png" alt="광탈페 로고" class="proj-logo" />
+          <div class="proj-titles">
+            <h2 class="proj-title">光탈페 플랫폼</h2>
+            <div class="proj-meta">
+              <span class="proj-sub">광주학생탈렌트페스티벌 행사 관리 공식 웹 서비스</span>
+              <span class="proj-period">2025.02. — 2025.10.</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="hero-wrap">
+          <img src="/p/gwangtalpe-hero.png" alt="광탈페 플랫폼 미리보기" />
+          <a class="repo-chip" href="#" target="_blank" rel="noopener"
+            ><i class="bi bi-github"></i> 레포지토리</a
+          >
+        </div>
+
+        <h3 class="sec-title">개요</h3>
+        <ul class="bullet">
+          <li>
+            光탈페(광주학생탈렌트페스티벌)는 교육청과 광주고등학생의회 주도로 운영되는 오디션
+            프로그램으로 기존(23~24년) 예매 서비스는 교육청이 SI 업체에 위탁 운영했으나, 기능적
+            완성도와 UX 측면에서 불편 존재
+          </li>
+          <li>
+            이에 플랫폼을 예매 기능뿐만 아니라 프로그램 소개, 슬로건 공모, 참여 신청, 실시간 투표
+            기능까지 아우르는 형태로 확장 개발, <strong>1000만+ 원의 외주 입찰 비용을 절감</strong
+            >하는 성과
+          </li>
+          <li>
+            행사 당일 <strong
+              >DAU 3000+명, Vercel 기준 누적 트래픽 7.3만+, GA 기준 이벤트 5만+건</strong
+            > 달성
+          </li>
+        </ul>
+
+        <h3 class="sec-title">주요 역할</h3>
+        <ul class="bullet">
+          <li>자체 Auth 로직 구현</li>
+          <li>
+            실시간 좌석 예매 기능(SSE)을 구현하고, 계정별 예매 여부에 따라 페이지가 달라지도록 동적
+            라우팅을 적용
+          </li>
+          <li>SEO 최적화·성능 개선과 운영 중 수정 요청/피드백을 지속 반영하며 품질 향상</li>
+        </ul>
+      </section>
+
+      <!-- =================== 3. 광탈페 — SEO + 초기 로딩 개선 =================== -->
+      <section class="page">
+        <h3 class="case-title">검색 엔진 최적화</h3>
+        <div class="case-grid">
+          <div>
+            <h4 class="case-h4">AS IS</h4>
+            <p>
+              서비스 이용 고객층 중에 정보기기에 익숙하지 않은 사용자가 많으며, 검색 엔진을 통해
+              서비스를 탐색하는 경우가 대부분이었기 때문에 원활한 접근성을 제공할 필요가 있었습니다.
+            </p>
+            <h4 class="case-h4">해결</h4>
+            <ul class="bullet">
+              <li>next.js의 Metadata API를 이용하여 openGraph와 keywords등을 설정했습니다.</li>
+              <li>
+                prebuild 시 next-sitemap이 실행되도록 하여 사이트맵 생성 과정을 자동화했습니다.
+              </li>
+              <li>
+                서비스 페이지가 <strong>대부분의 검색 엔진에서 최상단에 노출</strong>되는 결과를
+                달성하였습니다.
+              </li>
+            </ul>
+          </div>
+          <div class="case-images">
+            <img src="/p/seo-before.png" alt="SEO 결과 1" />
+            <img src="/p/seo-after.png" alt="SEO 결과 2" />
+          </div>
+        </div>
+
+        <hr class="case-hr" />
+
+        <h3 class="case-title">/home 페이지 초기 로딩 성능 개선</h3>
+        <h4 class="case-h4">AS IS</h4>
+        <ul class="bullet">
+          <li>정성적 리서치 결과 /home 페이지의 로딩 속도가 느리다는 피드백이 있었습니다.</li>
+          <li>
+            대용량 비디오와 이미지를 포함한 모든 섹션이 한 번에 로드되어, 초기 로딩 속도가 저하되는
+            문제였습니다.
+          </li>
+        </ul>
+        <div class="lighthouse-row">
+          <img src="/p/lh-asis-1.png" alt="AS-IS Lighthouse 1" />
+          <img src="/p/lh-asis-2.png" alt="AS-IS Lighthouse 2" />
+          <img src="/p/lh-asis-3.png" alt="AS-IS Lighthouse 3" />
+        </div>
+        <h4 class="case-h4">TO BE</h4>
+        <ul class="bullet">
+          <li>SSG와 섹션별 Lazy Loading을 도입해 초기 부하를 저하시켰습니다.</li>
+          <li>
+            히어로 섹션은 즉시 로드 + Above-the-fold 이미지를 priority preload로 처리하여 일관된
+            UX를 유지했습니다.
+          </li>
+          <li>
+            Lighthouse 측정 결과 FCP, LCP, SI를 각각 <strong>약 60% 개선</strong>하는 성과를
+            보였습니다.
+          </li>
+        </ul>
+        <div class="lighthouse-row">
+          <img src="/p/lh-tobe-1.png" alt="TO-BE Lighthouse 1" />
+          <img src="/p/lh-tobe-2.png" alt="TO-BE Lighthouse 2" />
+          <img src="/p/lh-tobe-3.png" alt="TO-BE Lighthouse 3" />
+        </div>
+      </section>
+
+      <!-- =================== 4. 광탈페 — Tanstack Query =================== -->
+      <section class="page">
+        <h3 class="case-title">Tanstack Query 캐시가 업데이트 돼도 UI가 갱신되지 않는 문제 해결</h3>
+        <h4 class="case-h4">문제 상황</h4>
+        <p>
+          SSE를 통해 좌석 상태 변경 이벤트는 정상적으로 수신되고 Tanstack Query 캐시도 올바르게
+          업데이트되었지만, UI에 표시되는 섹션 별 좌석 예약 된 좌석 점유율 정보는 페이지를
+          새로고침하기 전까지 갱신되지 않았습니다.
+        </p>
+
+        <h4 class="case-h4">원인 파악</h4>
+        <ul class="bullet">
+          <li>
+            기존 코드에서는 <code>useMemo</code>의 의존성 배열에 <code>queryClient</code> 객체를 포함했으나,
+            이는 캐시 내용이 변경되어도 참조값이 동일하게 유지되는 불변 객체라는 것을 알았습니다.
+          </li>
+          <li>
+            <code>queryClient.getQueryData()</code>는 호출 시점의 캐시 값만 반환하는 일회성 조회
+            방식으로, Tanstack Query의 reactive 시스템과 연결되지 않았던 것입니다.
+          </li>
+        </ul>
+
+        <div class="img-center">
+          <img src="/p/tanstack-diagram.png" alt="Tanstack Query 캐시 다이어그램" />
+        </div>
+
+        <h4 class="case-h4">해결</h4>
+        <ul class="bullet">
+          <li>
+            <code>useQueries</code>를 사용하여 모든 섹션의 좌석 상태 쿼리를 동시에 구독 → 섹션의
+            캐시가 변경될 때마다 해당 쿼리 객체가 자동으로 업데이트되도록 했습니다.
+          </li>
+          <li>
+            <code>useMemo</code>의 의존성 배열을 <code>sectionQueries</code> 배열로 변경함으로써 캐시
+            내용 변경 시 좌석 점유율 계산 로직이 자동으로 재실행됩니다.
+          </li>
+        </ul>
+      </section>
+
+      <!-- =================== 5. EXPO 개요 =================== -->
+      <section class="page">
+        <header class="proj-header">
+          <img src="/p/expo-app-icon.png" alt="EXPO 앱 아이콘" class="proj-logo" />
+          <div class="proj-titles">
+            <h2 class="proj-title">EXPO</h2>
+            <div class="proj-meta">
+              <span class="proj-sub">교원 연수 및 박람회 사전 신청, 등록 서비스</span>
+              <span class="proj-period">2024.10. — present</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="hero-wrap">
+          <img src="/p/expo-hero.png" alt="EXPO 미리보기" />
+          <a class="repo-chip" href="#" target="_blank" rel="noopener"
+            ><i class="bi bi-github"></i> 레포지토리</a
+          >
+        </div>
+
+        <h3 class="sec-title">개요</h3>
+        <ul class="bullet">
+          <li>
+            광주광역시 교육청에서 수주받은 프로젝트, 기존 박람회 혹은 연수에서 참가자를 관리할때
+            사전 신청이나 참가자 조회에서의 불편함을 해결하여 교육 행사·축전의 운영 효율화를 목표로
+            개발
+          </li>
+          <li>
+            관리자는 행사·축전을 생성하고 참가자 폼 및 만족도 조사를 동적으로 구성·배포할 수 있으며,
+            참가자는 문자로 전달된 QR 코드를 통해 출입을 인증하고 즉시 만족도 조사에 참여할 수 있음.
+            수집된 모든 데이터는 Excel로 자동 정리되어, 행사 운영 통계와 교육청 정책 의사결정에
+            활용될 수 있도록 설계
+          </li>
+          <li>
+            기존 외주 입찰 비용 <strong>2000만+ 원을 절감</strong>, AI·SW 체험 축전과
+            미래교육박람회를 포함해 <strong>3만+ 명</strong>을 대상으로 운영
+          </li>
+        </ul>
+
+        <h3 class="sec-title">주요 역할</h3>
+        <ul class="bullet">
+          <li>동적 폼 스키마/타입 고도화 및 API payload/데이터 변환 로직 구현</li>
+          <li>요청 데이터 기반 QR 정보 주입, 토큰 유무 등 현장 예외 케이스 대응</li>
+        </ul>
+      </section>
+
+      <!-- =================== 6. EXPO — DSL Schema =================== -->
+      <section class="page">
+        <h3 class="case-title">DSL 기반 Schema 확립으로 렌더링 경로 단순화</h3>
+        <p>
+          동적 폼은 서버로부터 모든 질문 리스트와 메타데이터를 받아오는 방식으로 구현되어 있는데, 각
+          질문은 <code>jsonData</code>(선택지), <code>otherJson</code>(기타 설정)이라는 Stringified
+          JSON 필드를 포함하고 있습니다.
+        </p>
+
+        <div class="case-grid">
+          <div>
+            <h4 class="case-h4">AS IS</h4>
+            <ul class="bullet">
+              <li>
+                렌더링 시점마다 <code>JSON.parse()</code>가 반복 실행되어 연산 비용이 증가합니다.
+                게다가 잘못된 JSON 형식이 들어올 경우 전체 폼이 렌더링되지 않는 <strong
+                  >White Screen of Death</strong
+                > 위험이 있었습니다.
+              </li>
+              <li>
+                선택지의 순서가 보장되지 않으며, value가 단순 문자열인지 객체인지 런타임에 타입
+                가드로 확인해야 했습니다.
+              </li>
+              <li>
+                질문의 고유 ID같은게 없어서 질문 제목으로 <code>slugify(title)</code>을 사용하여
+                식별자를 생성해야 했습니다.
+              </li>
+            </ul>
+            <div class="code-stack">
+              <img src="/p/expo-asis-1.png" alt="AS-IS 코드 1" />
+              <img src="/p/expo-asis-2.png" alt="AS-IS 코드 2" />
+            </div>
+          </div>
+          <div>
+            <h4 class="case-h4">TO BE</h4>
+            <ul class="bullet">
+              <li>
+                Stringified JSON 데이터를 Zod Schema를 통해 검증된 정형 객체(DSL)로 변환하여,
+                애플리케이션 내부에서는 파싱 로직 없이 안전하게 데이터를 사용할 수 있도록
+                개선했습니다.
+              </li>
+              <li>
+                컴포넌트 렌더링 단계가 아닌, 데이터 수신 직후 Wrapper Layer에서 데이터 타입을
+                확정지어, UI 컴포넌트 내의 런타임 Type Guard 로직을 제거하고, <code
+                  >JSON.parse()</code
+                >를 1회만 수행하도록 리펙토링하여 불필요한 연산을 제거하고 렌더링 성능을
+                최적화했습니다.
+              </li>
+              <li>
+                질문 제목 대신 UUID 기반의 고유 ID를 도입하여 질문 내용이 수정되더라도 데이터와의
+                연결이 끊어지지 않는 <strong>데이터 무결성</strong>을 확보했습니다.
+              </li>
+            </ul>
+            <div class="code-stack">
+              <img src="/p/expo-tobe-1.png" alt="TO-BE 코드 1" />
+              <img src="/p/expo-tobe-2.png" alt="TO-BE 코드 2" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== 7. GOGO 개요 =================== -->
+      <section class="page">
+        <header class="proj-header">
+          <img src="/p/gogo-logo.png" alt="GOGO 로고" class="proj-logo" />
+          <div class="proj-titles">
+            <h2 class="proj-title">GOGO</h2>
+            <div class="proj-meta">
+              <span class="proj-sub">전국 중·고등학교 대상 스포츠 행사 플랫폼</span>
+              <span class="proj-period">2025.03. — 2025.05.</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="hero-wrap">
+          <img src="/p/gogo-hero.png" alt="GOGO 미리보기" />
+        </div>
+
+        <h3 class="sec-title">개요</h3>
+        <ul class="bullet">
+          <li>
+            기존 체육행사 시스템에서는 신청서를 수기로 작성하여 제출해야했기에 신청서 작성을 위해
+            반장들이 직접 발로 뛰어야 했고 각 종목에 출전할 인원 모집을 위해 따로 디스코드 서버를
+            파서 배정된 인원을 확인해야하는 불편함이 있었습니다.
+          </li>
+          <li>
+            GOGO는 이를 개선하기 위해 팀 신청부터 동적 대진표 및 일정 관리 기능을 제공하여 행사
+            관리자, 체육 선생님과 학생들을 도와주고 승부예측과 같은 시스템을 도입하여 학생들의
+            참여도와 관심도를 높히기 위한 서비스입니다.
+          </li>
+          <li>
+            본교 체육대회에서 <strong>DAU 300+명, GA 기준 누적 이벤트 17만+건</strong>을 기록하며
+            서비스 중이고, 전국 단위 확장이라는 목표 아래 발전하고 있습니다.
+          </li>
+        </ul>
+
+        <h3 class="sec-title">주요 역할</h3>
+        <ul class="bullet">
+          <li>대회 운영 MVP 플로우(스테이지/대진표/팀/매치) 설계·구현</li>
+          <li>DnD 기반 동적 대진표(Bracket) 기능 구현 및 팀 수/턴 등 edge case 대응</li>
+          <li>커뮤니티 이미지 첨부/조회수 표시 구현, 댓글 입력/정렬/반응형 등 UX 개선</li>
+        </ul>
+
+        <div class="link-row">
+          <a class="repo-chip inline" href="#" target="_blank" rel="noopener"
+            ><i class="bi bi-github"></i> 레포지토리</a
+          >
+          <a class="repo-chip inline" href="#" target="_blank" rel="noopener"
+            ><i class="bi bi-file-earmark-text"></i> 프로젝트 기획서</a
+          >
+        </div>
+      </section>
+
+      <!-- =================== 8. GOGO — Stale Closure =================== -->
+      <section class="page">
+        <h3 class="case-title">빠르고 연속적인 비동기 환경(DND)에서 stale closure 문제 해결</h3>
+        <h4 class="case-h4">문제 상황</h4>
+        <p>
+          여러 컴포넌트 간에서 드래그를 해도 드래그 전 상태로 돌아갔고, 리렌더링을 해야
+          반영되었습니다.
+        </p>
+
+        <h4 class="case-h4">원인 파악</h4>
+        <ul class="bullet">
+          <li>
+            <code>onDragEnd</code> 함수가 생성될 때, 내부에서 참조하는 <code>teams</code>와 <code
+              >placedTeams</code
+            >는 그 시점의 스냅샷으로 closure에 캡처됩니다. DND 이벤트 발생 시 호출되는 <code
+              >onDragEnd</code
+            >가 생성 시점의 stale state를 참조하여 zustand에 저장하는 것을 확인했고, 다음 렌더링까지
+            이 지연된 상태가 전파된다고 추측했습니다.
+          </li>
+          <li>
+            <code>availableTeams</code> 함수와 <code>TeamArray</code> 컴포넌트 등 다른 곳에서 오염된 <code
+              >teams</code
+            > 데이터를 참조하여 추가적인 문제가 발생했습니다.
+          </li>
+        </ul>
+
+        <div class="img-center"><img src="/p/gogo-stale-diagram.png" alt="Store 다이어그램" /></div>
+
+        <h4 class="case-h4">해결</h4>
+        <p>
+          CustomEvent API 기반의 이벤트 버스를 도입하여 드래그 상태를 실시간으로 저장하고, 이벤트
+          발행 시 각 <code>gameId</code>별로 데이터를 독립적으로 관리하도록 설계했습니다.
+        </p>
+      </section>
+
+      <!-- =================== 9. GOGO — Portal/Clipping =================== -->
+      <section class="page">
+        <h3 class="case-title">드래그 대상이 부모 container의 스타일 영향을 받는 문제 해결</h3>
+        <h4 class="case-h4">문제 상황</h4>
+        <p>
+          <code>overflow: hidden</code>을 적용해야 하는 <code>TeamArray</code>의 하위 component인 <code
+            >TeamItem</code
+          >이 드래그 대상으로 사용되었는데, <code>TeamArray</code>의 범위를 벗어나면 hidden 처리되는
+          문제가 있었습니다.
+        </p>
+
+        <h4 class="case-h4">원인 파악</h4>
+        <p>
+          <code>TeamArray</code> 컴포넌트가 클리핑 컨텍스트가 되었기 때문에 DOM 하위에 있던 <code
+            >TeamItem</code
+          >이 클리핑에 걸렸기 때문이었습니다.
+        </p>
+
+        <h4 class="case-h4">해결</h4>
+        <p>
+          page component가 mount될 때 portal 전용 DOM 엘리먼트를 생성하여 <code>document.body</code
+          >에 직접 추가한 뒤, 해당 <code>portalRef</code>를 <code>TeamArray</code> 컴포넌트에 props로
+          전달했습니다. <code>TeamArray</code> 렌더링 시 <code>createPortal</code> 함수를 이용해 드래그
+          중인 요소를 <code>portalRef</code>가 참조하는 DOM 요소로 렌더링했습니다.
+        </p>
+
+        <div class="img-center"><img src="/p/gogo-portal.png" alt="Portal 솔루션" /></div>
+      </section>
+
+      <!-- =================== 10. 시민화폐 광산 개요 =================== -->
+      <section class="page">
+        <header class="proj-header">
+          <img src="/p/gwangsan-logo.png" alt="시민화폐 광산 로고" class="proj-logo" />
+          <div class="proj-titles">
+            <h2 class="proj-title">시민화폐 광산</h2>
+            <div class="proj-meta">
+              <span class="proj-sub">광산구 주민 화합을 위한 지역 화폐 거래 관리 서비스</span>
+              <span class="proj-period">2025.04. — present</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="hero-wrap">
+          <img src="/p/gwangsan-hero.png" alt="시민화폐 광산 미리보기" />
+        </div>
+
+        <h3 class="sec-title">개요</h3>
+        <ul class="bullet">
+          <li>
+            시민화폐 광산은 광주광역시 광산구의 외주 프로젝트로, 지역 내에서 가상의 화폐 '광산'을
+            활용해 서비스와 물품을 거래할 수 있는 서비스입니다.
+          </li>
+          <li>
+            개발 기간동안 데일리 스크럼을 주최하며 팀 전원의 스크럼 단위 목표 공유 및 이슈 파악
+            체계화
+          </li>
+          <li>
+            iOS 파트 개발자가 갑작스럽게 이탈하는 상황이 발생했고, 비록 제 담당은 어드민 웹
+            개발이었으나 원활한 진행과 클라이언트와의 신뢰 유지를 위해 React Native를 활용하여
+            공백을 신속히 메우고 <strong>App store 릴리즈</strong>까지 진행
+          </li>
+        </ul>
+
+        <h3 class="sec-title">주요 역할</h3>
+        <ul class="bullet">
+          <li>모바일앱: 거래 게시글 및 채팅으로 물건/서비스를 교환할 수 있는 MVP 플로우 구현</li>
+          <li>
+            웹(어드민): 원청의 요구사항에 따라 가입 승인, 신고 처리, '광산' 지급·회수 같은 운영 기능
+            개발 및 운영
+          </li>
+        </ul>
+
+        <div class="link-row">
+          <a class="repo-chip inline" href="#" target="_blank" rel="noopener"
+            ><i class="bi bi-github"></i> 레포지토리 (앱)</a
+          >
+          <a class="repo-chip inline" href="#" target="_blank" rel="noopener"
+            ><i class="bi bi-github"></i> 레포지토리 (웹)</a
+          >
+        </div>
+      </section>
+
+      <!-- =================== 11. 시민화폐 — 테스트 인프라 + 웹소켓 =================== -->
+      <section class="page">
+        <h3 class="case-title">크로스플랫폼 앱 테스트 인프라 구축</h3>
+        <h4 class="case-h4">AS IS</h4>
+        <ul class="bullet">
+          <li>
+            아키텍처 변경을 포함한 대규모 리팩토링이 예정되어 있었으나, QA 과정이 수동으로 이루어져
+            팀원들의 생산성과 일정에 부담이 있었습니다.
+          </li>
+          <li>
+            실제 사용자 흐름을 검증하는 E2E 테스트는 매번 시뮬레이터를 직접 조작해야 했습니다.
+          </li>
+        </ul>
+
+        <h4 class="case-h4">TO BE</h4>
+        <ul class="bullet">
+          <li>
+            Jest와 React Testing Library 기반에 MSW로 API 통신에 대한 핸들러를 구현하고, 테스트마다
+            동적으로 핸들러를 교체해 에러 시나리오까지 독립적으로 검증했습니다.
+          </li>
+          <li>
+            Detox로 iOS/Android 양 플랫폼 E2E 테스트를 구성하고, 앱 시작·로그인·프로필 화면의 핵심
+            사용자 흐름을 자동 검증하도록 했습니다.
+          </li>
+          <li>
+            Unit 테스트는 PR마다 Jest 커버리지 리포트가 코멘트로 자동 게시되고, E2E 테스트는 <code
+              >babel-plugin-istanbul</code
+            >을 빌드에 삽입해 시뮬레이터 실행 결과에서 커버리지를 추출함으로써, 두 테스트 레이어
+            모두 CI에서 커버리지를 자동으로 보고합니다.
+          </li>
+          <li>
+            CocoaPods·Detox 프레임워크·Xcode 중간 산출물 캐싱을 적용해 CI 실행 시간을 최소화했으며,
+            테스트 결과는 Discord 웹훅으로 팀에게 즉시 전달됩니다.
+          </li>
+        </ul>
+
+        <hr class="case-hr" />
+
+        <h3 class="case-title">웹소켓 데이터 전송 시 메시지 유실률 개선 및 오프라인 대응</h3>
+        <h4 class="case-h4">AS IS</h4>
+        <ul class="bullet">
+          <li>
+            기존에는 웹소켓 연결 상태(<code>connectionState</code>)만 확인하고 데이터를 전송했기
+            때문에, 도중에 연결이 끊길 시 전송중이었던 메시지를 유실하는 문제가 있었습니다.
+          </li>
+          <li>
+            오프라인 전송, 재시도 기능, 상태 피드백이 없어 UX가 저하되었다는 피드백이 있었습니다.
+          </li>
+        </ul>
+        <div class="img-center small">
+          <img src="/p/ws-asis.png" alt="웹소켓 AS-IS 다이어그램" />
+        </div>
+
+        <h4 class="case-h4">TO BE</h4>
+        <ul class="bullet">
+          <li>
+            우선 zustand 기반 Persistent Queue를 도입하여 사용자 테스트 결과 일반적인 상황에서 <strong
+              >데이터 유실률을 1% 이내로 감소</strong
+            >시키는데 성공했습니다.
+          </li>
+          <li>이를 근거로 낙관적 업데이트를 도입하여 UI가 즉시 반영되도록 개선했습니다.</li>
+          <li>
+            <code>isSocketConnected</code>를 <code>useEffect</code>로 감시하며 네트워크 재연결 시
+            zustand에 저장된 'PENDING' 또는 'FAILED' 상태의 메시지를 자동으로 재전송하도록 했습니다.
+          </li>
+        </ul>
+        <div class="img-center small">
+          <img src="/p/ws-tobe.png" alt="웹소켓 TO-BE 다이어그램" />
+        </div>
+      </section>
+
+      <!-- =================== 12. 시민화폐 — Bottom Sheet =================== -->
+      <section class="page">
+        <h3 class="case-title">
+          바텀시트에서 슬라이더 드래그 시 깜빡임 문제 해결
+          <a class="inline-link" href="#" target="_blank" rel="noopener">블로그 링크 →</a>
+        </h3>
+
+        <h4 class="case-h4">문제 상황</h4>
+        <ul class="bullet">
+          <li>
+            슬라이더 드래그·드롭 시 바텀시트가 순간적으로 초기화되며 슬라이더 값이 원래 위치로
+            돌아갔습니다.
+          </li>
+          <li>
+            바텀시트 내부 컴포넌트(Input)들의 값을 변경할 때 마다 지속적인 깜빡임이 발생했습니다.
+          </li>
+        </ul>
+
+        <h4 class="case-h4">원인 파악</h4>
+        <ul class="bullet">
+          <li>
+            슬라이더 드래그 시 발생하는 연속적인 상태 업데이트가 상위 컴포넌트의 리렌더링을
+            유발하며, 이로 인해 바텀시트의 레이아웃과 제스처 애니메이션이 반복적으로 재계산되어
+            깜빡임이 발생했습니다.
+          </li>
+          <li>
+            JS 스레드와 네이티브 UI 스레드 간의 비동기적 타이밍 차이가 누적되어 렌더링 타이밍이
+            어긋나면서 불안정성이 심화되었다고 생각했습니다.
+          </li>
+        </ul>
+
+        <h4 class="case-h4">해결</h4>
+        <p>
+          드래그 중에는 로컬 상태만 사용하고, 사용자가 명시적으로 작성 완료 버튼을 누를 때 부모
+          상태를 업데이트하도록 전략을 변경했습니다.
+        </p>
+      </section>
+
+      <!-- =================== 13. 사이드 프로젝트 + 수상 =================== -->
+      <section class="page">
+        <h2 class="big-title">사이드 프로젝트</h2>
+        <div class="big-divider"></div>
+
+        <div class="side-grid">
+          <div class="side-card">
+            <div class="side-head">
+              <img src="/p/scrolloop-icon.png" alt="Scrolloop" class="side-icon" />
+              <div>
+                <h3 class="side-title">
+                  Scrolloop <span class="muted">| React 경량 스크롤 라이브러리</span>
+                </h3>
+                <a class="inline-link sm" href="#" target="_blank" rel="noopener"
+                  ><i class="bi bi-github"></i> 레포지토리</a
+                >
+              </div>
+            </div>
+            <ul class="bullet">
+              <li>
+                리스트를 windowing 기법으로 렌더링하는 <code>VirtualList</code>와 이를 이용한 무한
+                스크롤을 지원하는 <code>InfiniteList</code> 컴포넌트를 제공합니다. turbopack 기반 모노레포
+                구조로 React와 React Native를 동시에 지원합니다.
+              </li>
+              <li>
+                최소 설계를 목표로 약 <strong>45kb</strong>, 디펜던시 <strong>0개</strong>로
+                구현했으며, 현재 <strong>누적 다운로드 1900+건</strong>을 기록하고 있습니다.
+              </li>
+            </ul>
+          </div>
+
+          <div class="side-card">
+            <div class="side-head">
+              <img src="/p/jee6-icon.png" alt="JEE6" class="side-icon" />
+              <div>
+                <h3 class="side-title">
+                  JEE6 <span class="muted">| 교내 디스코드 편의성 봇</span>
+                </h3>
+                <a class="inline-link sm" href="#" target="_blank" rel="noopener"
+                  ><i class="bi bi-github"></i> 레포지토리</a
+                >
+              </div>
+            </div>
+            <ul class="bullet">
+              <li>
+                서버 관리, 급식 조회, 자습 신청 리마인드, 미니게임 등을 이용할 수 있는 디스코드
+                봇입니다. python과 mariadb로 개발하여 Docker + CloudType으로 릴리즈했고, In-memory
+                캐싱으로 응답 시간을 최적화했습니다.
+              </li>
+              <li>
+                학교 공식 디스코드 서버를 포함한 <strong>40+개의 서버</strong>에 도입되었으며, <strong
+                  >DAU 100+명</strong
+                >을 보유한 서비스 입니다.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <h2 class="big-title mt">수상</h2>
+        <div class="big-divider"></div>
+
+        <div class="award-grid">
+          <div>
+            <h4 class="award-year">2024</h4>
+            <ul class="bullet tight">
+              <li>제 10회 빛가람 에너지밸리 SW 작품 경진대회 장려상</li>
+              <li>2024 SW 동행 해커톤 장려상</li>
+              <li>2024 SW 동행 데모데이 장려상</li>
+              <li>GSM 아이디어 페스티벌 3위 입상</li>
+              <li>GSM 역량인증대회 3위 입상</li>
+              <li>제 7대 학생부회장 취임</li>
+              <li>모범상(선행 부분)</li>
+              <li>1학년 1학기 교과우수상(영어)</li>
+              <li>교내 독서논술대회 우수상</li>
+              <li>교내 영어 글쓰기대회 장려상</li>
+              <li>1학년 2학기 교과우수상(영어, 창업 일반)</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="award-year">2025</h4>
+            <ul class="bullet tight">
+              <li>제 10회 HIGHTON 장려상</li>
+              <li>GSM 역량인증대회 3위 입상</li>
+              <li>제 2회 GSM Dev Fest 2위, 3위 입상</li>
+              <li>제 8대 학생부회장 취임</li>
+              <li>2학년 1학기 교과우수상(수학)</li>
+              <li>1개년 개근상</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== 14. exit =================== -->
+      <section class="page">
+        <h2 class="big-title">오픈소스 기여</h2>
+        <div class="big-divider"></div>
+
+        <ul class="oss-list">
+          <li>
+            <p>
+              <strong>typescript-eslint</strong>: no-floating-promises 규칙에서 <code
+                >allowForKnownSafeCalls</code
+              > 옵션이 함수 이름을 올바르게 인식하지 못하는 문제 해결
+            </p>
+            <div class="oss-links">
+              <a href="#" target="_blank" rel="noopener"
+                ><i class="bi bi-github"></i> <u>PR 링크</u></a
+              >
+              <a href="#" target="_blank" rel="noopener"
+                ><i class="bi bi-pencil-fill"></i> <u>블로그 링크</u></a
+              >
+            </div>
+          </li>
+          <li>
+            <p>
+              <strong>TanStack/query</strong>: eslint-plugin-query를 TS가 없는 환경에서도 사용할 수
+              있도록 TypeScript를 optional peer dependency로 선언
+            </p>
+            <div class="oss-links">
+              <a href="#" target="_blank" rel="noopener"
+                ><i class="bi bi-github"></i> <u>PR 링크</u></a
+              >
+            </div>
+          </li>
+          <li>
+            <p>
+              <strong>fast_float</strong>: double/float 파싱의 edge case 검증을 위한 unit 테스트
+              추가
+            </p>
+            <div class="oss-links">
+              <a href="#" target="_blank" rel="noopener"
+                ><i class="bi bi-github"></i> <u>PR 링크</u></a
+              >
+            </div>
+          </li>
+          <li>
+            <p>
+              <strong>nest</strong>: SSE, 캐시, swagger 관련 기능 검증을 위한 unit 및 e2e 테스트
+              추가
+            </p>
+            <div class="oss-links">
+              <a href="#" target="_blank" rel="noopener"
+                ><i class="bi bi-github"></i> <u>PR 링크</u></a
+              >
+              <a href="#" target="_blank" rel="noopener"
+                ><i class="bi bi-github"></i> <u>PR 링크</u></a
+              >
+              <a href="#" target="_blank" rel="noopener"
+                ><i class="bi bi-github"></i> <u>PR 링크</u></a
+              >
+            </div>
+          </li>
+          <li>
+            <p>
+              <strong>toss/es-toolkit</strong>: 누락되어있던 <code>keyBy</code> export 구문을 추가하여
+              문서와의 불일치 해결
+            </p>
+            <div class="oss-links">
+              <a href="#" target="_blank" rel="noopener"
+                ><i class="bi bi-github"></i> <u>PR 링크</u></a
+              >
+            </div>
+          </li>
+          <li>
+            <p>
+              <strong>typescript-eslint</strong>: no-unnecessary-condition 규칙에서 타입 가드 검사
+              시 할당 가능성 기준으로 불필요한 조건문까지 정확히 감지하도록 수정
+            </p>
+            <div class="oss-links">
+              <a href="#" target="_blank" rel="noopener"
+                ><i class="bi bi-github"></i> <u>PR 링크</u></a
+              >
+            </div>
+          </li>
+        </ul>
+
+        <h2 class="big-title mt">자격 · 성적</h2>
+        <div class="big-divider"></div>
+        <ul class="bullet tight">
+          <li><strong>정보처리산업기사</strong> | 2025.12.24. 정기 4회 (과정평가형)</li>
+          <li><strong>TOPCIT 수준 3 (512점)</strong> | 2025.05.24. 23회 정기평가</li>
+          <li><strong>TOEIC 785점 (LC 445, RC 340)</strong> | 2026.01.25. 제561회차</li>
+        </ul>
+
+        <footer class="closing">
+          <p class="closing-1">포트폴리오에 담지 못한 부분은 인터뷰에서 보여드리겠습니다.</p>
+          <p class="closing-2">감사합니다</p>
+        </footer>
+      </section>
+    </main>
+
+    <style is:global>
+      :root {
+        --ink: #111;
+        --ink-soft: #333;
+        --muted: #777;
+        --line: #e5e5e5;
+        --bg: #0f0f10;
+        --paper: #ffffff;
+        --accent: #111;
+      }
+
+      html {
+        background: var(--bg);
+      }
+      body.p-body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+          'Noto Sans KR',
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          Roboto,
+          sans-serif;
+        font-weight: 400;
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .p-main {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 56px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+      }
+
+      .page {
+        background: var(--paper);
+        padding: 80px 96px;
+        border-radius: 4px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+        font-size: 14.5px;
+        color: var(--ink);
+      }
+      /* Inner content column — matches Figma centered layout (≈ 50% of page width) */
+      .page > * {
+        max-width: 560px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      /* Wider grids that need both columns side-by-side */
+      .page > .case-grid,
+      .page > .side-grid,
+      .page > .award-grid,
+      .page > .case-hr,
+      .page > .big-divider {
+        max-width: 720px;
+      }
+      /* The cover bio block reads better slightly wider */
+      .page-cover > .bio-block,
+      .page-cover > .cover-title,
+      .page-cover > .contact-block {
+        max-width: 620px;
+      }
+      @media (max-width: 720px) {
+        .p-main {
+          padding: 24px 12px;
+          gap: 24px;
+        }
+        .page {
+          padding: 40px 24px;
+        }
+      }
+
+      /* === Cover === */
+      .page-cover {
+        padding-top: 96px;
+      }
+      .cover-title {
+        font-size: 28px;
+        font-weight: 500;
+        margin: 0 0 28px;
+        line-height: 1.4;
+        letter-spacing: -0.01em;
+      }
+      .cover-title strong {
+        font-weight: 700;
+      }
+      .cover-divider {
+        width: 72px;
+        height: 2px;
+        background: var(--ink);
+        margin-bottom: 28px;
+      }
+
+      .bio-block {
+        margin-bottom: 32px;
+      }
+      .bio-heading {
+        font-size: 17px;
+        font-weight: 700;
+        margin: 0 0 14px;
+        letter-spacing: -0.01em;
+      }
+      .bio-block p {
+        margin: 0 0 10px;
+        font-size: 14.5px;
+        color: var(--ink-soft);
+      }
+      .bio-block strong {
+        font-weight: 700;
+        color: var(--ink);
+      }
+
+      .contact-block {
+        margin-top: 40px;
+      }
+      .contact-title {
+        font-size: 17px;
+        font-weight: 700;
+        margin: 0 0 10px;
+      }
+      .contact-divider {
+        width: 100%;
+        height: 1px;
+        background: var(--line);
+        margin-bottom: 18px;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px 56px;
+        max-width: 600px;
+      }
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--ink-soft);
+        text-decoration: none;
+        font-size: 14.5px;
+        line-height: 2;
+      }
+      .contact-item u {
+        color: var(--ink-soft);
+      }
+      .contact-item:hover u {
+        color: var(--ink);
+      }
+
+      /* === Project header === */
+      .proj-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+      .proj-logo {
+        width: 56px;
+        height: 56px;
+        object-fit: contain;
+        border-radius: 8px;
+      }
+      .proj-titles {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .proj-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0;
+        letter-spacing: -0.01em;
+      }
+      .proj-meta {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .proj-sub {
+        font-size: 13px;
+        color: var(--ink-soft);
+        font-weight: 500;
+      }
+      .proj-period {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      /* === Hero === */
+      .hero-wrap {
+        position: relative;
+        width: 100%;
+        margin-bottom: 28px;
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .hero-wrap img {
+        width: 100%;
+        display: block;
+      }
+      .repo-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        position: absolute;
+        left: 50%;
+        bottom: 14px;
+        transform: translateX(-50%);
+        padding: 6px 14px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--ink);
+        text-decoration: none;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+      }
+      .repo-chip.inline {
+        position: static;
+        transform: none;
+      }
+      .link-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+        justify-content: center;
+      }
+
+      /* === Section titles === */
+      .sec-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin: 24px 0 10px;
+        letter-spacing: -0.01em;
+      }
+      .case-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0 0 18px;
+        letter-spacing: -0.01em;
+      }
+      .case-h4 {
+        font-size: 14px;
+        font-weight: 700;
+        margin: 18px 0 8px;
+      }
+      .big-title {
+        font-size: 22px;
+        font-weight: 700;
+        margin: 0 0 8px;
+        letter-spacing: -0.01em;
+      }
+      .big-title.mt {
+        margin-top: 40px;
+      }
+      .big-divider {
+        width: 100%;
+        height: 1px;
+        background: var(--line);
+        margin-bottom: 24px;
+      }
+
+      /* === Lists === */
+      ul.bullet {
+        padding-left: 20px;
+        margin: 0 0 12px 12px;
+      }
+      ul.bullet li {
+        margin-bottom: 6px;
+        color: var(--ink-soft);
+        font-size: 14px;
+        line-height: 1.75;
+      }
+      ul.bullet li::marker {
+        color: var(--ink);
+      }
+      ul.bullet.tight li {
+        margin-bottom: 2px;
+        line-height: 1.7;
+      }
+      ul.bullet strong {
+        font-weight: 700;
+        color: var(--ink);
+      }
+      .bio-block p {
+        margin-left: 0;
+      }
+
+      code {
+        background: #f4f4f5;
+        padding: 1px 6px;
+        border-radius: 3px;
+        font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+        font-size: 0.9em;
+        color: #c026d3;
+      }
+
+      .case-hr {
+        border: 0;
+        border-top: 1px solid var(--line);
+        margin: 32px 0;
+      }
+
+      /* === Case grid === */
+      .case-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 36px;
+      }
+      @media (max-width: 720px) {
+        .case-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .case-images {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+      }
+      .case-images img {
+        width: 100%;
+        border-radius: 4px;
+        border: 1px solid var(--line);
+      }
+
+      .lighthouse-row {
+        display: flex;
+        gap: 10px;
+        margin: 12px 0;
+        flex-wrap: wrap;
+      }
+      .lighthouse-row img {
+        height: 56px;
+        width: auto;
+        border-radius: 2px;
+      }
+
+      .img-center {
+        margin: 16px 0;
+        display: flex;
+        justify-content: center;
+      }
+      .img-center img {
+        max-width: 90%;
+        border-radius: 4px;
+      }
+      .img-center.small img {
+        max-width: 100%;
+      }
+
+      .code-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 8px;
+      }
+      .code-stack img {
+        width: 100%;
+        border-radius: 4px;
+        border: 1px solid var(--line);
+      }
+
+      .inline-link {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--ink-soft);
+        text-decoration: underline;
+        margin-left: 8px;
+      }
+      .inline-link.sm {
+        font-size: 12px;
+        margin-left: 0;
+      }
+
+      /* === Side projects === */
+      .side-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+      }
+      @media (max-width: 720px) {
+        .side-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .side-card {
+      }
+      .side-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+      .side-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 6px;
+        object-fit: contain;
+      }
+      .side-title {
+        font-size: 15px;
+        font-weight: 700;
+        margin: 0;
+      }
+      .side-title .muted {
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      .award-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 36px;
+      }
+      @media (max-width: 720px) {
+        .award-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .award-year {
+        font-size: 14px;
+        font-weight: 700;
+        margin: 0 0 8px;
+      }
+
+      /* === OSS === */
+      .oss-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .oss-list > li > p {
+        margin: 0 0 6px;
+        font-size: 14px;
+      }
+      .oss-links {
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+      .oss-links a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        color: var(--ink-soft);
+        text-decoration: none;
+      }
+      .oss-links a u {
+        color: var(--ink-soft);
+      }
+
+      /* === Closing === */
+      .closing {
+        text-align: center;
+        margin-top: 56px;
+      }
+      .closing-1 {
+        font-size: 15px;
+        font-weight: 700;
+        margin: 0 0 24px;
+      }
+      .closing-2 {
+        font-size: 14px;
+        color: var(--ink-soft);
+        margin: 0;
+      }
+
+      /* =================== PRINT — A4 LANDSCAPE (1754×1240 Figma ratio) =================== */
+      @page {
+        size: A4 landscape;
+        margin: 0;
+      }
+
+      @media print {
+        :root {
+          /* 1mm = 1754/297 ≈ 5.9054px in Figma scale */
+          --pscale: 1;
+        }
+
+        html,
+        body,
+        .p-body {
+          background: #ffffff !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+
+        .p-main {
+          max-width: none !important;
+          width: 100% !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          gap: 0 !important;
+          display: block !important;
+        }
+
+        /* Each Figma frame: 1754×1240 → A4 landscape 297×210mm */
+        .page {
+          width: 297mm !important;
+          height: 210mm !important;
+          padding: 14mm 28mm !important; /* Figma 80px ≈ 14mm, 160px ≈ 28mm */
+          margin: 0 !important;
+          border-radius: 0 !important;
+          box-shadow: none !important;
+          page-break-after: always;
+          break-after: page;
+          page-break-inside: avoid;
+          break-inside: avoid;
+          overflow: hidden;
+          box-sizing: border-box;
+          font-size: 9.5pt;
+          line-height: 1.6;
+          color: var(--ink);
+        }
+        .page:last-child {
+          page-break-after: auto;
+          break-after: auto;
+        }
+
+        /* Cover */
+        .page-cover {
+          padding-top: 20mm !important;
+        }
+        .cover-title {
+          font-size: 18pt;
+          margin-bottom: 6mm;
+        }
+        .cover-divider {
+          width: 16mm;
+          height: 0.4mm;
+          margin-bottom: 6mm;
+        }
+        .bio-block {
+          margin-bottom: 6mm;
+        }
+        .bio-heading {
+          font-size: 11pt;
+          margin-bottom: 3mm;
+        }
+        .bio-block p {
+          font-size: 9pt;
+          margin-bottom: 2mm;
+          line-height: 1.55;
+        }
+        .contact-block {
+          margin-top: 8mm;
+        }
+        .contact-title {
+          font-size: 11pt;
+        }
+        .contact-divider {
+          margin-bottom: 4mm;
+        }
+        .contact-item {
+          font-size: 9pt;
+          line-height: 1.7;
+        }
+
+        /* Project header */
+        .proj-header {
+          margin-bottom: 5mm;
+          gap: 4mm;
+        }
+        .proj-logo {
+          width: 12mm;
+          height: 12mm;
+        }
+        .proj-title {
+          font-size: 16pt;
+        }
+        .proj-sub,
+        .proj-period {
+          font-size: 8.5pt;
+        }
+
+        /* Hero */
+        .hero-wrap {
+          margin-bottom: 5mm;
+        }
+        .hero-wrap img {
+          max-height: 80mm;
+          object-fit: contain;
+        }
+        .repo-chip {
+          font-size: 7.5pt;
+          padding: 1mm 2.5mm;
+          right: 4mm;
+          bottom: 4mm;
+        }
+
+        /* Section titles */
+        .sec-title {
+          font-size: 10.5pt;
+          margin: 4mm 0 2mm;
+        }
+        .case-title {
+          font-size: 11.5pt;
+          margin-bottom: 4mm;
+        }
+        .case-h4 {
+          font-size: 9pt;
+          margin: 4mm 0 2mm;
+        }
+        .big-title {
+          font-size: 13pt;
+        }
+        .big-divider {
+          margin-bottom: 4mm;
+        }
+        .big-title.mt {
+          margin-top: 7mm;
+        }
+
+        /* Lists */
+        ul.bullet {
+          padding-left: 4mm;
+          margin-bottom: 3mm;
+        }
+        ul.bullet li {
+          font-size: 9pt;
+          line-height: 1.55;
+          margin-bottom: 1mm;
+        }
+        ul.bullet.tight li {
+          margin-bottom: 0.3mm;
+          line-height: 1.5;
+        }
+        .bio-block p,
+        ul.bullet li {
+          color: var(--ink-soft);
+        }
+
+        code {
+          font-size: 0.88em;
+          padding: 0.2mm 1mm;
+        }
+
+        /* Case studies */
+        .case-hr {
+          margin: 6mm 0;
+        }
+        .case-grid {
+          gap: 8mm;
+        }
+        .case-images img {
+          max-height: 32mm;
+          object-fit: contain;
+        }
+        .lighthouse-row {
+          gap: 2mm;
+          margin: 2mm 0;
+        }
+        .lighthouse-row img {
+          height: 11mm;
+        }
+        .img-center {
+          margin: 3mm 0;
+        }
+        .img-center img {
+          max-width: 75%;
+          max-height: 60mm;
+          object-fit: contain;
+        }
+        .img-center.small img {
+          max-height: 14mm;
+          max-width: 100%;
+        }
+        .code-stack {
+          gap: 1.5mm;
+          margin-top: 2mm;
+        }
+        .code-stack img {
+          max-height: 26mm;
+          object-fit: contain;
+        }
+
+        /* Side projects */
+        .side-grid {
+          gap: 6mm;
+        }
+        .side-icon {
+          width: 8mm;
+          height: 8mm;
+        }
+        .side-title {
+          font-size: 9.5pt;
+        }
+        .award-grid {
+          gap: 8mm;
+        }
+        .award-year {
+          font-size: 9pt;
+        }
+
+        /* OSS */
+        .oss-list {
+          gap: 3.5mm;
+        }
+        .oss-list > li > p {
+          font-size: 9pt;
+          margin-bottom: 1mm;
+        }
+        .oss-links {
+          gap: 4mm;
+        }
+        .oss-links a {
+          font-size: 8.5pt;
+        }
+
+        /* Closing */
+        .closing {
+          margin-top: 10mm;
+        }
+        .closing-1 {
+          font-size: 10pt;
+          margin-bottom: 5mm;
+        }
+        .closing-2 {
+          font-size: 9pt;
+        }
+
+        /* Force print color fidelity */
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+      }
+    </style>
+  </body>
+</html>
