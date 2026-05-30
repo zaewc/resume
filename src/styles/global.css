@@ -55,8 +55,8 @@
   }
 
   .hash-highlight {
-    animation: hash-highlight-blink 1.15s ease-out;
-    border-radius: 8px;
+    animation: hash-highlight-blink 1.35s ease-out;
+    border-radius: 10px;
   }
 
   ::selection {
@@ -193,10 +193,17 @@
     background-color: transparent;
     box-shadow: 0 0 0 0 transparent;
   }
-  18%,
-  62% {
-    background-color: var(--accent-hl);
-    box-shadow: 0 0 0 0.45rem var(--accent-hl);
+  18% {
+    background-color: color-mix(in srgb, var(--accent) 7%, transparent);
+    box-shadow:
+      0 0 0 0.35rem color-mix(in srgb, var(--accent) 7%, transparent),
+      inset 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  58% {
+    background-color: color-mix(in srgb, var(--accent) 4%, transparent);
+    box-shadow:
+      0 0 0 0.5rem color-mix(in srgb, var(--accent) 3%, transparent),
+      inset 0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent);
   }
 }
 
