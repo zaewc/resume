@@ -85,9 +85,7 @@
   const githubSourceLink = document.getElementById('github-source-link')!;
 
   const updateGithubSourceLink = () => {
-    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-    const isAtBottom = maxScroll <= 0 || window.scrollY >= maxScroll - 2;
-    githubSourceLink.classList.toggle('visible', isAtBottom);
+    githubSourceLink.classList.toggle('visible', window.scrollY <= 2);
   };
 
   toggle.addEventListener('click', () => {

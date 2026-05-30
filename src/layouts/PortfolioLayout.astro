@@ -48,5 +48,31 @@ const canonicalUrl = Astro.url;
     style="font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif; min-height: 100vh;"
   >
     <slot />
+    <script>
+      const highlightHashTarget = () => {
+        if (!window.location.hash) return;
+
+        const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+        if (!target) return;
+
+        target.classList.remove('hash-highlight');
+        void target.offsetWidth;
+        target.classList.add('hash-highlight');
+      };
+
+      window.addEventListener('DOMContentLoaded', highlightHashTarget);
+      window.addEventListener('hashchange', highlightHashTarget);
+      document.addEventListener('click', (event) => {
+        const link = event.target instanceof Element ? event.target.closest('a[href]') : null;
+        if (!(link instanceof HTMLAnchorElement)) return;
+
+        const url = new URL(link.href);
+        if (url.origin !== window.location.origin || url.pathname !== window.location.pathname)
+          return;
+        if (!url.hash) return;
+
+        window.setTimeout(highlightHashTarget, 0);
+      });
+    </script>
   </body>
 </html>

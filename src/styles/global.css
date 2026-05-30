@@ -50,6 +50,15 @@
     counter-reset: fn;
   }
 
+  :target {
+    scroll-margin-top: 5rem;
+  }
+
+  .hash-highlight {
+    animation: hash-highlight-blink 1.15s ease-out;
+    border-radius: 8px;
+  }
+
   ::selection {
     background: var(--accent-hl);
     color: var(--text);
@@ -175,6 +184,19 @@
   .fn:hover::before {
     text-decoration: underline;
     text-underline-offset: 2px;
+  }
+}
+
+@keyframes hash-highlight-blink {
+  0%,
+  100% {
+    background-color: transparent;
+    box-shadow: 0 0 0 0 transparent;
+  }
+  18%,
+  62% {
+    background-color: var(--accent-hl);
+    box-shadow: 0 0 0 0.45rem var(--accent-hl);
   }
 }
 
