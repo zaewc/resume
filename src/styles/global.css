@@ -404,6 +404,52 @@
     content: '';
   }
 
+  /* ── 웹 이력서(/) 전용: A4 2페이지에 맞춤 ──
+     1페이지: 소개·contact·career / 2페이지: experience 이후 전부 */
+  main.resume-web {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+  main.resume-web section {
+    margin-bottom: 1.1rem !important;
+  }
+  main.resume-web .section-title {
+    margin-bottom: 0.6rem;
+  }
+  /* career 안에서는 팀(org-block)마다 페이지를 넘기지 않음 */
+  main.resume-web .org-block + .org-block {
+    page-break-before: auto;
+    break-before: auto;
+  }
+  main.resume-web .org-block {
+    margin-bottom: 0.9rem;
+  }
+  main.resume-web .org-block:last-child,
+  main.resume-web .org-block:last-child .proj-block:last-child {
+    margin-bottom: 0;
+  }
+  main.resume-web .proj-block {
+    margin-bottom: 0.8rem;
+  }
+  main.resume-web .exp-block {
+    margin-bottom: 0.8rem;
+  }
+  main.resume-web .org-role {
+    margin-bottom: 0.45rem;
+  }
+  main.resume-web .desc {
+    margin-bottom: 0.4rem;
+  }
+  /* 수상 내역은 2열로 */
+  main.resume-web #background .exp-block:nth-of-type(3) .plain-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1.5rem;
+  }
+  main.resume-web .availability {
+    margin-top: 0.9rem;
+  }
+
   /* Hide interactive elements */
   #portfolio-section,
   .portfolio-section,
@@ -412,6 +458,7 @@
   #vignette,
   #theme-toggle,
   .theme-toggle,
+  #github-source-link,
   .scroll-progress,
   .fn,
   #image-lightbox {
