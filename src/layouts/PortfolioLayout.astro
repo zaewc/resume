@@ -24,7 +24,7 @@ const canonicalUrl = Astro.url;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
       rel="stylesheet"
     />
     <link
@@ -36,6 +36,7 @@ const canonicalUrl = Astro.url;
     <!-- 깜빡임 없이 저장된 테마 즉시 적용 -->
     <script is:inline>
       (function () {
+        document.documentElement.classList.add('js');
         const saved = localStorage.getItem('theme');
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         if (saved === 'dark' || (!saved && prefersDark)) {
@@ -45,7 +46,7 @@ const canonicalUrl = Astro.url;
     </script>
   </head>
   <body
-    style="font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif; min-height: 100vh;"
+    style="font-family: Manrope, ui-sans-serif, system-ui, -apple-system, sans-serif; min-height: 100vh;"
   >
     <slot />
     <script>

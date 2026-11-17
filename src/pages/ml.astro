@@ -11,6 +11,7 @@ import BioSection from '../components/portfolio/BioSection.astro';
 import LeadershipSection from '../components/portfolio/LeadershipSection.astro';
 import EducationSection from '../components/portfolio/EducationSection.astro';
 import PortfolioCTA from '../components/portfolio/PortfolioCTA.astro';
+import InteractiveChrome from '../components/InteractiveChrome.astro';
 
 const image = (file: string) => ({
   src: `/mlops/${file}`,
@@ -33,8 +34,9 @@ const projectImages = {
 <PortfolioLayout title="송재욱" description="안녕하세요, MLOps engineer 송재욱입니다. ">
   <ScrollProgress />
   <ThemeToggle />
+  <InteractiveChrome mode="ml" />
 
-  <main>
+  <main id="top" class="experience-main">
     <BioSection active="ml" />
 
     <section id="contact" class="mb-10">
@@ -43,7 +45,7 @@ const projectImages = {
         <ul class="contact-list">
           <li>
             <i class="bi bi-envelope contact-icon"></i>
-            <a href="mailto:s24064@gsm.hs.kr">s24064@gsm.hs.kr</a>
+            <a href="mailto:me@zaewc.site">me@zaewc.site</a>
           </li>
           <li>
             <i class="bi bi-telephone contact-icon"></i>
@@ -413,7 +415,7 @@ const projectImages = {
           </p>
           <ul class="bul-list">
             <li>자체 Ubuntu server로 Docker Compose 기반 릴리즈</li>
-            <li><strong>40+개 디스코드 서버 도입, DAU 100+명</strong></li>
+            <li><strong>50+개 디스코드 서버 도입, DAU 100+명</strong></li>
           </ul>
           {
             projectImages.jee6Infra.exists && (
@@ -624,9 +626,9 @@ const projectImages = {
 
 <style>
   main {
-    max-width: 680px;
+    max-width: 1080px;
     margin: 0 auto;
-    padding: 3.5rem 1.5rem 5rem;
+    padding: 8rem 2rem 7rem;
   }
 
   .contact-grid {
@@ -976,11 +978,14 @@ const projectImages = {
 
   @media (min-width: 1024px) {
     main {
-      max-width: 760px;
+      max-width: 1080px;
     }
   }
 
   @media (max-width: 640px) {
+    main {
+      padding: 7rem 1rem 6rem;
+    }
     .contact-grid {
       grid-template-columns: 1fr;
     }
