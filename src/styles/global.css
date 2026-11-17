@@ -463,7 +463,7 @@
   /* 학력과 자격·성적은 나란히, 자격은 한 줄로 */
   main.resume-web #background {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.45fr 1fr;
     column-gap: 1.5rem;
   }
   main.resume-web #background > .section-title,
@@ -533,5 +533,111 @@
   .proj-name {
     page-break-after: avoid;
     break-after: avoid;
+  }
+}
+
+/* ── 웹 이력서(/) 본문 가독성: 본문 대비와 항목 간격을 조금 올림 ── */
+main.resume-web {
+  --text-muted: #46526b;
+}
+html.dark main.resume-web {
+  --text-muted: #a9a9c0;
+}
+main.resume-web .bul-list {
+  gap: 0.45rem;
+}
+
+@media print {
+  /* 인쇄 본문은 9.3pt 이상으로: 기존 7.6pt는 종이에서 읽기 어려움 */
+  main.resume-web,
+  html.dark main.resume-web {
+    --text-muted: #262626;
+    --text-faint: #6a6a6a;
+  }
+  main.resume-web .bio,
+  main.resume-web .desc,
+  main.resume-web .bul-list > li,
+  main.resume-web .sub-bul-list > li,
+  main.resume-web .plain-list,
+  main.resume-web .skill-grid,
+  main.resume-web .contact-list {
+    font-size: 9.3pt !important;
+    line-height: 1.45 !important;
+  }
+  main.resume-web .name {
+    font-size: 20pt;
+    margin-bottom: 0.4rem;
+  }
+  main.resume-web .section-title {
+    font-size: 12pt;
+  }
+  main.resume-web .org-name {
+    font-size: 11pt;
+  }
+  main.resume-web .proj-name,
+  main.resume-web .exp-title,
+  main.resume-web .ml-link-title {
+    font-size: 10pt;
+  }
+  main.resume-web .org-role {
+    font-size: 8.5pt;
+  }
+  main.resume-web .date-label {
+    font-size: 8pt;
+  }
+  main.resume-web .chip-link,
+  main.resume-web .pr-link {
+    font-size: 7pt;
+  }
+  main.resume-web .availability p {
+    font-size: 8.5pt;
+  }
+  main.resume-web .bul-list {
+    gap: 0.3rem;
+  }
+
+  /* ── 2페이지를 채우는 섹션들은 가로 공간을 활용 ── */
+  main.resume-web .date-label {
+    white-space: nowrap;
+  }
+  /* MLOps 링크는 experience 제목 줄 오른쪽으로 */
+  main.resume-web #experience {
+    position: relative;
+  }
+  main.resume-web #experience .exp-block:has(> .ml-link) {
+    position: absolute;
+    top: 0.1rem;
+    right: 0;
+    margin: 0;
+  }
+  /* 오픈소스 기여: 프로젝트 이름을 왼쪽 라벨로 */
+  main.resume-web #experience .bul-list > li:has(> .sub-bul-list) {
+    display: grid;
+    grid-template-columns: 84pt minmax(0, 1fr);
+    padding-left: 0;
+  }
+  main.resume-web #experience .bul-list > li:has(> .sub-bul-list)::before {
+    content: none;
+  }
+  main.resume-web #experience .sub-bul-list {
+    margin-top: 0;
+  }
+  /* activities: 두 활동을 나란히 */
+  main.resume-web #activities {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    column-gap: 1.5rem;
+  }
+  main.resume-web #activities > .section-title {
+    grid-column: 1 / -1;
+  }
+  main.resume-web #activities .exp-block {
+    margin-bottom: 0;
+  }
+  /* skills: 2열 */
+  main.resume-web .skill-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 0.25rem 1.5rem;
   }
 }

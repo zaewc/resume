@@ -32,7 +32,7 @@ import PrLink from '../PrLink.astro';
         교육청·광주고등학생의회 주관 오디션 '광탈페'의 공식 플랫폼.<Fn
           note="기존 23~24년 예매 서비스는 교육청이 SI 업체에 위탁해 운영했으나, 기능적 완성도와 UX 측면에서 불편이 있었음"
         />
-        예매, 프로그램 소개, 슬로건 공모, 참여 신청, 실시간 투표 제공.
+        예매, 소개, 슬로건 공모, 참여 신청, 실시간 투표 제공.
         <br />
         <strong
           >외주 입찰 비용 1,000만+원 절감, 행사 당일 DAU 3,000+명, 누적 트래픽 7.3만+(Vercel),
@@ -92,12 +92,12 @@ import PrLink from '../PrLink.astro';
           />
         </li>
         <li>
-          <strong>채팅 리스트 마운트 셀 약 210 → 110개, 메모리 약 1.6 → 0.9MB</strong>(N=300): 전체
-          정렬을 findIndex + slice로 교체<PrLink
+          <strong>채팅 리스트 마운트 셀 약 210 → 110개, 메모리 약 1.6 → 0.9MB</strong>: 정렬을
+          findIndex + slice로 교체<PrLink
             href="https://velog.io/@haensol/React-Native-FlatList"
             id="blog"
           /><Fn
-            note="Array.sort() 내부의 new Date() 호출로 메시지 500개 기준 약 9,000개의 Date 객체가 생성되던 것을, ISO 8601 타임스탬프의 사전식 정렬 특성과 useMemo로 제거"
+            note="N=300 기준. Array.sort() 내부의 new Date() 호출로 메시지 500개 기준 약 9,000개의 Date 객체가 생성되던 것을, ISO 8601 타임스탬프의 사전식 정렬 특성과 useMemo로 제거"
           />
         </li>
         <li>
@@ -109,9 +109,9 @@ import PrLink from '../PrLink.astro';
           />
         </li>
         <li>
-          <strong>Unit·E2E 커버리지를 CI에서 자동 보고</strong>: Jest·React Testing Library·MSW
-          테스트, Detox iOS/Android E2E 구축<Fn
-            note="Unit은 PR마다 Jest 커버리지 리포트 자동 코멘트, E2E는 babel-plugin-istanbul로 시뮬레이터 실행 결과에서 커버리지 추출. Discord 웹훅으로 결과 공유"
+          <strong>Unit·E2E 커버리지를 CI에서 자동 보고</strong>: Jest·React Testing Library·MSW,
+          Detox E2E 구축<Fn
+            note="Detox는 iOS/Android 모두 구축. Unit은 PR마다 Jest 커버리지 리포트 자동 코멘트, E2E는 babel-plugin-istanbul로 시뮬레이터 실행 결과에서 커버리지 추출. Discord 웹훅으로 결과 공유"
           />
         </li>
         <li>CocoaPods·Detox·Xcode 중간 산출물 캐싱으로 CI 시간 단축</li>
@@ -143,8 +143,8 @@ import PrLink from '../PrLink.astro';
       </p>
       <ul class="bul-list">
         <li>
-          <strong>White Screen of Death 위험 차단</strong>: 렌더링마다 실행되던 JSON.parse()를 Zod
-          기반 Wrapper Layer로 옮겨 1회로 축소<Fn
+          <strong>White Screen of Death 위험 차단</strong>: 렌더링마다 돌던 JSON.parse()를 Zod
+          Wrapper Layer로 옮겨 1회로 축소<Fn
             note="잘못된 JSON 형식 진입 시 전체 폼이 렌더링되지 않는 문제가 있었음. Zod로 수신 직후 검증하여 UI 컴포넌트 내 런타임 타입 가드를 완전 제거"
           />
         </li>
@@ -193,13 +193,13 @@ import PrLink from '../PrLink.astro';
       </p>
       <ul class="bul-list">
         <li>
-          <strong>드래그 즉시 대진표 상태 반영</strong>: onDragEnd의 stale state 문제를 CustomEvent
-          이벤트 버스와 gameId별 독립 관리로 해결<Fn
+          <strong>드래그 즉시 대진표 상태 반영</strong>: onDragEnd의 stale state를 CustomEvent
+          이벤트 버스와 gameId별 관리로 해결<Fn
             note="onDragEnd 생성 시점의 스냅샷이 closure에 캡처되어 다음 렌더링까지 오염된 상태가 전파되는 것이 원인"
           />
         </li>
         <li>
-          <strong>Ctrl+F 검색을 유지한 가상 스크롤</strong>: 자체 라이브러리 scrolloop과
+          <strong>Ctrl+F 검색을 유지한 가상 스크롤</strong>: 자체 개발 scrolloop과
           hidden="until-found"로 랭킹 페이지 DOM 누적 해소<Fn
             note="기존 IntersectionObserver 기반 무한 스크롤은 스크롤할수록 DOM 노드가 누적되어 렌더링 비용이 증가하는 구조였음. beforematch 이벤트로 검색 시 해당 항목 표시"
           />
