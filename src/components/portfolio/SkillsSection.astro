@@ -1,13 +1,46 @@
 ---
-
+const skills = [
+  { label: 'Language', items: 'JavaScript, TypeScript, Python' },
+  { label: 'Frontend', items: 'Next.js, React, Expo, React Native, Nuxt, Vue, Svelte, Astro' },
+  { label: 'Backend', items: 'Django, Flask, FastAPI, Nest.js' },
+  { label: 'DevOps', items: 'Git, Vercel, Docker, GitHub Actions' },
+];
 ---
 
 <section id="skills" class="mb-10">
   <h2 class="section-title">skills</h2>
-  <ul class="plain-list">
-    <li>JavaScript, TypeScript, Python</li>
-    <li>Next.js, React, Expo, React Native, Nuxt, Vue, Svelte, Astro</li>
-    <li>Django, Flask, FastAPI, Nest.js</li>
-    <li>Git, Vercel, Docker, GitHub Actions</li>
-  </ul>
+  <dl class="skill-grid">
+    {
+      skills.map((skill) => (
+        <div class="skill-row">
+          <dt>{skill.label}</dt>
+          <dd>{skill.items}</dd>
+        </div>
+      ))
+    }
+  </dl>
 </section>
+
+<style>
+  .skill-grid {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+  .skill-row {
+    display: grid;
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    column-gap: 0.75rem;
+  }
+  .skill-row dt {
+    color: var(--text-faint);
+    font-weight: 600;
+  }
+  .skill-row dd {
+    margin: 0;
+    color: var(--text-muted);
+  }
+</style>

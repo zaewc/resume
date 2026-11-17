@@ -165,6 +165,17 @@
     color: var(--text);
   }
 
+  /* 마지막 줄에 한두 단어만 남는 줄바꿈 방지 */
+  .desc,
+  .bio,
+  .bul-list li,
+  .sub-bul-list li,
+  .plain-list li {
+    text-wrap: pretty;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
   /* ── Footnote ── */
   .fn {
     font-family: 'JetBrains Mono', ui-monospace, monospace;
@@ -448,6 +459,46 @@
   }
   main.resume-web .availability {
     margin-top: 0.9rem;
+  }
+  /* 학력과 자격·성적은 나란히, 자격은 한 줄로 */
+  main.resume-web #background {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1.5rem;
+  }
+  main.resume-web #background > .section-title,
+  main.resume-web #background > .exp-block:nth-of-type(3),
+  main.resume-web #background > .availability {
+    grid-column: 1 / -1;
+  }
+  main.resume-web #background > .exp-block:nth-of-type(2) .plain-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.25rem;
+  }
+  /* contact는 한 줄로 */
+  main.resume-web .contact-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 2rem;
+  }
+  main.resume-web .contact-list {
+    flex-direction: row;
+    gap: 2rem;
+  }
+  /* 프로젝트 이름·기간 줄을 본문보다 또렷하게 */
+  main.resume-web .proj-name,
+  main.resume-web .exp-title {
+    font-size: 0.95rem;
+  }
+  main.resume-web .org-name {
+    font-size: 1.05rem;
+  }
+  main.resume-web .desc {
+    color: var(--text);
+  }
+  main.resume-web .skill-grid {
+    line-height: 1.4;
   }
 
   /* Hide interactive elements */
