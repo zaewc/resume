@@ -12,15 +12,13 @@ import LeadershipSection from '../components/portfolio/LeadershipSection.astro';
 import SkillsSection from '../components/portfolio/SkillsSection.astro';
 import EducationSection from '../components/portfolio/EducationSection.astro';
 import PortfolioCTA from '../components/portfolio/PortfolioCTA.astro';
-import InteractiveChrome from '../components/InteractiveChrome.astro';
 ---
 
 <PortfolioLayout title="송재욱" description="안녕하세요, 소프트웨어 엔지니어 송재욱입니다.">
   <ScrollProgress />
   <ThemeToggle />
-  <InteractiveChrome mode="web" />
 
-  <main id="top" class="experience-main">
+  <main>
     <BioSection active="web" />
     <ContactSection />
     <CareerSection />
@@ -37,14 +35,14 @@ import InteractiveChrome from '../components/InteractiveChrome.astro';
 
 <style>
   main {
-    max-width: 1080px;
+    max-width: 680px;
     margin: 0 auto;
-    padding: 8rem 2rem 7rem;
+    padding: 3.5rem 1.5rem 5rem;
   }
 
-  @media (max-width: 720px) {
+  @media (min-width: 1024px) {
     main {
-      padding: 7rem 1rem 6rem;
+      max-width: 760px;
     }
   }
 </style>
