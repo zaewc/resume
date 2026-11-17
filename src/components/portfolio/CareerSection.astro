@@ -29,40 +29,33 @@ import PrLink from '../PrLink.astro';
         <DateLabel date="2025. 02. ~ 2025. 10." />
       </div>
       <p class="desc">
-        교육청과 광주고등학생의회가 주도하는 오디션 프로그램 '광탈페'의 공식 플랫폼.<Fn
+        교육청·광주고등학생의회 주관 오디션 '광탈페'의 공식 플랫폼.<Fn
           note="기존 23~24년 예매 서비스는 교육청이 SI 업체에 위탁해 운영했으나, 기능적 완성도와 UX 측면에서 불편이 있었음"
         />
-        예매 기능에 그치지 않고 프로그램 소개, 슬로건 공모, 참여 신청, 실시간 투표까지 제공하는 플랫폼으로
-        확장 개발.
-        <strong>1,000만+원의 외주 입찰 비용을 절감.</strong>
-        행사 당일 <strong
-          >DAU 3,000+명, Vercel 기준 누적 트래픽 7.3만+, GA 기준 이벤트 5만+건</strong
+        예매, 프로그램 소개, 슬로건 공모, 참여 신청, 실시간 투표 제공.
+        <br />
+        <strong
+          >외주 입찰 비용 1,000만+원 절감, 행사 당일 DAU 3,000+명, 누적 트래픽 7.3만+(Vercel),
+          이벤트 5만+건(GA)</strong
         >
       </p>
 
       <ul class="bul-list">
-        <li>자체 Auth 로직 구현</li>
         <li>
-          실시간 좌석 예매 기능(SSE) 구현, 계정별 예매 여부에 따라 동적 라우팅 적용
-          <ul class="sub-bul-list">
-            <li>
-              useMemo 의존성에 불변 객체 queryClient를 넣어 UI가 갱신되지 않던<Fn
-                note="queryClient.getQueryData()는 호출 시점의 캐시만 반환하는 일회성 조회라 reactive 시스템과 연결되지 않음"
-              /> 문제를, useQueries로 전환해
-              <strong>SSE 수신 즉시 좌석 점유율 실시간 반영</strong>
-            </li>
-          </ul>
-        </li>
-        <li>
-          next.js Metadata API로 OG/keywords 설정, next-sitemap prebuild 자동화 →
-          <strong>주요 검색엔진 최상단 노출</strong>
-        </li>
-        <li>
-          SSG + 섹션별 Lazy Loading, 히어로 섹션 priority preload →
-          <strong>Lighthouse LCP·SI 각 약 60% 개선</strong><Fn
-            note="LCP 2.1s→0.7s / SI 1.1s→0.6s (FCP는 0.8s 유지)"
+          <strong>SSE 수신 즉시 좌석 점유율 반영</strong>: 실시간 좌석 예매에서 UI가 갱신되지 않던
+          문제를 useQueries 전환으로 해결<Fn
+            note="useMemo 의존성에 불변 객체 queryClient를 넣은 것이 원인. queryClient.getQueryData()는 호출 시점의 캐시만 반환하는 일회성 조회라 reactive 시스템과 연결되지 않음"
           />
         </li>
+        <li>
+          <strong>Lighthouse LCP·SI 약 60% 개선</strong>: SSG, 섹션별 Lazy Loading, 히어로 섹션
+          priority preload 적용<Fn note="LCP 2.1s→0.7s / SI 1.1s→0.6s (FCP는 0.8s 유지)" />
+        </li>
+        <li>
+          <strong>주요 검색엔진 최상단 노출</strong>: Metadata API로 OG·keywords 설정, next-sitemap
+          prebuild 자동화
+        </li>
+        <li>자체 Auth 로직, 계정별 예매 여부에 따른 동적 라우팅 구현</li>
       </ul>
     </div>
 
@@ -85,63 +78,45 @@ import PrLink from '../PrLink.astro';
         <DateLabel date="2025. 04. ~ 현재" />
       </div>
       <p class="desc">
-        광주광역시 광산구 수주 프로젝트. 지역 내 가상 화폐 '광산'을 활용한 서비스·물품 거래 플랫폼.
-        iOS 파트 개발자가 갑작스럽게 이탈하는 상황에서<Fn
+        광주광역시 광산구 수주 프로젝트. 지역 가상 화폐 '광산'으로 서비스·물품을 거래하는 플랫폼.
+        <br />
+        <strong>iOS 개발자 이탈 공백을 React Native로 메우고 App Store 릴리즈까지 진행</strong><Fn
           note="담당은 어드민 웹 개발이었으나, 원활한 진행과 클라이언트와의 신뢰 유지를 위해 자발적으로 React Native 투입"
         />
-        <strong>React Native로 공백을 메우고 App Store 릴리즈까지 진행.</strong>
       </p>
       <ul class="bul-list">
-        <li>웹(어드민): 가입 승인, 신고 처리, '광산' 지급·회수 운영 기능 개발 및 운영</li>
         <li>
-          모바일앱: 거래 게시글 및 채팅으로 물건/서비스를 교환할 수 있는 MVP 플로우 구현
-
-          <ul class="sub-bul-list">
-            <li>
-              Zustand Persistent Queue 도입 + 낙관적 업데이트 →
-              <strong>WebSocket 메시지 유실률 1% 이내로 감소</strong><Fn
-                note="기존에는 connectionState만 확인 후 전송하여 네트워크 끊김 시 메시지 유실. isSocketConnected를 useEffect로 감시하며 PENDING/FAILED 메시지 자동 재전송"
-              />
-            </li>
-            <li>
-              슬라이더 드래그 중 바텀시트 깜빡임 해결: 드래그 중 로컬 상태만 사용, 완료 버튼 시 부모
-              상태 업데이트<PrLink
-                href="https://velog.io/@haensol/issue-bottomsheet"
-                id="blog"
-              /><Fn
-                note="JS 스레드와 네이티브 UI 스레드 간 비동기 타이밍 차이가 누적되어 렌더링 타이밍이 어긋나는 것이 원인으로 판단"
-              />
-            </li>
-            <li>
-              채팅 메시지 리스트의 전체 정렬을 findIndex + slice 기반 처리로 바꾸고 리스트
-              파라미터를 튜닝 →
-              <strong>N=300 기준 마운트 셀 약 210개 → 110개, 메모리 약 1.6MB → 0.9MB</strong><PrLink
-                href="https://velog.io/@haensol/React-Native-FlatList"
-                id="blog"
-              /><Fn
-                note="Array.sort() 내부의 new Date() 호출로 메시지 500개 기준 약 9,000개의 Date 객체가 생성되던 것을, ISO 8601 타임스탬프의 사전식 정렬 특성과 useMemo로 제거"
-              />
-            </li>
-          </ul>
+          <strong>WebSocket 메시지 유실률 1% 이내</strong>: Zustand Persistent Queue와 낙관적
+          업데이트 도입<Fn
+            note="기존에는 connectionState만 확인 후 전송하여 네트워크 끊김 시 메시지 유실. isSocketConnected를 useEffect로 감시하며 PENDING/FAILED 메시지 자동 재전송"
+          />
         </li>
-
         <li>
-          Jest + React Testing Library + MSW 기반 단위·통합 테스트 및 에러 시나리오 독립 검증, Detox
-          iOS/Android E2E 자동화 구축
-          <ul class="sub-bul-list">
-            <li>
-              Unit은 PR마다 Jest 커버리지 리포트 자동 코멘트, E2E는 babel-plugin-istanbul로
-              시뮬레이터 실행 결과에서 커버리지 추출 → <strong
-                >두 레이어 모두 CI에서 커버리지 자동 보고</strong
-              >
-            </li>
-            <li>
-              CocoaPods·Detox·Xcode 중간 산출물 캐싱으로 CI 시간 단축, Discord 웹훅으로 결과 즉시
-              공유
-            </li>
-          </ul>
+          <strong>채팅 리스트 마운트 셀 약 210 → 110개, 메모리 약 1.6 → 0.9MB</strong>(N=300): 전체
+          정렬을 findIndex + slice로 교체<PrLink
+            href="https://velog.io/@haensol/React-Native-FlatList"
+            id="blog"
+          /><Fn
+            note="Array.sort() 내부의 new Date() 호출로 메시지 500개 기준 약 9,000개의 Date 객체가 생성되던 것을, ISO 8601 타임스탬프의 사전식 정렬 특성과 useMemo로 제거"
+          />
         </li>
-        <li>개발 기간 데일리 스크럼 주최, 팀 전원 목표 공유 및 이슈 파악 체계화</li>
+        <li>
+          <strong>슬라이더 드래그 중 바텀시트 깜빡임 해결</strong>: 드래그 중에는 로컬 상태만 갱신<PrLink
+            href="https://velog.io/@haensol/issue-bottomsheet"
+            id="blog"
+          /><Fn
+            note="JS 스레드와 네이티브 UI 스레드 간 비동기 타이밍 차이가 누적되어 렌더링 타이밍이 어긋나는 것이 원인으로 판단. 완료 버튼을 누를 때 부모 상태 업데이트"
+          />
+        </li>
+        <li>
+          <strong>Unit·E2E 커버리지를 CI에서 자동 보고</strong>: Jest·React Testing Library·MSW
+          테스트, Detox iOS/Android E2E 구축<Fn
+            note="Unit은 PR마다 Jest 커버리지 리포트 자동 코멘트, E2E는 babel-plugin-istanbul로 시뮬레이터 실행 결과에서 커버리지 추출. Discord 웹훅으로 결과 공유"
+          />
+        </li>
+        <li>CocoaPods·Detox·Xcode 중간 산출물 캐싱으로 CI 시간 단축</li>
+        <li>어드민 웹: 가입 승인, 신고 처리, '광산' 지급·회수 기능 개발 및 운영</li>
+        <li>데일리 스크럼을 주최해 팀 목표와 이슈 공유 체계화</li>
       </ul>
     </div>
 
@@ -159,25 +134,21 @@ import PrLink from '../PrLink.astro';
         <DateLabel date="2024. 10. ~ 현재" />
       </div>
       <p class="desc">
-        광주광역시교육청 수주 프로젝트. 사전 신청·QR 현장 인증·만족도 조사·Excel 자동 정리를 통합
+        광주광역시교육청 수주 프로젝트. 사전 신청, QR 현장 인증, 만족도 조사, Excel 자동 정리를 통합
         제공.
-        <strong>기존 외주 입찰 비용 2,000만+원 절감, 3만+명 운영.</strong><Fn
+        <br />
+        <strong>외주 입찰 비용 2,000만+원 절감, 3만+명 운영</strong><Fn
           note="AI·SW 체험 축전과 미래교육박람회를 포함한 수치"
         />
       </p>
       <ul class="bul-list">
         <li>
-          동적 폼 스키마/타입 고도화 및 API payload/데이터 변환 로직 구현
-          <ul class="sub-bul-list">
-            <li>
-              렌더링 시점마다 반복 실행되던 JSON.parse()를 Zod Schema 기반 Wrapper Layer로 이동 →
-              <strong>JSON.parse() 1회로 감소, White Screen of Death 위험 차단</strong><Fn
-                note="잘못된 JSON 형식 진입 시 전체 폼이 렌더링되지 않는 문제가 있었음. Zod로 수신 직후 검증하여 UI 컴포넌트 내 런타임 타입 가드를 완전 제거"
-              />
-            </li>
-            <li>질문 제목 기반 slugify ID → UUID 기반으로 교체하여 데이터 무결성 확보</li>
-          </ul>
+          <strong>White Screen of Death 위험 차단</strong>: 렌더링마다 실행되던 JSON.parse()를 Zod
+          기반 Wrapper Layer로 옮겨 1회로 축소<Fn
+            note="잘못된 JSON 형식 진입 시 전체 폼이 렌더링되지 않는 문제가 있었음. Zod로 수신 직후 검증하여 UI 컴포넌트 내 런타임 타입 가드를 완전 제거"
+          />
         </li>
+        <li>동적 폼 질문 ID를 slugify에서 UUID로 교체해 데이터 무결성 확보</li>
         <li>요청 데이터 기반 QR 정보 주입, 토큰 유무 등 현장 예외 케이스 대응</li>
       </ul>
     </div>
@@ -208,49 +179,34 @@ import PrLink from '../PrLink.astro';
         <DateLabel date="2025. 03. ~ 2025. 05." />
       </div>
       <p class="desc">
-        전국 중·고등학교 대상 스포츠 행사 플랫폼. 수기 신청서와 디스코드 의존도를 없애고, 팀
-        신청·동적 대진표·일정 관리를 통합. 승부 예측 기능<Fn
+        전국 중·고등학교 대상 스포츠 행사 플랫폼. 팀 신청, 동적 대진표, 일정 관리, 승부 예측<Fn
           note="승부 예측 시스템은 청소년 대상 불법 도박 중독 예방 캠페인 요소로 기획. 본교 운영 기간 동안 200명 이상이 자발적으로 참여"
-        />을 제공하여 사용자 98%가 “기존 체육대회보다 더 즐거웠다” 라고 응답.<PrLink
+        />을 통합 제공.
+        <br />
+        <strong
+          >본교 체육대회 DAU 300+명, 누적 이벤트 17만+건(GA), 사용자 98% “기존 체육대회보다 더
+          즐거웠다”</strong
+        ><PrLink
           href="https://steady-trip-f5b.notion.site/2024-GOGO-V2-1b920f98a3f680f995c3fac39ec6e1b3?pvs=143"
           id="survey"
-        />
-        <strong>본교 체육대회 DAU 300+명, GA 기준 누적 이벤트 17만+건.</strong><Fn
-          note="전국 단위 확장을 목표로 현재도 발전 중"
-        />
+        /><Fn note="전국 단위 확장을 목표로 현재도 발전 중" />
       </p>
       <ul class="bul-list">
-        <li>대회 운영 MVP 플로우(스테이지/대진표/팀/매치) 설계·구현</li>
         <li>
-          DnD 기반 동적 대진표(Bracket) 기능 구현 및 팀 수/턴 등 edge case 대응
-          <ul class="sub-bul-list">
-            <li>
-              onDragEnd가 stale state를 zustand에 저장하던 문제를, CustomEvent API 이벤트 버스 +
-              gameId별 독립 관리로 해결<Fn
-                note="onDragEnd 생성 시점의 스냅샷이 closure에 캡처되어 다음 렌더링까지 오염된 상태가 전파되는 것이 원인"
-              />
-              →
-              <strong>드래그 즉시 상태 반영</strong>
-            </li>
-            <li>
-              overflow:hidden 컨테이너가 드래그 요소를 클리핑하는 문제를, React createPortal로
-              document.body에 렌더링하여 해결
-            </li>
-          </ul>
+          <strong>드래그 즉시 대진표 상태 반영</strong>: onDragEnd의 stale state 문제를 CustomEvent
+          이벤트 버스와 gameId별 독립 관리로 해결<Fn
+            note="onDragEnd 생성 시점의 스냅샷이 closure에 캡처되어 다음 렌더링까지 오염된 상태가 전파되는 것이 원인"
+          />
         </li>
         <li>
-          자체 개발한 가상 스크롤 라이브러리 scrolloop을 랭킹 페이지에 도입해 DOM 노드 누적 문제
-          해소
-          <ul class="sub-bul-list">
-            <li>
-              hidden="until-found"와 beforematch를 활용해 렌더링 비용을 줄이면서
-              <strong>브라우저 Ctrl+F 검색 기능 유지</strong><Fn
-                note="기존 IntersectionObserver 기반 무한 스크롤은 스크롤할수록 DOM 노드가 누적되어 렌더링 비용이 증가하는 구조였음"
-              />
-            </li>
-          </ul>
+          <strong>Ctrl+F 검색을 유지한 가상 스크롤</strong>: 자체 라이브러리 scrolloop과
+          hidden="until-found"로 랭킹 페이지 DOM 누적 해소<Fn
+            note="기존 IntersectionObserver 기반 무한 스크롤은 스크롤할수록 DOM 노드가 누적되어 렌더링 비용이 증가하는 구조였음. beforematch 이벤트로 검색 시 해당 항목 표시"
+          />
         </li>
-        <li>커뮤니티 이미지 첨부/조회수 표시 구현, 댓글 입력/정렬/반응형 등 UX 개선</li>
+        <li>드래그 요소가 overflow:hidden 컨테이너에 잘리는 문제를 createPortal로 해결</li>
+        <li>대회 운영 MVP 플로우(스테이지·대진표·팀·매치) 설계·구현</li>
+        <li>커뮤니티 이미지 첨부, 조회수, 댓글 정렬 등 UX 개선</li>
       </ul>
     </div>
   </div>
@@ -333,32 +289,7 @@ import PrLink from '../PrLink.astro';
     color: var(--text-faint);
   }
 
-  .sub-bul-list {
-    list-style: none;
-    padding: 0;
-    margin: 0.2rem 0 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-
-  .sub-bul-list > li {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    line-height: 1.7;
-    padding-left: 1rem;
-    position: relative;
-  }
-
-  .sub-bul-list > li::before {
-    content: '◦';
-    position: absolute;
-    left: 0.1rem;
-    color: var(--text-faint);
-  }
-
-  .bul-list strong,
-  .sub-bul-list strong {
+  .bul-list strong {
     font-weight: 600;
     color: var(--text);
   }
