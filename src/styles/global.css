@@ -94,23 +94,17 @@
   }
 
   /* ── Section title ── */
+  /* 제목은 라벨처럼 작고 차분하게: 시선은 회사·프로젝트명과 성과로 가도록 */
   .section-title {
-    font-size: 1.125rem;
+    font-size: 0.8125rem;
     font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     color: var(--accent);
-    padding-bottom: 0.25rem;
-    margin-bottom: 1rem;
-    position: relative;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
     user-select: none;
-  }
-  .section-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 1.5px;
-    background: linear-gradient(to right, var(--border), transparent);
   }
 
   /* ── Bullet list ── */
@@ -476,16 +470,6 @@
     flex-wrap: wrap;
     gap: 0.25rem 1.25rem;
   }
-  /* contact는 한 줄로 */
-  main.resume-web .contact-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem 2rem;
-  }
-  main.resume-web .contact-list {
-    flex-direction: row;
-    gap: 2rem;
-  }
   /* 프로젝트 이름·기간 줄을 본문보다 또렷하게 */
   main.resume-web .proj-name,
   main.resume-web .exp-title {
@@ -546,6 +530,34 @@ html.dark main.resume-web {
 main.resume-web .bul-list {
   gap: 0.45rem;
 }
+main.resume-web .skill-grid {
+  font-size: 0.875rem;
+}
+
+/* 섹션 사이를 확실히 띄워 덩어리 단위로 훑어보기 쉽게 */
+@media screen {
+  main.resume-web > section {
+    margin-bottom: 3.5rem;
+  }
+}
+
+/* 데스크톱 본문은 15px: 14px은 긴 이력서를 읽기에 작음 (Standard Resume 권장 14px 이상) */
+@media screen and (min-width: 640px) {
+  main.resume-web .desc,
+  main.resume-web .bul-list > li,
+  main.resume-web .sub-bul-list > li,
+  main.resume-web .plain-list,
+  main.resume-web .skill-grid {
+    font-size: 0.9375rem;
+  }
+}
+@media screen and (min-width: 640px) {
+  main.resume-web #background .exp-block:nth-of-type(3) .plain-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1.5rem;
+  }
+}
 
 @media print {
   /* 인쇄 본문은 9.3pt 이상으로: 기존 7.6pt는 종이에서 읽기 어려움 */
@@ -569,7 +581,8 @@ main.resume-web .bul-list {
     margin-bottom: 0.4rem;
   }
   main.resume-web .section-title {
-    font-size: 12pt;
+    font-size: 10pt;
+    padding-bottom: 0.3rem;
   }
   main.resume-web .org-name {
     font-size: 11pt;

@@ -66,6 +66,17 @@
     pointer-events: auto;
     transform: translateY(0);
   }
+  /* 모바일: 두 버튼을 가로로 놓아 이름·소개 문단을 가리지 않게 */
+  @media (max-width: 639px) {
+    #theme-toggle,
+    #github-source-link {
+      top: 0.875rem;
+      right: 0.875rem;
+    }
+    #github-source-link {
+      right: 3.5rem;
+    }
+  }
   .icon-sun {
     display: none;
   }

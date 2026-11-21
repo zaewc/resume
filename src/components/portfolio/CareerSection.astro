@@ -12,8 +12,8 @@ import PrLink from '../PrLink.astro';
   <div class="org-block">
     <div class="org-header">
       <h3 class="org-name">스타트업팀</h3>
+      <span class="org-role">Frontend Developer</span>
     </div>
-    <p class="org-role">Frontend Developer</p>
 
     <!-- 光탈페 -->
     <div class="proj-block">
@@ -32,10 +32,11 @@ import PrLink from '../PrLink.astro';
         교육청·광주고등학생의회 주관 오디션 '광탈페'의 공식 플랫폼. 기존 SI 업체 위탁 운영을 대체<Fn
           note="기존 23~24년 예매 서비스는 교육청이 SI 업체에 위탁해 운영했으나, 기능적 완성도와 UX 측면에서 불편이 있었음. 예매 외에 프로그램 소개, 슬로건 공모, 참여 신청, 실시간 투표까지 확장 개발"
         />.
-        <br />
-        <strong
-          >외주 입찰 비용 1,000만 원 이상 절감, 행사 당일 DAU 3,000명 이상, 누적 트래픽 7.3만 이상</strong
-        ><Fn note="트래픽은 Vercel 기준. GA 기준 이벤트 5만+건" />
+      </p>
+      <p class="impact">
+        외주 입찰 비용 1,000만 원 이상 절감, 행사 당일 DAU 3,000명 이상, 누적 트래픽 7.3만 이상<Fn
+          note="트래픽은 Vercel 기준. GA 기준 이벤트 5만+건"
+        />
       </p>
 
       <ul class="bul-list">
@@ -76,10 +77,9 @@ import PrLink from '../PrLink.astro';
       </div>
       <p class="desc">
         광주광역시 광산구 수주 프로젝트. 지역 화폐 '광산'으로 물품과 서비스를 거래하는 플랫폼.
-        <br />
-        <strong
-          >iOS 개발자 이탈로 생긴 공백을 자원해 React Native로 메우고 App Store 출시까지 완수</strong
-        ><Fn
+      </p>
+      <p class="impact">
+        iOS 개발자 이탈로 생긴 공백을 자원해 React Native로 메우고 App Store 출시까지 완수<Fn
           note="담당은 어드민 웹 개발이었으나, 원활한 진행과 클라이언트와의 신뢰 유지를 위해 자발적으로 React Native 투입"
         />
       </p>
@@ -136,11 +136,10 @@ import PrLink from '../PrLink.astro';
       <p class="desc">
         광주광역시교육청 수주 프로젝트. 사전 신청, QR 현장 인증, 만족도 조사, 엑셀 자동 정리를
         통합한 행사 운영 플랫폼.
-        <br />
-        <strong
-          >AI·SW 체험 축전, 미래교육박람회 등 3만 명 이상 규모 행사 운영, 외주 입찰 비용 2,000만 원
-          이상 절감</strong
-        >
+      </p>
+      <p class="impact">
+        AI·SW 체험 축전, 미래교육박람회 등 3만 명 이상 규모 행사 운영, 외주 입찰 비용 2,000만 원
+        이상 절감
       </p>
       <ul class="bul-list">
         <li>
@@ -160,8 +159,8 @@ import PrLink from '../PrLink.astro';
   <div class="org-block">
     <div class="org-header">
       <h3 class="org-name">GOGO팀</h3>
+      <span class="org-role">Frontend Developer</span>
     </div>
-    <p class="org-role">Frontend Developer</p>
 
     <div class="proj-block">
       <div class="proj-header">
@@ -185,11 +184,10 @@ import PrLink from '../PrLink.astro';
         일정 관리를 통합<Fn
           note="승부 예측 기능도 제공. 청소년 대상 불법 도박 중독 예방 캠페인 요소로 기획했고, 본교 운영 기간 동안 200명 이상이 자발적으로 참여"
         />.
-        <br />
-        <strong
-          >본교 체육대회 DAU 300명 이상, 누적 이벤트 17만 건 이상, 사용자 98% “기존 체육대회보다 더
-          즐거웠다”</strong
-        ><PrLink
+      </p>
+      <p class="impact">
+        본교 체육대회 DAU 300명 이상, 누적 이벤트 17만 건 이상, 사용자 98% “기존 체육대회보다 더
+        즐거웠다”<PrLink
           href="https://steady-trip-f5b.notion.site/2024-GOGO-V2-1b920f98a3f680f995c3fac39ec6e1b3?pvs=143"
           id="survey"
         /><Fn note="이벤트는 GA 기준. 전국 단위 확장을 목표로 현재도 발전 중" />
@@ -216,34 +214,46 @@ import PrLink from '../PrLink.astro';
 
 <style>
   .org-block {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+  }
+  .org-block:last-child {
+    margin-bottom: 0;
   }
 
+  /* 팀명 + 직무를 한 줄에: 리크루터가 가장 오래 보는 요소(직무)를 가장 또렷하게 */
   .org-header {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    justify-content: space-between;
-    gap: 0.5rem;
-    margin-bottom: 0.125rem;
+    gap: 0.25rem 0.6rem;
+    margin-bottom: 1rem;
   }
 
   .org-name {
-    font-size: 0.9375rem;
+    font-size: 1.125rem;
     font-weight: 700;
     color: var(--text);
+    letter-spacing: -0.01em;
   }
 
   .org-role {
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+  .org-role::before {
+    content: '·';
+    margin-right: 0.6rem;
     color: var(--text-faint);
-    margin-bottom: 0.875rem;
   }
 
   .proj-block {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.75rem;
     padding-left: 1rem;
     border-left: 2px solid var(--border);
+  }
+  .proj-block:last-child {
+    margin-bottom: 0;
   }
 
   .proj-header {
@@ -251,20 +261,42 @@ import PrLink from '../PrLink.astro';
     flex-wrap: wrap;
     align-items: baseline;
     justify-content: space-between;
-    gap: 0.5rem;
-    margin-bottom: 0.25rem;
+    gap: 0.25rem 0.75rem;
+    margin-bottom: 0.375rem;
   }
 
   .proj-name {
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--text);
   }
 
   .desc {
-    margin: 0 0 0.625rem;
+    margin: 0 0 0.5rem;
     line-height: 1.72;
-    color: var(--text-soft);
+  }
+
+  /* 프로젝트 핵심 성과: 본문과 분리된 한 줄 */
+  .impact {
+    margin: 0 0 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--accent) 7%, transparent);
+    color: var(--text);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.6;
+    text-wrap: pretty;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+  @media (min-width: 640px) {
+    .impact {
+      font-size: 0.9375rem;
+    }
+  }
+  :global(html.dark) .impact {
+    background: color-mix(in srgb, var(--accent) 9%, transparent);
   }
 
   .bul-list {
@@ -277,7 +309,6 @@ import PrLink from '../PrLink.astro';
   }
 
   .bul-list > li {
-    font-size: 0.875rem;
     color: var(--text-muted);
     line-height: 1.7;
     padding-left: 1rem;
@@ -294,5 +325,18 @@ import PrLink from '../PrLink.astro';
   .bul-list strong {
     font-weight: 600;
     color: var(--text);
+  }
+
+  @media print {
+    .org-header {
+      margin-bottom: 0.45rem;
+    }
+    .impact {
+      padding: 0;
+      margin-bottom: 0.4rem;
+      background: none !important;
+      font-size: 9.3pt;
+      line-height: 1.45;
+    }
   }
 </style>
