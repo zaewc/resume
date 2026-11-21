@@ -94,17 +94,23 @@
   }
 
   /* ── Section title ── */
-  /* 제목은 라벨처럼 작고 차분하게: 시선은 회사·프로젝트명과 성과로 가도록 */
   .section-title {
-    font-size: 0.8125rem;
+    font-size: 1.125rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
     color: var(--accent);
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.25rem;
-    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.25rem;
+    margin-bottom: 1rem;
+    position: relative;
     user-select: none;
+  }
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1.5px;
+    background: linear-gradient(to right, var(--border), transparent);
   }
 
   /* ── Bullet list ── */
@@ -581,8 +587,7 @@ main.resume-web .skill-grid {
     margin-bottom: 0.4rem;
   }
   main.resume-web .section-title {
-    font-size: 10pt;
-    padding-bottom: 0.3rem;
+    font-size: 12pt;
   }
   main.resume-web .org-name {
     font-size: 11pt;
