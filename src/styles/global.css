@@ -699,3 +699,52 @@ main.resume-web .skill-grid {
     color: var(--text) !important;
   }
 }
+
+/* ── PDF 여백 균형: 페이지 아래가 비지 않도록 섹션·블록 간격을 넓혀 A4 2쪽을 채움 ──
+   1쪽(소개·경력)과 2쪽(경험 이후)은 내용량이 달라 간격을 따로 조정 */
+@media print {
+  main.resume-web {
+    --p1-section: 1.6rem;
+    --p1-block: 1.4rem;
+    --p1-org: 1.5rem;
+    --p2-section: 1.35rem;
+    --p2-block: 1rem;
+    --p-gap: 0.4rem;
+    --p-lh: 1.5;
+  }
+  main.resume-web .bio,
+  main.resume-web .desc,
+  main.resume-web .bul-list > li,
+  main.resume-web .sub-bul-list > li,
+  main.resume-web .plain-list,
+  main.resume-web .skill-grid,
+  main.resume-web .contact-list,
+  main.resume-web .impact {
+    line-height: var(--p-lh) !important;
+  }
+  main.resume-web .bul-list {
+    gap: var(--p-gap);
+  }
+  main.resume-web > section {
+    margin-bottom: var(--p2-section) !important;
+  }
+  main.resume-web > section:first-child,
+  main.resume-web > #contact {
+    margin-bottom: var(--p1-section) !important;
+  }
+  main.resume-web .section-title {
+    margin-bottom: 0.9rem;
+  }
+  main.resume-web .org-block {
+    margin-bottom: var(--p1-org);
+  }
+  main.resume-web .proj-block {
+    margin-bottom: var(--p1-block);
+  }
+  main.resume-web .exp-block {
+    margin-bottom: var(--p2-block);
+  }
+  main.resume-web .org-header {
+    margin-bottom: 0.7rem;
+  }
+}
