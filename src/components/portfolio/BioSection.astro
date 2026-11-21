@@ -22,23 +22,15 @@ const { active }: Props = Astro.props;
       >)
     </span>
   </h1>
-  <p class="bio bio-lead">
-    문제의 '왜'를 추적해 고객의 요구를 실제 성과로 바꾸는 소프트웨어 엔지니어입니다.
+  <!-- 이력서 소개는 컨셉 + 근거 2문장. 세부 성과는 아래 섹션에서 -->
+  <p class="bio">
+    <span class="bio-lead"
+      >사용자와 이해관계자의 이야기에서 진짜 문제를 찾아, 가장 단순하고 비용 효율적인 해법으로
+      끝까지 구현합니다.</span
+    >
+    공공기관 프로젝트 3건을 개발·운영하며 이를 실천했고, 프론트엔드에서 백엔드·MLOps까지 문제 해결에 필요한
+    기술을 넓혀 왔습니다.
   </p>
-  <ul class="bio bio-points">
-    <li>
-      공공기관 프로젝트 3건을 개발·운영하며 <strong>외주 비용 3,000만 원 이상</strong>을 절감하고,
-      <strong>3만 명 이상</strong> 규모의 행사를 지원했습니다.
-    </li>
-    <li>
-      typescript-eslint, NestJS 등 오픈소스에 <strong>PR 30건</strong>을 머지시켰고,
-      <strong>이슈 14건</strong>을 PR로 연계해 해결했습니다.
-    </li>
-    <li>직접 만든 라이브러리는 <strong>4,700회 이상</strong> 다운로드됐습니다.</li>
-    <li>
-      프론트엔드에서 시작해 React Native, 백엔드, MLOps까지 문제 해결에 필요한 기술을 넓혀 왔습니다.
-    </li>
-  </ul>
 </section>
 
 <style>
@@ -81,55 +73,18 @@ const { active }: Props = Astro.props;
     margin: 0 0.15rem;
   }
   .bio {
-    font-size: 0.9375rem;
+    font-size: 1rem;
     color: var(--text-muted);
     line-height: 1.75;
   }
   .bio-lead {
-    font-size: 1.0625rem;
+    display: block;
     font-weight: 700;
     color: var(--text);
-    line-height: 1.6;
-    margin-bottom: 0.75rem;
-  }
-  .bio-points {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-  .bio-points li {
-    position: relative;
-    padding-left: 1rem;
-  }
-  .bio-points li::before {
-    content: '';
-    position: absolute;
-    left: 0.15rem;
-    top: 0.72em;
-    width: 0.3rem;
-    height: 0.3rem;
-    border-radius: 50%;
-    background: var(--accent);
-  }
-  .bio-points strong {
-    font-weight: 600;
-    color: var(--text);
-  }
-  @media (min-width: 640px) {
-    .bio-lead {
-      font-size: 1.125rem;
-    }
   }
   @media print {
-    .bio.bio-lead {
-      font-size: 10.5pt !important;
-      margin-bottom: 0.3rem;
-    }
-    .bio-points {
-      gap: 0.1rem;
+    .bio.bio {
+      font-size: 10pt !important;
     }
   }
 </style>
