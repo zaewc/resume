@@ -501,6 +501,7 @@
   .theme-toggle,
   #github-source-link,
   .scroll-progress,
+  #scroll-progress,
   .fn,
   #image-lightbox {
     display: none !important;
