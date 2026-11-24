@@ -678,10 +678,6 @@ main.resume-web .skill-grid {
     text-underline-offset: 2px;
     vertical-align: baseline;
   }
-  main.resume-web .chip-link i,
-  main.resume-web .pr-link i {
-    display: none !important;
-  }
   main.resume-web .date-label {
     font-family: inherit !important;
     font-variant-numeric: tabular-nums;

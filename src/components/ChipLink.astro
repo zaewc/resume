@@ -1,14 +1,17 @@
 ---
+import LinkIcon from './LinkIcon.astro';
+
 interface Props {
   href: string;
   icon: string; // Bootstrap Icon class e.g. "bi-github"
   label: string;
 }
 const { href, icon, label }: Props = Astro.props;
+const kind = new URL(href).hostname === 'www.npmjs.com' ? 'npm' : undefined;
 ---
 
 <a href={href} target="_blank" rel="noopener noreferrer" class="chip-link">
-  <i class={`bi ${icon}`}></i>
+  <LinkIcon kind={kind} icon={icon} />
   {label}
 </a>
 
@@ -36,8 +39,5 @@ const { href, icon, label }: Props = Astro.props;
     color: var(--accent);
     border-color: var(--accent);
     background: var(--accent-light);
-  }
-  .chip-link i {
-    font-size: 0.72rem;
   }
 </style>

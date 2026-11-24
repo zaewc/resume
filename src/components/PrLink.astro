@@ -1,14 +1,33 @@
 ---
+import LinkIcon from './LinkIcon.astro';
+
 interface Props {
   href: string;
   id: string; // e.g. "#11430"
 }
 const { href, id }: Props = Astro.props;
+const githubMatch = href.match(
+  /^https:\/\/github\.com\/[^/]+\/[^/]+\/(pull|issues)\/(\d+)(?:[/?#]|$)/
+);
+const label = githubMatch ? `${githubMatch[1] === 'pull' ? 'PR' : 'Issue'} #${githubMatch[2]}` : id;
+const kind = githubMatch ? (githubMatch[1] === 'pull' ? 'pr' : 'issue') : undefined;
+const icon = {
+  blog: 'bi-journal-text',
+  survey: 'bi-clipboard-check',
+  article: 'bi-newspaper',
+}[id];
 ---
 
-<a href={href} target="_blank" rel="noopener noreferrer" class="pr-link">
-  <i class="bi bi-box-arrow-up-right"></i>
-  {id}
+<a
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="pr-link"
+  aria-label={label}
+  title={label}
+>
+  <LinkIcon kind={kind} icon={icon} />
+  {githubMatch ? `#${githubMatch[2]}` : id}
 </a>
 
 <style>
@@ -29,8 +48,5 @@ const { href, id }: Props = Astro.props;
     color: var(--accent);
     text-decoration: underline;
     text-underline-offset: 2px;
-  }
-  .pr-link i {
-    font-size: 0.65rem;
   }
 </style>

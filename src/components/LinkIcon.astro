@@ -1,0 +1,58 @@
+---
+interface Props {
+  kind?: 'pr' | 'issue' | 'npm';
+  icon?: string;
+}
+const { kind, icon = 'bi-box-arrow-up-right' }: Props = Astro.props;
+---
+
+{
+  kind === 'pr' ? (
+    <svg
+      class="link-icon"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="4" cy="3" r="1.5" />
+      <circle cx="4" cy="13" r="1.5" />
+      <circle cx="12" cy="13" r="1.5" />
+      <path d="M4 4.5v7M9 2 6.5 4.5 9 7M6.5 4.5H10a2 2 0 0 1 2 2v5" />
+    </svg>
+  ) : kind === 'issue' ? (
+    <svg
+      class="link-icon"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.4"
+      aria-hidden="true"
+    >
+      <circle cx="8" cy="8" r="6.25" />
+      <circle cx="8" cy="8" r="1.25" fill="currentColor" stroke="none" />
+    </svg>
+  ) : kind === 'npm' ? (
+    <svg class="link-icon npm-icon" viewBox="0 0 18 7" fill="currentColor" aria-hidden="true">
+      <path d="M0 0h18v6H9v1H5V6H0V0zm1 1v4h2V2h1v3h1V1H1zm5 0v5h2V5h2V1H6zm2 1h1v2H8V2zm3-1v4h2V2h1v3h1V2h1v3h1V1h-6z" />
+    </svg>
+  ) : (
+    <i class={`bi ${icon} link-icon`} aria-hidden="true" />
+  )
+}
+
+<style>
+  .link-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    font-size: inherit;
+  }
+  .npm-icon {
+    width: 1.6em;
+  }
+</style>
