@@ -270,7 +270,7 @@
 
   @page resume {
     size: A4;
-    margin: 8mm 10mm;
+    margin: 4mm;
   }
 
   /* Career section fills page 1; everything after starts on page 2 */
@@ -420,18 +420,15 @@
     content: '';
   }
 
-  /* ── 웹 이력서(/) 전용: 인쇄에서는 읽기 편한 문서 밀도 우선 ── */
+  /* ── 웹 이력서(/) 전용: A4 2페이지에 맞춤 ──
+     1페이지: 소개·contact·career / 2페이지: experience 이후 전부 */
   main.resume-web {
     page: resume;
-    font-size: 11pt;
-    letter-spacing: 0.025em;
-    word-spacing: 0.06em;
+    font-size: 10.5pt;
+    letter-spacing: 0.015em;
+    word-spacing: 0.02em;
     max-width: none !important;
     padding: 0 !important;
-  }
-  main.resume-web .print-page-1 {
-    page-break-after: auto;
-    break-after: auto;
   }
   main.resume-web section {
     margin-bottom: 1.1rem !important;
@@ -439,14 +436,10 @@
   main.resume-web .section-title {
     margin-bottom: 0.6rem;
   }
-  /* 팀과 큰 섹션 단위로 페이지를 나눠 항목을 압축하지 않음 */
+  /* career 안에서는 팀(org-block)마다 페이지를 넘기지 않음 */
   main.resume-web .org-block + .org-block {
-    page-break-before: always;
-    break-before: page;
-  }
-  main.resume-web #activities {
-    page-break-before: always;
-    break-before: page;
+    page-break-before: auto;
+    break-before: auto;
   }
   main.resume-web .org-block {
     margin-bottom: 0.9rem;
@@ -465,16 +458,7 @@
     margin-bottom: 0.45rem;
   }
   main.resume-web .desc {
-    margin-bottom: 7pt;
-  }
-  main.resume-web .impact {
-    margin-bottom: 8pt;
-  }
-  main.resume-web .proj-header {
-    margin-bottom: 5pt;
-  }
-  main.resume-web .exp-title {
-    margin-bottom: 6pt;
+    margin-bottom: 0.4rem;
   }
   /* 수상 내역은 2열로 */
   main.resume-web #background .exp-block:nth-of-type(3) .plain-list {
@@ -501,7 +485,7 @@
     flex-wrap: wrap;
     gap: 0.25rem 1.25rem;
   }
-  /* 학력·자격은 제목과 내용의 열을 맞춤 */
+  /* 학력·자격은 각각 한 줄로 배치해 큰 본문 크기를 위한 공간 확보 */
   main.resume-web #background > .exp-block:nth-of-type(-n + 2) {
     grid-column: 1 / -1;
     display: grid;
@@ -606,7 +590,7 @@ main.resume-web .skill-grid {
 }
 
 @media print {
-  /* 인쇄 본문은 11pt로, 자간과 행간을 함께 확보 */
+  /* 인쇄 본문은 10.5pt로, 보조 정보도 대비와 크기를 확보 */
   main.resume-web,
   html.dark main.resume-web {
     --text-muted: #222222;
@@ -618,26 +602,25 @@ main.resume-web .skill-grid {
   main.resume-web .bul-list > li,
   main.resume-web .sub-bul-list > li,
   main.resume-web .plain-list,
-  main.resume-web .plain-list > li,
   main.resume-web .skill-grid,
   main.resume-web .contact-list {
-    font-size: 11pt !important;
-    line-height: 1.7 !important;
+    font-size: 10.5pt !important;
+    line-height: 1.55 !important;
   }
   main.resume-web .name {
     font-size: 20pt;
-    margin-bottom: 8pt;
+    margin-bottom: 0.4rem;
   }
   main.resume-web .section-title {
-    font-size: 13pt;
+    font-size: 12pt;
   }
   main.resume-web .org-name {
-    font-size: 12pt;
+    font-size: 11.5pt;
   }
   main.resume-web .proj-name,
   main.resume-web .exp-title,
   main.resume-web .ml-link-title {
-    font-size: 11.5pt;
+    font-size: 11pt;
   }
   main.resume-web .org-role {
     font-size: 9.5pt;
@@ -647,34 +630,19 @@ main.resume-web .skill-grid {
   }
   main.resume-web .chip-link,
   main.resume-web .pr-link {
-    font-size: 9pt;
+    font-size: 8.5pt;
     gap: 0.18em;
-  }
-  main.resume-web .name,
-  main.resume-web .name-sub,
-  main.resume-web .org-name,
-  main.resume-web .proj-name,
-  main.resume-web .exp-title,
-  main.resume-web .section-title,
-  main.resume-web .chip-link,
-  main.resume-web .pr-link,
-  main.resume-web .date-label {
-    letter-spacing: 0.01em;
-    word-spacing: normal;
-  }
-  main.resume-web .plain-list .date-label {
-    margin-left: 0.5em;
   }
   main.resume-web .availability p {
     font-size: 9.5pt !important;
     color: #404040;
-    line-height: 1.65 !important;
+    line-height: 1.4 !important;
   }
   main.resume-web .bul-list {
-    gap: 4pt;
+    gap: 0.3rem;
   }
 
-  /* ── 정보 종류별 읽기 순서와 간격 ── */
+  /* ── 2페이지를 채우는 섹션들은 가로 공간을 활용 ── */
   main.resume-web .date-label {
     white-space: nowrap;
   }
@@ -691,7 +659,7 @@ main.resume-web .skill-grid {
   /* 오픈소스 기여: 프로젝트 이름을 왼쪽 라벨로 */
   main.resume-web #experience .bul-list > li:has(> .sub-bul-list) {
     display: grid;
-    grid-template-columns: 100pt minmax(0, 1fr);
+    grid-template-columns: 94pt minmax(0, 1fr);
     padding-left: 0;
   }
   main.resume-web #experience .bul-list > li:has(> .sub-bul-list) > strong {
@@ -702,14 +670,11 @@ main.resume-web .skill-grid {
   }
   main.resume-web #experience .sub-bul-list {
     margin-top: 0;
-    gap: 4pt;
+    gap: 0.3rem;
   }
   main.resume-web #experience .bul-list,
   main.resume-web #activities .bul-list {
-    gap: 4pt;
-  }
-  main.resume-web .plain-list {
-    gap: 4pt;
+    gap: 0.4rem;
   }
   /* activities: 두 활동을 나란히 */
   main.resume-web #activities {
@@ -723,14 +688,14 @@ main.resume-web .skill-grid {
   main.resume-web #activities .exp-block {
     margin-bottom: 0;
   }
-  /* 기술 분류마다 한 줄을 사용해 가로로 붙어 보이지 않게 함 */
+  /* skills: 2열 */
   main.resume-web .skill-grid {
-    display: flex;
-    gap: 5pt;
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 0.25rem 1.5rem;
   }
   main.resume-web .skill-row {
-    grid-template-columns: 68pt minmax(0, 1fr);
-    gap: 12pt;
+    grid-template-columns: max-content minmax(0, 1fr);
   }
   main.resume-web .skill-row dt {
     white-space: nowrap;
@@ -772,16 +737,17 @@ main.resume-web .skill-grid {
   }
 }
 
-/* ── PDF 가독성: 쪽수보다 자간·행간과 문단의 분리를 우선 ── */
+/* ── PDF 가독성: 바깥 여백을 줄여 본문 크기와 줄·항목 간격을 함께 확보 ──
+   경력 항목과 2쪽의 짧은 목록은 정보 밀도에 맞춰 간격을 따로 조정 */
 @media print {
   main.resume-web {
-    --p1-section: 18pt;
-    --p1-block: 14pt;
-    --p1-org: 18pt;
-    --p2-section: 18pt;
-    --p2-block: 14pt;
-    --p-gap: 4pt;
-    --p-lh: 1.7;
+    --p1-section: 1.4rem;
+    --p1-block: 1.3rem;
+    --p1-org: 1.4rem;
+    --p2-section: 1rem;
+    --p2-block: 0.8rem;
+    --p-gap: 0.4rem;
+    --p-lh: 1.55;
   }
   main.resume-web .bio,
   main.resume-web .desc,
@@ -804,7 +770,7 @@ main.resume-web .skill-grid {
     margin-bottom: var(--p1-section) !important;
   }
   main.resume-web .section-title {
-    margin-bottom: 10pt;
+    margin-bottom: 0.65rem;
   }
   main.resume-web .org-block {
     margin-bottom: var(--p1-org);
@@ -816,6 +782,6 @@ main.resume-web .skill-grid {
     margin-bottom: var(--p2-block);
   }
   main.resume-web .org-header {
-    margin-bottom: 9pt;
+    margin-bottom: 0.5rem;
   }
 }
