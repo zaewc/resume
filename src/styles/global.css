@@ -273,7 +273,7 @@
     margin: 4mm;
   }
 
-  /* Career section fills page 1; everything after starts on page 2 */
+  /* The marked section ends page 1; subsequent sections start on page 2. */
   section.print-page-1 {
     page-break-after: always;
     break-after: page;
@@ -421,7 +421,7 @@
   }
 
   /* ── 웹 이력서(/) 전용: A4 2페이지에 맞춤 ──
-     1페이지: 소개·contact·career / 2페이지: experience 이후 전부 */
+     1페이지: 소개·contact·career·skills / 2페이지: experience·activities·background */
   main.resume-web {
     page: resume;
     font-size: 10.5pt;
