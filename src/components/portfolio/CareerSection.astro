@@ -52,7 +52,9 @@ import PrLink from '../PrLink.astro';
         <li>
           Next.js Metadata API와 사이트맵 자동화로 <strong>주요 검색엔진 최상단 노출</strong> 달성
         </li>
-        <li>인증 로직을 직접 설계·구현하고, 계정별 예매 여부에 따른 동적 라우팅 적용</li>
+        <li class="screen-only">
+          인증 로직을 직접 설계·구현하고, 계정별 예매 여부에 따른 동적 라우팅 적용
+        </li>
       </ul>
     </div>
 
@@ -106,10 +108,14 @@ import PrLink from '../PrLink.astro';
           Jest·MSW 단위 테스트와 Detox iOS/Android E2E를 구축해
           <strong>PR마다 두 계층의 커버리지를 CI가 자동 보고</strong><Fn
             note="React Testing Library 사용. Unit은 PR마다 Jest 커버리지 리포트 자동 코멘트, E2E는 babel-plugin-istanbul로 시뮬레이터 실행 결과에서 커버리지 추출. Discord 웹훅으로 결과 공유"
-          />
+          /><span class="print-only"
+            >, CocoaPods·Detox·Xcode 산출물 캐싱으로 <strong>CI 시간 단축</strong></span
+          >
         </li>
-        <li>CocoaPods·Detox·Xcode 산출물 캐싱으로 <strong>CI 시간 단축</strong></li>
-        <li>관리자 웹 개발·운영: 가입 승인, 신고 처리, 화폐 지급·회수</li>
+        <li class="screen-only">
+          CocoaPods·Detox·Xcode 산출물 캐싱으로 <strong>CI 시간 단축</strong>
+        </li>
+        <li class="screen-only">관리자 웹 개발·운영: 가입 승인, 신고 처리, 화폐 지급·회수</li>
         <li>데일리 스크럼을 주최해 팀 목표와 이슈 공유 체계화</li>
       </ul>
     </div>
@@ -143,7 +149,7 @@ import PrLink from '../PrLink.astro';
           JSON 파싱을 1회로 축소
         </li>
         <li>동적 폼 질문 ID를 UUID 기반으로 재설계해 <strong>데이터 무결성 확보</strong></li>
-        <li>QR 정보 주입, 토큰 유무 등 행사 현장의 예외 케이스 대응</li>
+        <li class="screen-only">QR 정보 주입, 토큰 유무 등 행사 현장의 예외 케이스 대응</li>
       </ul>
     </div>
   </div>
@@ -196,8 +202,10 @@ import PrLink from '../PrLink.astro';
             note="hidden=until-found와 beforematch 이벤트 사용. 기존 IntersectionObserver 기반 무한 스크롤은 스크롤할수록 DOM 노드가 누적되어 렌더링 비용이 증가하는 구조였음"
           />을 랭킹에 도입해 <strong>DOM 누적을 없애면서 브라우저 Ctrl+F 검색 유지</strong>
         </li>
-        <li>스테이지, 대진표, 팀, 매치로 이어지는 대회 운영 핵심 플로우 설계·구현</li>
-        <li>커뮤니티 이미지 첨부, 조회수, 댓글 정렬 등 UX 개선</li>
+        <li class="screen-only">
+          스테이지, 대진표, 팀, 매치로 이어지는 대회 운영 핵심 플로우 설계·구현
+        </li>
+        <li class="screen-only">커뮤니티 이미지 첨부, 조회수, 댓글 정렬 등 UX 개선</li>
       </ul>
     </div>
   </div>
@@ -318,7 +326,17 @@ import PrLink from '../PrLink.astro';
     color: var(--text);
   }
 
+  .print-only {
+    display: none;
+  }
+
   @media print {
+    .screen-only {
+      display: none !important;
+    }
+    .print-only {
+      display: inline;
+    }
     .org-header {
       margin-bottom: 0.45rem;
     }
