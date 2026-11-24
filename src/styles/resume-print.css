@@ -1,11 +1,13 @@
-/* A4 document layout, based on the supplied resume reference. */
+/* A4: the website's visual language with the reference's document hierarchy. */
 @media print {
   @page resume {
     size: A4;
-    margin: 14mm 16mm;
+    margin: 10mm;
 
     @bottom-right {
-      content: counter(page) ' / ' counter(pages);
+      content: counter(page);
+      width: 20mm;
+      text-align: right;
       font-family: Inter, sans-serif;
       font-size: 8pt;
       color: #667085;
@@ -14,23 +16,23 @@
 
   main.resume-web,
   html.dark main.resume-web {
-    --text: #20252b;
-    --text-muted: #343b43;
-    --text-faint: #59616c;
-    --accent: #2c5284;
-    --border: #d8dee6;
+    --text: #18202c;
+    --text-muted: #374358;
+    --text-faint: #627086;
+    --accent: #2563eb;
+    --border: #d5dfea;
     page: resume;
     max-width: none !important;
     padding: 0 !important;
-    font-size: 10pt;
-    line-height: 1.65;
+    font-size: 9.75pt;
+    line-height: 1.6;
     letter-spacing: 0.012em;
     word-spacing: 0.02em;
     color: var(--text);
   }
 
   main.resume-web > section {
-    margin: 0 0 20pt !important;
+    margin: 0 0 12pt !important;
   }
 
   /* Start each group on a new page; keep its headings with their content. */
@@ -55,7 +57,7 @@
     font-size: 22pt;
     line-height: 1.2;
     letter-spacing: 0;
-    margin-bottom: 10pt;
+    margin-bottom: 8pt;
   }
 
   main.resume-web .name-sub {
@@ -71,13 +73,13 @@
   main.resume-web .plain-list,
   main.resume-web .plain-list > li,
   main.resume-web .skill-grid {
-    font-size: 10pt !important;
-    line-height: 1.65 !important;
+    font-size: 9.75pt !important;
+    line-height: 1.6 !important;
   }
 
   main.resume-web .contact {
     margin-top: 0;
-    padding: 8pt 0;
+    padding: 6pt 0;
     border-color: var(--border);
   }
 
@@ -93,12 +95,12 @@
   }
 
   main.resume-web .section-title {
-    font-size: 14pt;
+    font-size: 13pt;
     line-height: 1.25;
     font-weight: 700;
     letter-spacing: 0.01em;
-    padding-bottom: 6pt;
-    margin-bottom: 12pt;
+    padding-bottom: 5pt;
+    margin-bottom: 9pt;
     border-bottom: 0.75pt solid var(--border);
     color: var(--accent);
   }
@@ -109,7 +111,7 @@
 
   main.resume-web .org-header {
     gap: 6pt;
-    margin-bottom: 10pt;
+    margin-bottom: 7pt;
   }
 
   main.resume-web .org-name {
@@ -123,7 +125,7 @@
   }
 
   main.resume-web .org-block {
-    margin-bottom: 18pt;
+    margin-bottom: 12pt;
   }
 
   main.resume-web .org-block:last-child,
@@ -133,13 +135,14 @@
 
   main.resume-web .proj-block {
     border: 0;
-    padding: 0;
-    margin-bottom: 16pt;
+    border-left: 1.25pt solid var(--border);
+    padding: 0 0 0 9pt;
+    margin-bottom: 12pt;
   }
 
   main.resume-web .proj-header {
     gap: 4pt 10pt;
-    margin-bottom: 6pt;
+    margin-bottom: 5pt;
   }
 
   main.resume-web .proj-name,
@@ -154,19 +157,19 @@
   }
 
   main.resume-web .desc {
-    margin-bottom: 6pt;
+    margin-bottom: 5pt;
   }
 
   main.resume-web .impact {
     padding: 0;
-    margin-bottom: 8pt;
+    margin-bottom: 6pt;
     border: 0;
     background: none !important;
     font-weight: 600;
   }
 
   main.resume-web .exp-block {
-    margin-bottom: 16pt;
+    margin-bottom: 12pt;
   }
 
   main.resume-web .bul-list,
@@ -219,6 +222,13 @@
     text-decoration-thickness: 0.5pt;
     text-underline-offset: 2pt;
     vertical-align: baseline;
+  }
+
+  main.resume-web .chip-link {
+    padding: 1pt 4pt !important;
+    border: 0.6pt solid var(--border) !important;
+    border-radius: 8pt;
+    text-decoration: none;
   }
 
   main.resume-web .skill-grid {
@@ -275,6 +285,10 @@
   main.resume-web #activities,
   main.resume-web #background {
     display: block;
+  }
+
+  main.resume-web #background > .exp-block {
+    margin-bottom: 16pt;
   }
 
   main.resume-web .availability {
