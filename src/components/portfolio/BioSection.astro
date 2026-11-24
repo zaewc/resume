@@ -8,7 +8,7 @@ const { active }: Props = Astro.props;
 <section class="mb-12">
   <h1 class="name">
     송재욱
-    <span class="name-sub">
+    <span class="name-sub name-sub-web">
       (<a
         href="/"
         class:list={['role-tab', { active: active === 'web' }]}
@@ -21,6 +21,8 @@ const { active }: Props = Astro.props;
         aria-current={active === 'ml' ? 'page' : undefined}>MLOps</a
       >)
     </span>
+    <span class="name-sub name-sub-print">({active === 'web' ? 'Software Engineer' : 'MLOps'})</span
+    >
   </h1>
   <!-- 이력서 소개는 컨셉 + 근거 2문장. 세부 성과는 아래 섹션에서 -->
   <p class="bio">
@@ -50,6 +52,9 @@ const { active }: Props = Astro.props;
     font-size: 1.1rem;
     font-weight: 500;
     color: var(--text-muted);
+  }
+  .name-sub-print {
+    display: none;
   }
   .role-tab {
     color: var(--text-faint);
@@ -83,6 +88,14 @@ const { active }: Props = Astro.props;
     color: var(--text);
   }
   @media print {
+    .name-sub-web {
+      display: none;
+    }
+    .name-sub-print {
+      display: inline;
+      color: var(--text);
+      font-weight: 700;
+    }
     .bio.bio {
       font-size: 10pt !important;
     }
