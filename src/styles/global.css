@@ -605,7 +605,7 @@ main.resume-web .skill-grid {
   main.resume-web .skill-grid,
   main.resume-web .contact-list {
     font-size: 10.5pt !important;
-    line-height: 1.55 !important;
+    line-height: var(--p-lh) !important;
   }
   main.resume-web .name {
     font-size: 20pt;
@@ -636,7 +636,7 @@ main.resume-web .skill-grid {
   main.resume-web .availability p {
     font-size: 9.5pt !important;
     color: #404040;
-    line-height: 1.4 !important;
+    line-height: 1.5 !important;
   }
   main.resume-web .bul-list {
     gap: 0.3rem;
@@ -670,11 +670,14 @@ main.resume-web .skill-grid {
   }
   main.resume-web #experience .sub-bul-list {
     margin-top: 0;
-    gap: 0.3rem;
+    gap: 4pt;
   }
   main.resume-web #experience .bul-list,
   main.resume-web #activities .bul-list {
-    gap: 0.4rem;
+    gap: var(--p-gap);
+  }
+  main.resume-web .plain-list {
+    gap: 3.5pt;
   }
   /* activities: 두 활동을 나란히 */
   main.resume-web #activities {
@@ -689,10 +692,14 @@ main.resume-web .skill-grid {
     margin-bottom: 0;
   }
   /* skills: 2열 */
+  main.resume-web #skills {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
   main.resume-web .skill-grid {
     display: grid;
     grid-template-columns: 1fr 1.6fr;
-    gap: 0.25rem 1.5rem;
+    gap: 4pt 1.5rem;
   }
   main.resume-web .skill-row {
     grid-template-columns: max-content minmax(0, 1fr);
@@ -737,23 +744,24 @@ main.resume-web .skill-grid {
   }
 }
 
-/* ── PDF 가독성: 바깥 여백을 줄여 본문 크기와 줄·항목 간격을 함께 확보 ──
-   경력 항목과 2쪽의 짧은 목록은 정보 밀도에 맞춰 간격을 따로 조정 */
+/* ── PDF 가독성: 줄 < 항목 < 블록 < 섹션 순서로 간격을 구분 ──
+   글자 크기·자간과 A4 2쪽 구성을 유지하며 페이지별 여유를 배분 */
 @media print {
   main.resume-web {
-    --p1-section: 1.4rem;
-    --p1-block: 1.3rem;
-    --p1-org: 1.4rem;
-    --p2-section: 1rem;
-    --p2-block: 0.8rem;
-    --p-gap: 0.4rem;
-    --p-lh: 1.55;
+    --p1-section: 13pt;
+    --p1-block: 11.5pt;
+    --p1-org: 14pt;
+    --p2-section: 13pt;
+    --p2-block: 10pt;
+    --p-gap: 4pt;
+    --p-lh: 1.6;
   }
   main.resume-web .bio,
   main.resume-web .desc,
   main.resume-web .bul-list > li,
   main.resume-web .sub-bul-list > li,
   main.resume-web .plain-list,
+  main.resume-web .plain-list > li,
   main.resume-web .skill-grid,
   main.resume-web .contact-list,
   main.resume-web .impact {
@@ -770,7 +778,7 @@ main.resume-web .skill-grid {
     margin-bottom: var(--p1-section) !important;
   }
   main.resume-web .section-title {
-    margin-bottom: 0.65rem;
+    margin-bottom: 8pt;
   }
   main.resume-web .org-block {
     margin-bottom: var(--p1-org);
@@ -782,6 +790,6 @@ main.resume-web .skill-grid {
     margin-bottom: var(--p2-block);
   }
   main.resume-web .org-header {
-    margin-bottom: 0.5rem;
+    margin-bottom: 5pt;
   }
 }
