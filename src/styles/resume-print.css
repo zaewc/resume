@@ -1,0 +1,293 @@
+/* A4 document layout, based on the supplied resume reference. */
+@media print {
+  @page resume {
+    size: A4;
+    margin: 14mm 16mm;
+
+    @bottom-right {
+      content: counter(page) ' / ' counter(pages);
+      font-family: Inter, sans-serif;
+      font-size: 8pt;
+      color: #667085;
+    }
+  }
+
+  main.resume-web,
+  html.dark main.resume-web {
+    --text: #20252b;
+    --text-muted: #343b43;
+    --text-faint: #59616c;
+    --accent: #2c5284;
+    --border: #d8dee6;
+    page: resume;
+    max-width: none !important;
+    padding: 0 !important;
+    font-size: 10pt;
+    line-height: 1.65;
+    letter-spacing: 0.012em;
+    word-spacing: 0.02em;
+    color: var(--text);
+  }
+
+  main.resume-web > section {
+    margin: 0 0 20pt !important;
+  }
+
+  /* Start each group on a new page; keep its headings with their content. */
+  main.resume-web #skills,
+  main.resume-web #activities {
+    page-break-before: always;
+    break-before: page;
+  }
+
+  main.resume-web #skills,
+  main.resume-web #background {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  main.resume-web .org-block + .org-block {
+    page-break-before: auto;
+    break-before: auto;
+  }
+
+  main.resume-web .name {
+    font-size: 22pt;
+    line-height: 1.2;
+    letter-spacing: 0;
+    margin-bottom: 10pt;
+  }
+
+  main.resume-web .name-sub {
+    font-size: 10.5pt;
+    letter-spacing: 0;
+  }
+
+  main.resume-web .bio.bio,
+  main.resume-web .desc,
+  main.resume-web .impact,
+  main.resume-web .bul-list > li,
+  main.resume-web .sub-bul-list > li,
+  main.resume-web .plain-list,
+  main.resume-web .plain-list > li,
+  main.resume-web .skill-grid {
+    font-size: 10pt !important;
+    line-height: 1.65 !important;
+  }
+
+  main.resume-web .contact {
+    margin-top: 0;
+    padding: 8pt 0;
+    border-color: var(--border);
+  }
+
+  main.resume-web .contact-list {
+    font-size: 9.5pt;
+    line-height: 1.5;
+    gap: 5pt 18pt;
+    letter-spacing: 0;
+  }
+
+  main.resume-web .contact-icon {
+    font-size: 9pt;
+  }
+
+  main.resume-web .section-title {
+    font-size: 14pt;
+    line-height: 1.25;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    padding-bottom: 6pt;
+    margin-bottom: 12pt;
+    border-bottom: 0.75pt solid var(--border);
+    color: var(--accent);
+  }
+
+  main.resume-web .section-title::after {
+    display: none;
+  }
+
+  main.resume-web .org-header {
+    gap: 6pt;
+    margin-bottom: 10pt;
+  }
+
+  main.resume-web .org-name {
+    font-size: 11.5pt;
+    letter-spacing: 0;
+  }
+
+  main.resume-web .org-role {
+    font-size: 9pt;
+    margin: 0;
+  }
+
+  main.resume-web .org-block {
+    margin-bottom: 18pt;
+  }
+
+  main.resume-web .org-block:last-child,
+  main.resume-web .proj-block:last-child {
+    margin-bottom: 0;
+  }
+
+  main.resume-web .proj-block {
+    border: 0;
+    padding: 0;
+    margin-bottom: 16pt;
+  }
+
+  main.resume-web .proj-header {
+    gap: 4pt 10pt;
+    margin-bottom: 6pt;
+  }
+
+  main.resume-web .proj-name,
+  main.resume-web .exp-title {
+    font-size: 11pt;
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+
+  main.resume-web .exp-title {
+    margin-bottom: 6pt;
+  }
+
+  main.resume-web .desc {
+    margin-bottom: 6pt;
+  }
+
+  main.resume-web .impact {
+    padding: 0;
+    margin-bottom: 8pt;
+    border: 0;
+    background: none !important;
+    font-weight: 600;
+  }
+
+  main.resume-web .exp-block {
+    margin-bottom: 16pt;
+  }
+
+  main.resume-web .bul-list,
+  main.resume-web .sub-bul-list,
+  main.resume-web .plain-list {
+    gap: 4pt;
+  }
+
+  main.resume-web .bul-list > li,
+  main.resume-web .sub-bul-list > li {
+    padding-left: 10pt;
+    color: var(--text-muted);
+  }
+
+  main.resume-web .bul-list strong,
+  main.resume-web .sub-bul-list strong {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  main.resume-web .date-label {
+    font-family: inherit;
+    font-size: 9pt;
+    letter-spacing: 0;
+    white-space: nowrap;
+    color: var(--text-faint);
+  }
+
+  main.resume-web .plain-list .date-label {
+    margin-left: 5pt;
+  }
+
+  main.resume-web .chip-link,
+  main.resume-web .pr-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 2pt;
+    padding: 0 !important;
+    margin-left: 4pt !important;
+    border: 0 !important;
+    border-radius: 0;
+    background: none !important;
+    font-family: inherit;
+    font-size: 8pt;
+    font-weight: 400;
+    letter-spacing: 0;
+    word-spacing: normal;
+    color: var(--text-faint);
+    text-decoration: underline;
+    text-decoration-thickness: 0.5pt;
+    text-underline-offset: 2pt;
+    vertical-align: baseline;
+  }
+
+  main.resume-web .skill-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 4pt;
+  }
+
+  main.resume-web .skill-row {
+    display: grid;
+    grid-template-columns: 64pt minmax(0, 1fr);
+    column-gap: 12pt;
+  }
+
+  main.resume-web .skill-row dt {
+    white-space: nowrap;
+  }
+
+  main.resume-web #experience {
+    position: relative;
+  }
+
+  main.resume-web #experience .exp-block:has(> .ml-link) {
+    position: absolute;
+    top: 1pt;
+    right: 0;
+    margin: 0;
+  }
+
+  main.resume-web .ml-link-title {
+    font-size: 9.5pt;
+  }
+
+  main.resume-web #experience .bul-list > li:has(> .sub-bul-list) {
+    display: block;
+    padding-left: 0;
+    margin-bottom: 8pt;
+  }
+
+  main.resume-web #experience .bul-list > li:has(> .sub-bul-list)::before {
+    content: none;
+  }
+
+  main.resume-web #experience .bul-list > li:has(> .sub-bul-list) > strong {
+    display: block;
+    font-size: 10.5pt;
+    margin-bottom: 5pt;
+  }
+
+  main.resume-web #experience .sub-bul-list {
+    margin-top: 0;
+  }
+
+  main.resume-web #activities,
+  main.resume-web #background {
+    display: block;
+  }
+
+  main.resume-web .availability {
+    margin-top: 18pt;
+    padding: 10pt 12pt;
+    gap: 4pt;
+    border: 0.75pt solid var(--border);
+    background: #fafbfc;
+  }
+
+  main.resume-web .availability p {
+    font-size: 9pt !important;
+    line-height: 1.6 !important;
+    color: #4b5563;
+  }
+}
