@@ -79,6 +79,7 @@
 
   main.resume-web .contact {
     margin-top: 0;
+    margin-bottom: 32pt !important;
     padding: 6pt 0;
     border-color: var(--border);
   }
