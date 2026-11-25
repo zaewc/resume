@@ -15,6 +15,38 @@ import PrLink from '../PrLink.astro';
       <span class="org-role">Frontend Developer</span>
     </div>
 
+    <!-- EXPO -->
+    <div class="proj-block">
+      <div class="proj-header">
+        <span class="proj-name">
+          EXPO
+          <ChipLink
+            href="https://github.com/School-of-Company/Expo-Client"
+            icon="bi-github"
+            label="GitHub"
+          />
+        </span>
+        <DateLabel date="2024. 10. ~ 현재" />
+      </div>
+      <p class="desc">
+        광주광역시교육청 수주 프로젝트. 사전 신청부터 QR 현장 인증·만족도 조사·엑셀 정리까지 행사
+        운영 업무를 한 플랫폼으로 통합.
+      </p>
+      <p class="impact">
+        AI·SW 체험 축전, 미래교육박람회 등 3만 명 이상 규모 행사 운영, 외주 입찰 비용 2,000만 원
+        이상 절감
+      </p>
+      <ul class="bul-list">
+        <li>
+          잘못된 JSON 수신으로 신청 폼이 멈추는 문제를 Zod 검증 계층<Fn
+            note="렌더링마다 실행되던 JSON.parse()를 Zod Schema 기반 Wrapper Layer로 이동. 잘못된 JSON 형식 진입 시 전체 폼이 렌더링되지 않는 문제가 있었음. Zod로 수신 직후 검증하여 UI 컴포넌트 내 런타임 타입 가드를 완전 제거"
+          />으로 차단하고 <strong>반복 JSON 파싱을 1회로 축소</strong>
+        </li>
+        <li>동적 폼 질문 ID를 UUID 기반으로 재설계해 <strong>데이터 무결성 확보</strong></li>
+        <li class="screen-only">QR 정보 주입, 토큰 유무 등 행사 현장의 예외 케이스 대응</li>
+      </ul>
+    </div>
+
     <!-- 光탈페 -->
     <div class="proj-block">
       <div class="proj-header">
@@ -29,9 +61,9 @@ import PrLink from '../PrLink.astro';
         <DateLabel date="2025. 02. ~ 2025. 10." />
       </div>
       <p class="desc">
-        교육청·광주고등학생의회 주관 오디션 '광탈페'의 공식 플랫폼. 기존 SI 업체 위탁 운영<Fn
+        교육청·광주고등학생의회 주관 오디션의 공식 플랫폼. 기존 SI 업체 위탁 예매 서비스<Fn
           note="기존 23~24년 예매 서비스는 교육청이 SI 업체에 위탁해 운영했으나, 기능적 완성도와 UX 측면에서 불편이 있었음. 예매 외에 프로그램 소개, 슬로건 공모, 참여 신청, 실시간 투표까지 확장 개발"
-        />을 대체.
+        />를 대체하고 행사 참여 기능까지 확장.
       </p>
       <p class="impact">
         외주 입찰 비용 1,000만 원 이상 절감, 행사 당일 DAU 3,000명 이상, 누적 트래픽 7.3만 이상<Fn
@@ -41,9 +73,9 @@ import PrLink from '../PrLink.astro';
 
       <ul class="bul-list">
         <li>
-          SSE 기반 <strong>실시간 좌석 예매</strong>를 구현하고, 캐시 구독 구조<Fn
+          SSE 좌석 예매에서 캐시와 화면이 동기화되지 않는 문제를 캐시 구독 구조<Fn
             note="useMemo 의존성에 불변 객체 queryClient를 넣어 UI가 갱신되지 않던 문제를 useQueries 전환으로 해결. queryClient.getQueryData()는 호출 시점의 캐시만 반환하는 일회성 조회라 reactive 시스템과 연결되지 않음"
-          />를 고쳐 <strong>좌석 점유율을 수신 즉시 반영</strong>
+          /> 변경으로 해결해 <strong>좌석 점유율을 수신 즉시 반영</strong>
         </li>
         <li>
           SSG, 섹션별 Lazy Loading, 히어로 이미지 preload로
@@ -80,15 +112,15 @@ import PrLink from '../PrLink.astro';
         광주광역시 광산구 수주 프로젝트. 지역 화폐 '광산'으로 물품과 서비스를 거래하는 플랫폼.
       </p>
       <p class="impact">
-        iOS 개발자 이탈로 생긴 공백을 자원해 React Native<Fn
+        어드민 웹 담당 중 iOS 개발 공백이 생겨 React Native 개발<Fn
           note="담당은 어드민 웹 개발이었으나, 원활한 진행과 클라이언트와의 신뢰 유지를 위해 자발적으로 React Native 투입"
-        />로 메우고 App Store 출시까지 완수
+        />에 자원하고 App Store 출시까지 수행
       </p>
       <ul class="bul-list">
         <li>
-          Zustand Persistent Queue<Fn
+          네트워크 단절에 따른 WebSocket 메시지 유실을 Persistent Queue<Fn
             note="기존에는 connectionState만 확인 후 전송하여 네트워크 끊김 시 메시지 유실. isSocketConnected를 useEffect로 감시하며 PENDING/FAILED 메시지 자동 재전송"
-          />와 낙관적 업데이트로 <strong>WebSocket 메시지 유실률을 1% 이내로 감소</strong>
+          />·자동 재전송·낙관적 업데이트로 줄여 <strong>유실률 1% 이내</strong>
         </li>
         <li>
           채팅 리스트 정렬 로직을 개선해
@@ -97,16 +129,16 @@ import PrLink from '../PrLink.astro';
           /><PrLink href="https://velog.io/@haensol/React-Native-FlatList" id="blog" />
         </li>
         <li>
-          JS·네이티브 스레드 간 타이밍 문제<Fn
+          JS·네이티브 UI 스레드의 상태 반영 시점<Fn
             note="JS 스레드와 네이티브 UI 스레드 간 비동기 타이밍 차이가 누적되어 렌더링 타이밍이 어긋나는 것이 원인으로 판단. 드래그 중에는 로컬 상태만 갱신하고 완료 버튼을 누를 때 부모 상태 업데이트"
-          />를 분석해 <strong>슬라이더 조작 시 바텀시트 깜빡임 해결</strong><PrLink
+          />을 분리해 <strong>슬라이더 조작 중 바텀시트 깜빡임 해결</strong><PrLink
             href="https://velog.io/@haensol/issue-bottomsheet"
             id="blog"
           />
         </li>
         <li>
-          Jest·MSW 단위 테스트와 Detox iOS/Android E2E를 구축해
-          <strong>PR마다 두 계층의 커버리지를 CI가 자동 보고</strong><Fn
+          Jest·MSW 단위 테스트와 Detox iOS/Android E2E를 구축하고
+          <strong>PR별 커버리지 보고를 자동화</strong><Fn
             note="React Testing Library 사용. Unit은 PR마다 Jest 커버리지 리포트 자동 코멘트, E2E는 babel-plugin-istanbul로 시뮬레이터 실행 결과에서 커버리지 추출. Discord 웹훅으로 결과 공유"
           /><span class="print-only"
             >, CocoaPods·Detox·Xcode 산출물 캐싱으로 <strong>CI 시간 단축</strong></span
@@ -116,40 +148,7 @@ import PrLink from '../PrLink.astro';
           CocoaPods·Detox·Xcode 산출물 캐싱으로 <strong>CI 시간 단축</strong>
         </li>
         <li class="screen-only">관리자 웹 개발·운영: 가입 승인, 신고 처리, 화폐 지급·회수</li>
-        <li>데일리 스크럼을 주최해 팀 목표와 이슈 공유 체계화</li>
-      </ul>
-    </div>
-
-    <!-- EXPO -->
-    <div class="proj-block">
-      <div class="proj-header">
-        <span class="proj-name">
-          EXPO
-          <ChipLink
-            href="https://github.com/School-of-Company/Expo-Client"
-            icon="bi-github"
-            label="GitHub"
-          />
-        </span>
-        <DateLabel date="2024. 10. ~ 현재" />
-      </div>
-      <p class="desc">
-        광주광역시교육청 수주 프로젝트. 사전 신청, QR 현장 인증, 만족도 조사, 엑셀 자동 정리를
-        통합한 행사 운영 플랫폼.
-      </p>
-      <p class="impact">
-        AI·SW 체험 축전, 미래교육박람회 등 3만 명 이상 규모 행사 운영, 외주 입찰 비용 2,000만 원
-        이상 절감
-      </p>
-      <ul class="bul-list">
-        <li>
-          Zod 검증 계층<Fn
-            note="렌더링마다 실행되던 JSON.parse()를 Zod Schema 기반 Wrapper Layer로 이동. 잘못된 JSON 형식 진입 시 전체 폼이 렌더링되지 않는 문제가 있었음. Zod로 수신 직후 검증하여 UI 컴포넌트 내 런타임 타입 가드를 완전 제거"
-          />을 도입해 <strong>화면 전체가 멈추는 장애(White Screen of Death) 차단</strong>, 반복
-          JSON 파싱을 1회로 축소
-        </li>
-        <li>동적 폼 질문 ID를 UUID 기반으로 재설계해 <strong>데이터 무결성 확보</strong></li>
-        <li class="screen-only">QR 정보 주입, 토큰 유무 등 행사 현장의 예외 케이스 대응</li>
+        <li>데일리 스크럼을 주최해 팀 목표와 진행 이슈를 공유하고 협업 조율</li>
       </ul>
     </div>
   </div>
@@ -193,9 +192,9 @@ import PrLink from '../PrLink.astro';
       </p>
       <ul class="bul-list">
         <li>
-          <strong>드래그 앤 드롭 동적 대진표</strong>를 설계·구현하고, stale state 문제<Fn
+          <strong>드래그 앤 드롭 대진표</strong>에서 이전 상태가 남는 stale state 문제<Fn
             note="onDragEnd 생성 시점의 스냅샷이 closure에 캡처되어 stale state가 zustand에 저장되던 것이 원인. CustomEvent API 이벤트 버스와 gameId별 독립 관리로 해결. 드래그 요소가 overflow:hidden 컨테이너에 잘리는 문제는 createPortal로 해결"
-          />를 이벤트 버스로 해결해 <strong>드래그 즉시 반영</strong>
+          />를 이벤트 버스와 경기별 상태 분리로 해결해 <strong>드래그 즉시 반영</strong>
         </li>
         <li>
           자체 개발 라이브러리 scrolloop<Fn

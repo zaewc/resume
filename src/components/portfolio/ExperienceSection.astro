@@ -11,26 +11,7 @@ const nest = 'https://github.com/nestjs/nest';
 
   <div class="exp-block">
     <h3 class="exp-title">
-      가상 스크롤 라이브러리 Scrolloop 개발 및 운영
-      <ChipLink href="https://github.com/zaewc/scrolloop" icon="bi-github" label="GitHub" />
-      <ChipLink href="https://www.npmjs.com/package/scrolloop" icon="bi-box-seam" label="npm" />
-    </h3>
-    <ul class="bul-list">
-      <li>
-        React, React Native, Vue, Svelte를 모두 지원하는 가상 스크롤·무한 스크롤을
-        <strong>의존성 0개, 약 40KB</strong>로 설계
-      </li>
-      <li><strong>npm 누적 다운로드 4,700건 이상, GitHub star 30개</strong></li>
-      <li>
-        n8n, GitHub Actions, 3-Agent Harness로
-        <strong>이슈 라벨링부터 AI의 PR 생성까지 자동화</strong>
-      </li>
-    </ul>
-  </div>
-
-  <div class="exp-block">
-    <h3 class="exp-title">
-      교내 Discord 봇 JEE6 개발 및 운영
+      교내 Discord 봇 JEE6 — AI 기능 연동·운영
       <ChipLink href="https://github.com/8G4B/JEE6.v1" icon="bi-github" label="GitHub" />
     </h3>
     <ul class="bul-list">
@@ -38,10 +19,35 @@ const nest = 'https://github.com/nestjs/nest';
         급식 조회, 욕설 필터, 미니게임 등을 제공해
         <strong>학교 공식 서버 포함 50개 이상 서버 도입, DAU 100명 이상</strong>
       </li>
-      <li>Transformer 욕설 필터 모델과 vLLM 기반 LLM 서버를 직접 구축해 서빙</li>
       <li>
-        Docker Compose로 6개 서비스를 분리 운영, FastAPI Gateway와 Redis 캐싱으로 외부 API 호출
-        최적화
+        Transformer 욕설 필터를 FastAPI 추론 서비스로 분리하고,
+        <strong>vLLM 기반 LLM 서버를 봇과 연동</strong>
+      </li>
+      <li>
+        외부 API 호출을 FastAPI Gateway로 통합하고 <strong>Redis 캐싱으로 중복 호출 절감</strong>
+      </li>
+      <li>
+        봇·Gateway·Redis·MariaDB·vLLM·욕설 필터를 <strong>Docker Compose 6개 서비스로 운영</strong
+        >하고 GitHub Actions로 배포 자동화
+      </li>
+    </ul>
+  </div>
+
+  <div class="exp-block">
+    <h3 class="exp-title">
+      가상 스크롤 라이브러리 Scrolloop 개발 및 운영
+      <ChipLink href="https://github.com/zaewc/scrolloop" icon="bi-github" label="GitHub" />
+      <ChipLink href="https://www.npmjs.com/package/scrolloop" icon="bi-box-seam" label="npm" />
+    </h3>
+    <ul class="bul-list">
+      <li>
+        React·React Native·Vue·Svelte에 통합할 수 있는 가상 스크롤·무한 스크롤 라이브러리를
+        <strong>의존성 0개, 약 40KB</strong>로 설계
+      </li>
+      <li><strong>npm 누적 다운로드 4,700건 이상, GitHub star 30개</strong></li>
+      <li>
+        n8n, GitHub Actions, 3-Agent Harness로
+        <strong>이슈 라벨링부터 AI의 PR 생성까지 자동화</strong>
       </li>
     </ul>
   </div>
@@ -102,7 +108,7 @@ const nest = 'https://github.com/nestjs/nest';
             <PrLink href={`${nest}/pull/16410`} id="#16410" />
           </li>
           <li>
-            Redis 마이크로서비스의 pub/sub 클라이언트 타입이 뒤바뀌는 버그를 제보하고 수정
+            Redis 마이크로서비스의 pub/sub 클라이언트 타입 전달 오류를 이슈로 제보하고 PR로 수정
             <PrLink href={`${nest}/issues/17330`} id="#17330" />
             <PrLink href={`${nest}/pull/17331`} id="#17331" />
           </li>

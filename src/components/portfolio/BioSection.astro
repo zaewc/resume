@@ -3,6 +3,18 @@ interface Props {
   active: 'web' | 'ml';
 }
 const { active }: Props = Astro.props;
+const introduction =
+  active === 'web'
+    ? {
+        lead: '사용자와 이해관계자의 업무 흐름을 이해하고, 문제 정의부터 구현·출시·운영까지 이어가는 소프트웨어 엔지니어입니다.',
+        summary:
+          '공공기관 프로젝트 3건의 개발·운영과 LLM 추론 서비스 연동 경험을 바탕으로, 고객 업무에 AI를 연결하는 엔지니어링에 관심이 있습니다.',
+      }
+    : {
+        lead: '사용자와 이해관계자의 이야기에서 진짜 문제를 찾아, 가장 단순하고 비용 효율적인 해법으로 끝까지 구현합니다.',
+        summary:
+          '공공기관 프로젝트 3건을 개발·운영하며 이를 실천했고, 프론트엔드에서 백엔드·MLOps까지 문제 해결에 필요한 기술을 넓혀 왔습니다.',
+      };
 ---
 
 <section class="mb-12">
@@ -26,12 +38,8 @@ const { active }: Props = Astro.props;
   </h1>
   <!-- 이력서 소개는 컨셉 + 근거 2문장. 세부 성과는 아래 섹션에서 -->
   <p class="bio">
-    <span class="bio-lead"
-      >사용자와 이해관계자의 이야기에서 진짜 문제를 찾아, 가장 단순하고 비용 효율적인 해법으로
-      끝까지 구현합니다.</span
-    >
-    공공기관 프로젝트 3건을 개발·운영하며 이를 실천했고, 프론트엔드에서 백엔드·MLOps까지 문제 해결에 필요한
-    기술을 넓혀 왔습니다.
+    <span class="bio-lead">{introduction.lead}</span>
+    {introduction.summary}
   </p>
 </section>
 
